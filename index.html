@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nepal Sarkar Portal — सरकारी वेबसाइट निर्देशिका</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #BC2025;
+    --crimson-dark: #8B0000;
+    --crimson-light: #F5E0E0;
+    --blue: #003893;
+    --blue-mid: #1a4fa8;
+    --blue-light: #E0E8F5;
+    --gold: #D4A017;
+    --gold-light: #FDF3D0;
+    --ink: #1A1A2E;
+    --ink-soft: #3D3D5C;
+    --mist: #F7F5F2;
+    --white: #FFFFFF;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.15);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.10);
+    --shadow-hover: 0 16px 48px rgba(0,0,0,0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--mist);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--blue);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .hero-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson) 50%, var(--blue) 50%, var(--blue) 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(255,255,255,0.04) 0%, transparent 60%),
+      radial-gradient(circle at 80% 20%, rgba(212,160,23,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-geo {
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    border: 60px solid rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+
+  .hero-geo2 {
+    position: absolute;
+    left: -60px;
+    bottom: -120px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 40px solid rgba(212,160,23,0.05);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 32px 52px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hero-emblem {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    line-height: 1;
+  }
+
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-text h1 span {
+    color: var(--gold);
+  }
+
+  .hero-text .nepali {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 6px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-text .tagline {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 12px;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* ─── SEARCH ─── */
+  .search-bar-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .search-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .search-box {
+    flex: 1;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #999;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 16px 12px 46px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--mist);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,56,147,0.10);
+    background: var(--white);
+  }
+
+  .search-input::placeholder { color: #aaa; }
+
+  .count-badge {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    font-weight: 300;
+  }
+
+  .count-badge strong {
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  /* ─── CATEGORIES FILTER ─── */
+  .cats-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .cats-wrap::-webkit-scrollbar { display: none; }
+
+  .cats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    padding: 12px 0;
+  }
+
+  .cat-btn {
+    padding: 7px 18px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border-strong);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.83rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s;
+  }
+
+  .cat-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--blue-light);
+  }
+
+  .cat-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .section-count {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+
+  /* ─── CARDS GRID ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--blue));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s;
+  }
+
+  .card:hover::before { transform: scaleX(1); }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border-strong);
+  }
+
+  .card-emoji {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .card-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .card-url {
+    font-size: 0.74rem;
+    color: #9A9AB0;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-url-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--card-accent, var(--blue));
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .card-arrow {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    font-size: 14px;
+    color: #ccc;
+    transition: color 0.18s, transform 0.18s;
+  }
+
+  .card:hover .card-arrow {
+    color: var(--card-accent, var(--blue));
+    transform: translate(2px, -2px);
+  }
+
+  /* ─── PROVINCE BLOCKS ─── */
+  .province-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .province-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--card-accent, #1D9E75) 6%, transparent) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .province-flag { font-size: 28px; flex-shrink: 0; }
+
+  .province-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .province-cap {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .province-gov-btn {
+    margin-left: auto;
+    padding: 7px 16px;
+    background: var(--card-accent, #1D9E75);
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.18s;
+    flex-shrink: 0;
+  }
+
+  .province-gov-btn:hover { opacity: 0.85; }
+
+  .muni-group-label {
+    padding: 10px 22px 4px;
+  }
+
+  .muni-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 50px;
+    letter-spacing: 0.3px;
+  }
+
+  .muni-badge.metro { background: #003893; color: #fff; }
+  .muni-badge.submeta { background: #e8f0fb; color: #003893; }
+  .muni-badge.muni { background: #f0f0f0; color: #555; }
+
+  .muni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 8px;
+    padding: 6px 22px 16px;
+  }
+
+  .muni-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--mist);
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.3;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .muni-card:hover {
+    background: var(--white);
+    border-color: var(--card-accent, #1D9E75);
+    transform: translateY(-1px);
+  }
+
+  .muni-card span { flex: 1; }
+
+  .muni-card small {
+    display: block;
+    font-size: 0.68rem;
+    color: #aaa;
+    margin-top: 2px;
+    font-weight: 300;
+  }
+
+  .metro-card {
+    background: #e8f0fb;
+    border-color: #bad0f0;
+    font-weight: 500;
+  }
+
+  .metro-card:hover { background: #dceafb; border-color: #003893; }
+
+  .submeta-card {
+    background: #f0f7ff;
+    border-color: #cce0fa;
+  }
+
+  @media (max-width: 600px) {
+    .province-header { flex-wrap: wrap; }
+    .province-gov-btn { margin-left: 0; }
+    .muni-grid { grid-template-columns: 1fr 1fr; padding: 6px 14px 14px; }
+    .province-header, .muni-group-label { padding-left: 14px; padding-right: 14px; }
+  }
+
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-soft);
+    display: none;
+  }
+
+  .no-results.visible { display: block; }
+  .no-results .emoji { font-size: 40px; margin-bottom: 12px; }
+  .no-results p { font-size: 0.95rem; font-weight: 300; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 28px 32px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  footer strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ─── HIGHLIGHT MATCH ─── */
+  mark {
+    background: var(--gold-light);
+    color: var(--ink);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hero-inner { flex-direction: column; text-align: center; padding: 40px 20px 36px; }
+    .hero-text h1 { font-size: 1.9rem; }
+    .main { padding: 28px 16px 60px; }
+    .search-bar-wrap, .cats-wrap { padding-left: 16px; padding-right: 16px; }
+    .cards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { padding: 14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-stripe"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-geo"></div>
+  <div class="hero-geo2"></div>
+  <div class="hero-inner">
+    <div class="hero-emblem">🏔️</div>
+    <div class="hero-text">
+      <h1>Nepal Sarkar <span>Portal</span></h1>
+      <div class="nepali">नेपाल सरकारी वेबसाइट निर्देशिका</div>
+      <p class="tagline">Your one-stop gateway to all official Government of Nepal websites — ministries, departments, commissions &amp; services in one place.</p>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH -->
+<div class="search-bar-wrap">
+  <div class="search-bar-inner">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" id="searchInput" placeholder="Search ministries, departments, services…" autocomplete="off" />
+    </div>
+    <div class="count-badge">Showing <strong id="visibleCount">80</strong> sites</div>
+  </div>
+</div>
+
+<!-- CATEGORY FILTER -->
+<div class="cats-wrap">
+  <div class="cats-inner" id="catButtons">
+    <button class="cat-btn active" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="main">Main Government</button>
+    <button class="cat-btn" data-cat="ministry">Ministries</button>
+    <button class="cat-btn" data-cat="finance">Finance & Economy</button>
+    <button class="cat-btn" data-cat="security">Security & Law</button>
+    <button class="cat-btn" data-cat="health">Health & Education</button>
+    <button class="cat-btn" data-cat="infra">Infrastructure</button>
+    <button class="cat-btn" data-cat="commission">Commissions & Bodies</button>
+    <button class="cat-btn" data-cat="province">Provinces & Municipalities</button>
+    <button class="cat-btn" data-cat="other">Other Services</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main" id="mainContent">
+  <div class="no-results" id="noResults">
+    <div class="emoji">🔍</div>
+    <p>No results found. Try a different search term.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Nepal Sarkar Portal</strong> — Unofficial directory for public use<br>
+  All links lead to official <strong>.gov.np</strong> government websites &nbsp;·&nbsp; 
+  Built with ❤️ for citizens of Nepal &nbsp;·&nbsp;
+  <a href="https://nepal.gov.np" target="_blank">nepal.gov.np</a>
+</footer>
+
+<script>
+const DATA = [
+  {
+    cat: "main",
+    catLabel: "Main Government",
+    icon: "🏛️",
+    accent: "#003893",
+    sites: [
+      { name: "Government of Nepal (Official Portal)", url: "nepal.gov.np", emoji: "🇳🇵" },
+      { name: "Office of the President", url: "psc.gov.np", emoji: "🏛️" },
+      { name: "Office of the Vice-President", url: "vicepresident.gov.np", emoji: "🏛️" },
+      { name: "Office of the Prime Minister & Council of Ministers", url: "opmcm.gov.np", emoji: "🏛️" },
+      { name: "Federal Parliament of Nepal", url: "parliament.gov.np", emoji: "🏛️" },
+      { name: "Supreme Court of Nepal", url: "supremecourt.gov.np", emoji: "⚖️" },
+      { name: "Election Commission Nepal", url: "election.gov.np", emoji: "🗳️" },
+      { name: "National Planning Commission", url: "npc.gov.np", emoji: "📊" },
+    ]
+  },
+  {
+    cat: "ministry",
+    catLabel: "Ministries",
+    icon: "📋",
+    accent: "#BC2025",
+    sites: [
+      { name: "Ministry of Home Affairs", url: "moha.gov.np", emoji: "🏠" },
+      { name: "Ministry of Foreign Affairs", url: "mofa.gov.np", emoji: "🌐" },
+      { name: "Ministry of Finance", url: "mof.gov.np", emoji: "💰" },
+      { name: "Ministry of Defense", url: "mod.gov.np", emoji: "🛡️" },
+      { name: "Ministry of Health & Population", url: "mohp.gov.np", emoji: "🏥" },
+      { name: "Ministry of Education, Science & Technology", url: "moest.gov.np", emoji: "🎓" },
+      { name: "Ministry of Agriculture & Livestock", url: "moald.gov.np", emoji: "🌾" },
+      { name: "Ministry of Energy, Water Resources & Irrigation", url: "moewri.gov.np", emoji: "⚡" },
+      { name: "Ministry of Physical Infrastructure & Transport", url: "mopit.gov.np", emoji: "🚦" },
+      { name: "Ministry of Federal Affairs & General Administration", url: "mofaga.gov.np", emoji: "📁" },
+      { name: "Ministry of Law, Justice & Parliamentary Affairs", url: "moljpa.gov.np", emoji: "⚖️" },
+      { name: "Ministry of Women, Children & Senior Citizens", url: "mowcsc.gov.np", emoji: "👨‍👩‍👧" },
+      { name: "Ministry of Forest & Environment", url: "mofe.gov.np", emoji: "🌲" },
+      { name: "Ministry of Land Management & Cooperatives", url: "molmac.gov.np", emoji: "🗺️" },
+      { name: "Ministry of Industry, Commerce & Supplies", url: "moics.gov.np", emoji: "🏭" },
+      { name: "Ministry of Labour, Employment & Social Security", url: "moless.gov.np", emoji: "👷" },
+      { name: "Ministry of Tourism & Civil Aviation", url: "tourism.gov.np", emoji: "✈️" },
+      { name: "Ministry of Communication & Information Technology", url: "mocit.gov.np", emoji: "📡" },
+      { name: "Ministry of Culture, Tourism & Civil Aviation", url: "tourism.gov.np", emoji: "🎭" },
+      { name: "Ministry of Youth & Sports", url: "moys.gov.np", emoji: "⚽" },
+    ]
+  },
+  {
+    cat: "finance",
+    catLabel: "Finance & Economy",
+    icon: "💹",
+    accent: "#D4A017",
+    sites: [
+      { name: "Nepal Rastra Bank (Central Bank)", url: "nrb.org.np", emoji: "🏦" },
+      { name: "Inland Revenue Department", url: "ird.gov.np", emoji: "🧾" },
+      { name: "Department of Customs", url: "customs.gov.np", emoji: "📦" },
+      { name: "Securities Board of Nepal (SEBON)", url: "sebon.gov.np", emoji: "📈" },
+      { name: "Nepal Stock Exchange (NEPSE)", url: "nepalstock.com.np", emoji: "📊" },
+      { name: "Office of the Auditor General", url: "oag.gov.np", emoji: "📑" },
+      { name: "Public Procurement Monitoring Office", url: "ppmo.gov.np", emoji: "🛒" },
+      { name: "Department of Money Laundering Investigation", url: "dmli.gov.np", emoji: "🔍" },
+      { name: "Financial Intelligence Unit Nepal", url: "fiu.gov.np", emoji: "🔎" },
+      { name: "Nepal Insurance Authority", url: "nia.gov.np", emoji: "🛡️" },
+    ]
+  },
+  {
+    cat: "security",
+    catLabel: "Security & Law",
+    icon: "🛡️",
+    accent: "#1a4fa8",
+    sites: [
+      { name: "Nepal Police", url: "nepalpolice.gov.np", emoji: "👮" },
+      { name: "Armed Police Force Nepal", url: "apf.gov.np", emoji: "🪖" },
+      { name: "Nepal Army", url: "nepalarmy.mil.np", emoji: "⚔️" },
+      { name: "Attorney General's Office", url: "ag.gov.np", emoji: "⚖️" },
+      { name: "Department of Immigration", url: "immigration.gov.np", emoji: "🛂" },
+      { name: "National Investigation Department", url: "nid.gov.np", emoji: "🔒" },
+      { name: "Correctional Services", url: "prisonnepal.gov.np", emoji: "🏢" },
+      { name: "Anti-Corruption Commission (CIAA)", url: "ciaa.gov.np", emoji: "🔍" },
+      { name: "Appellate Court", url: "appealcourt.gov.np", emoji: "⚖️" },
+    ]
+  },
+  {
+    cat: "health",
+    catLabel: "Health & Education",
+    icon: "🏥",
+    accent: "#0F6E56",
+    sites: [
+      { name: "Department of Health Services", url: "dohs.gov.np", emoji: "🏥" },
+      { name: "Tribhuvan University", url: "tribhuvan-university.edu.np", emoji: "🎓" },
+      { name: "Kathmandu University", url: "ku.edu.np", emoji: "🎓" },
+      { name: "Pokhara University", url: "pu.edu.np", emoji: "🎓" },
+      { name: "Purbanchal University", url: "pu.edu.np", emoji: "🎓" },
+      { name: "Far-Western University", url: "fwu.edu.np", emoji: "🎓" },
+      { name: "Council for Technical Education & Voc. Training", url: "ctevt.org.np", emoji: "🔧" },
+      { name: "National Examinations Board", url: "neb.gov.np", emoji: "📝" },
+      { name: "Department of Education", url: "doe.gov.np", emoji: "📚" },
+      { name: "National Health Research Council", url: "nhrc.gov.np", emoji: "🔬" },
+      { name: "Epidemiology & Disease Control Division", url: "edcd.gov.np", emoji: "🦠" },
+    ]
+  },
+  {
+    cat: "infra",
+    catLabel: "Infrastructure & Services",
+    icon: "🚧",
+    accent: "#854F0B",
+    sites: [
+      { name: "Department of Roads", url: "dor.gov.np", emoji: "🛣️" },
+      { name: "Nepal Electricity Authority (NEA)", url: "nea.org.np", emoji: "⚡" },
+      { name: "Nepal Telecom", url: "ntc.net.np", emoji: "📱" },
+      { name: "Department of Water Supply & Sewerage", url: "dwss.gov.np", emoji: "💧" },
+      { name: "Civil Aviation Authority of Nepal", url: "caanepal.gov.np", emoji: "✈️" },
+      { name: "Nepal Airlines Corporation", url: "nepalairlines.com.np", emoji: "🛩️" },
+      { name: "Department of Urban Development", url: "dudbc.gov.np", emoji: "🏙️" },
+      { name: "Department of Mines & Geology", url: "dmgnepal.gov.np", emoji: "⛏️" },
+      { name: "Kathmandu Valley Water Supply", url: "kvwsmb.gov.np", emoji: "🚿" },
+      { name: "Nepal Post", url: "nepalpost.gov.np", emoji: "📬" },
+      { name: "Department of Survey", url: "dos.gov.np", emoji: "🗺️" },
+      { name: "Nepal Oil Corporation", url: "nepaloil.com.np", emoji: "⛽" },
+    ]
+  },
+  {
+    cat: "commission",
+    catLabel: "Commissions & Constitutional Bodies",
+    icon: "🏢",
+    accent: "#534AB7",
+    sites: [
+      { name: "Public Service Commission (Lok Sewa Aayog)", url: "psc.gov.np", emoji: "📋" },
+      { name: "National Human Rights Commission", url: "nhrcnepal.org", emoji: "🤝" },
+      { name: "Commission for Investigation of Abuse", url: "ciaa.gov.np", emoji: "🔎" },
+      { name: "National Vigilance Centre", url: "nvc.gov.np", emoji: "👁️" },
+      { name: "Revenue Tribunal", url: "rt.gov.np", emoji: "⚖️" },
+      { name: "Nepal Law Commission", url: "lawcommission.gov.np", emoji: "📖" },
+      { name: "National Dalit Commission", url: "ndc.gov.np", emoji: "🤝" },
+      { name: "National Women Commission", url: "nwc.gov.np", emoji: "♀️" },
+      { name: "Janajati Academy", url: "nfdin.gov.np", emoji: "🌺" },
+      { name: "Press Council Nepal", url: "presscouncil.gov.np", emoji: "📰" },
+      { name: "Information Commission", url: "ic.gov.np", emoji: "ℹ️" },
+      { name: "Electricity Regulatory Commission", url: "erc.gov.np", emoji: "⚡" },
+    ]
+  },
+  {
+    cat: "province",
+    catLabel: "Provincial & Local Governments",
+    icon: "🗺️",
+    accent: "#1D9E75",
+    provinces: [
+      {
+        name: "Koshi Province", url: "koshi.gov.np", emoji: "🏔️", capital: "Biratnagar",
+        metros: [
+          { name: "Biratnagar Metropolitan City", url: "biratnagar.gov.np", emoji: "🏙️", type: "Metro" },
+        ],
+        submetros: [
+          { name: "Dharan Sub-Metropolitan City", url: "dharan.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Itahari Sub-Metropolitan City", url: "itahari.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Damak Sub-Metropolitan City", url: "damak.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Phungling Municipality", url: "phungling.gov.np", emoji: "🏘️" },
+          { name: "Phidim Municipality", url: "phidim.gov.np", emoji: "🏘️" },
+          { name: "Ilam Municipality", url: "ilam.gov.np", emoji: "🏘️" },
+          { name: "Deumai Municipality", url: "deumai.gov.np", emoji: "🏘️" },
+          { name: "Mai Municipality", url: "mai.gov.np", emoji: "🏘️" },
+          { name: "Suryodaya Municipality", url: "suryodaya.gov.np", emoji: "🏘️" },
+          { name: "Bhadrapur Municipality", url: "bhadrapur.gov.np", emoji: "🏘️" },
+          { name: "Mechinagar Municipality", url: "mechinagar.gov.np", emoji: "🏘️" },
+          { name: "Birtamod Municipality", url: "birtamod.gov.np", emoji: "🏘️" },
+          { name: "Gauradaha Municipality", url: "gauradaha.gov.np", emoji: "🏘️" },
+          { name: "Arjundhara Municipality", url: "arjundhara.gov.np", emoji: "🏘️" },
+          { name: "Kankai Municipality", url: "kankai.gov.np", emoji: "🏘️" },
+          { name: "Shivasatakshi Municipality", url: "shivasatakshi.gov.np", emoji: "🏘️" },
+          { name: "Pathari Sanischare Municipality", url: "patharisanischare.gov.np", emoji: "🏘️" },
+          { name: "Belbari Municipality", url: "belbari.gov.np", emoji: "🏘️" },
+          { name: "Rangeli Municipality", url: "rangeli.gov.np", emoji: "🏘️" },
+          { name: "Urlabari Municipality", url: "urlabari.gov.np", emoji: "🏘️" },
+          { name: "Letang Municipality", url: "letang.gov.np", emoji: "🏘️" },
+          { name: "Sunbarsi Municipality", url: "sunbarsi.gov.np", emoji: "🏘️" },
+          { name: "Sundar Haraicha Municipality", url: "sundarharaicha.gov.np", emoji: "🏘️" },
+          { name: "Ratuwamai Municipality", url: "ratuwamai.gov.np", emoji: "🏘️" },
+          { name: "Inaruwa Municipality", url: "inaruwa.gov.np", emoji: "🏘️" },
+          { name: "Barahakshetra Municipality", url: "barahakshetra.gov.np", emoji: "🏘️" },
+          { name: "Duhabi Municipality", url: "duhabi.gov.np", emoji: "🏘️" },
+          { name: "Ramdhuni Municipality", url: "ramdhuni.gov.np", emoji: "🏘️" },
+          { name: "Dhankuta Municipality", url: "dhankuta.gov.np", emoji: "🏘️" },
+          { name: "Pakhribas Municipality", url: "pakhribas.gov.np", emoji: "🏘️" },
+          { name: "Mahalaxmi Municipality", url: "mahalaxmi.gov.np", emoji: "🏘️" },
+          { name: "Chainpur Municipality", url: "chainpur.gov.np", emoji: "🏘️" },
+          { name: "Dharmadevi Municipality", url: "dharmadevi.gov.np", emoji: "🏘️" },
+          { name: "Madi Municipality", url: "madi.gov.np", emoji: "🏘️" },
+          { name: "Khandbari Municipality", url: "khandbari.gov.np", emoji: "🏘️" },
+          { name: "Panchkhapan Municipality", url: "panchkhapan.gov.np", emoji: "🏘️" },
+          { name: "Bhojpur Municipality", url: "bhojpur.gov.np", emoji: "🏘️" },
+          { name: "Sadananda Municipality", url: "sadananda.gov.np", emoji: "🏘️" },
+          { name: "Myanglung Municipality", url: "myanglung.gov.np", emoji: "🏘️" },
+          { name: "Laligurans Municipality", url: "laligurans.gov.np", emoji: "🏘️" },
+          { name: "Siddhicharan Municipality", url: "siddhicharan.gov.np", emoji: "🏘️" },
+          { name: "Diktel Rupakot Majhuwagadhi Municipality", url: "diktel.gov.np", emoji: "🏘️" },
+          { name: "Halesi Tuwachung Municipality", url: "halesi.gov.np", emoji: "🏘️" },
+          { name: "Solududhkund Municipality", url: "solududhkund.gov.np", emoji: "🏘️" },
+          { name: "Chaudandigadhi Municipality", url: "chaudandigadhi.gov.np", emoji: "🏘️" },
+          { name: "Triyuga Municipality", url: "triyuga.gov.np", emoji: "🏘️" },
+          { name: "Katari Municipality", url: "katari.gov.np", emoji: "🏘️" },
+          { name: "Belaka Municipality", url: "belaka.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Madhesh Province", url: "madhesh.gov.np", emoji: "🌾", capital: "Janakpur",
+        metros: [
+          { name: "Birgunj Metropolitan City", url: "birgunj.gov.np", emoji: "🏙️", type: "Metro" },
+          { name: "Janakpur Sub-Metropolitan City", url: "janakpurdham.gov.np", emoji: "🏙️", type: "Metro" },
+        ],
+        submetros: [
+          { name: "Kalaiya Sub-Metropolitan City", url: "kalaiya.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Jitpur Simara Sub-Metropolitan City", url: "jitpursimara.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Malangawa Sub-Metropolitan City", url: "malangawa.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Kanchanrup Municipality", url: "kanchanrup.gov.np", emoji: "🏘️" },
+          { name: "Saptakoshi Municipality", url: "saptakoshi.gov.np", emoji: "🏘️" },
+          { name: "Surunga Municipality", url: "surunga.gov.np", emoji: "🏘️" },
+          { name: "Dakneshwori Municipality", url: "dakneshwori.gov.np", emoji: "🏘️" },
+          { name: "Bodebarsain Municipality", url: "bodebarsain.gov.np", emoji: "🏘️" },
+          { name: "Rajbiraj Municipality", url: "rajbiraj.gov.np", emoji: "🏘️" },
+          { name: "Khadak Municipality", url: "khadak.gov.np", emoji: "🏘️" },
+          { name: "Hanumannagar Kankalini Municipality", url: "hanumannagar.gov.np", emoji: "🏘️" },
+          { name: "Shambhunath Municipality", url: "shambhunath.gov.np", emoji: "🏘️" },
+          { name: "Lahan Municipality", url: "lahan.gov.np", emoji: "🏘️" },
+          { name: "Mirchaiya Municipality", url: "mirchaiya.gov.np", emoji: "🏘️" },
+          { name: "Sukhipur Municipality", url: "sukhipur.gov.np", emoji: "🏘️" },
+          { name: "Golbazar Municipality", url: "golbazar.gov.np", emoji: "🏘️" },
+          { name: "Dhangadhimai Municipality", url: "dhangadhimai.gov.np", emoji: "🏘️" },
+          { name: "Karjanha Municipality", url: "karjanha.gov.np", emoji: "🏘️" },
+          { name: "Siraha Municipality", url: "siraha.gov.np", emoji: "🏘️" },
+          { name: "Kalyanpur Municipality", url: "kalyanpur.gov.np", emoji: "🏘️" },
+          { name: "Dhanushadham Municipality", url: "dhanushadham.gov.np", emoji: "🏘️" },
+          { name: "Nagarain Municipality", url: "nagarain.gov.np", emoji: "🏘️" },
+          { name: "Mithila Municipality", url: "mithila.gov.np", emoji: "🏘️" },
+          { name: "Kamala Municipality", url: "kamala.gov.np", emoji: "🏘️" },
+          { name: "Hansapur Municipality", url: "hansapur.gov.np", emoji: "🏘️" },
+          { name: "Mithila Bihari Municipality", url: "mithilabihari.gov.np", emoji: "🏘️" },
+          { name: "Ganeshman Charanath Municipality", url: "ganeshmancharanath.gov.np", emoji: "🏘️" },
+          { name: "Chhireshwarnath Municipality", url: "chhireshwarnath.gov.np", emoji: "🏘️" },
+          { name: "Bideha Municipality", url: "bideha.gov.np", emoji: "🏘️" },
+          { name: "Sabaila Municipality", url: "sabaila.gov.np", emoji: "🏘️" },
+          { name: "Sahidnagar Municipality", url: "sahidnagar.gov.np", emoji: "🏘️" },
+          { name: "Aurahi Municipality", url: "aurahi.gov.np", emoji: "🏘️" },
+          { name: "Matihani Municipality", url: "matihani.gov.np", emoji: "🏘️" },
+          { name: "Balawa Municipality", url: "balawa.gov.np", emoji: "🏘️" },
+          { name: "Bhangaha Municipality", url: "bhangaha.gov.np", emoji: "🏘️" },
+          { name: "Gaushala Municipality", url: "gaushala.gov.np", emoji: "🏘️" },
+          { name: "Jaleshwar Municipality", url: "jaleshwor.gov.np", emoji: "🏘️" },
+          { name: "Ramgopalpur Municipality", url: "ramgopalpur.gov.np", emoji: "🏘️" },
+          { name: "Loharpatti Municipality", url: "loharpatti.gov.np", emoji: "🏘️" },
+          { name: "Bardibas Municipality", url: "bardibas.gov.np", emoji: "🏘️" },
+          { name: "Manara Shiswa Municipality", url: "manarasishwa.gov.np", emoji: "🏘️" },
+          { name: "Bagmati Municipality", url: "bagmati.gov.np", emoji: "🏘️" },
+          { name: "Balara Municipality", url: "balara.gov.np", emoji: "🏘️" },
+          { name: "Hariwan Municipality", url: "hariwan.gov.np", emoji: "🏘️" },
+          { name: "Barahathwa Municipality", url: "barahathwa.gov.np", emoji: "🏘️" },
+          { name: "Godaita Municipality", url: "godaita.gov.np", emoji: "🏘️" },
+          { name: "Ishwarpur Municipality", url: "ishwarpur.gov.np", emoji: "🏘️" },
+          { name: "Lalbandi Municipality", url: "lalbandi.gov.np", emoji: "🏘️" },
+          { name: "Haripurwa Municipality", url: "haripurwa.gov.np", emoji: "🏘️" },
+          { name: "Kabilasi Municipality", url: "kabilasi.gov.np", emoji: "🏘️" },
+          { name: "Haripur Municipality", url: "haripur.gov.np", emoji: "🏘️" },
+          { name: "Gujara Municipality", url: "gujara.gov.np", emoji: "🏘️" },
+          { name: "Garuda Municipality", url: "garuda.gov.np", emoji: "🏘️" },
+          { name: "Dewahi Gonahi Municipality", url: "dewahigonahi.gov.np", emoji: "🏘️" },
+          { name: "Maulapur Municipality", url: "maulapur.gov.np", emoji: "🏘️" },
+          { name: "Ishanath Municipality", url: "ishanath.gov.np", emoji: "🏘️" },
+          { name: "Phatuwa Bijayapur Municipality", url: "phatuwabijayapur.gov.np", emoji: "🏘️" },
+          { name: "Gadhimai Municipality", url: "gadhimai.gov.np", emoji: "🏘️" },
+          { name: "Madhav Narayan Municipality", url: "madhavnarayan.gov.np", emoji: "🏘️" },
+          { name: "Katahariya Municipality", url: "katahariya.gov.np", emoji: "🏘️" },
+          { name: "Chandrapur Municipality", url: "chandrapur.gov.np", emoji: "🏘️" },
+          { name: "Paroha Municipality", url: "paroha.gov.np", emoji: "🏘️" },
+          { name: "Rajpur Municipality", url: "rajpur.gov.np", emoji: "🏘️" },
+          { name: "Budhimai Municipality", url: "budhimai.gov.np", emoji: "🏘️" },
+          { name: "Brindaban Municipality", url: "brindaban.gov.np", emoji: "🏘️" },
+          { name: "Gaur Municipality", url: "gaur.gov.np", emoji: "🏘️" },
+          { name: "Rajdevi Municipality", url: "rajdevi.gov.np", emoji: "🏘️" },
+          { name: "Kolhabi Municipality", url: "kolhabi.gov.np", emoji: "🏘️" },
+          { name: "Mahagadhimai Municipality", url: "mahagadhimai.gov.np", emoji: "🏘️" },
+          { name: "Nijgadh Municipality", url: "nijgadh.gov.np", emoji: "🏘️" },
+          { name: "Simraungadh Municipality", url: "simraungadh.gov.np", emoji: "🏘️" },
+          { name: "Parsagadhi Municipality", url: "parsagadhi.gov.np", emoji: "🏘️" },
+          { name: "Pokhariya Municipality", url: "pokhariya.gov.np", emoji: "🏘️" },
+          { name: "Bahudarmai Municipality", url: "bahudarmai.gov.np", emoji: "🏘️" },
+          { name: "Pacharauta Municipality", url: "pacharauta.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Bagmati Province", url: "bagamati.gov.np", emoji: "🌊", capital: "Hetauda",
+        metros: [
+          { name: "Kathmandu Metropolitan City", url: "kathmandu.gov.np", emoji: "🏙️", type: "Metro" },
+          { name: "Lalitpur Metropolitan City", url: "lmc.gov.np", emoji: "🏙️", type: "Metro" },
+          { name: "Bharatpur Metropolitan City", url: "bharatpur.gov.np", emoji: "🏙️", type: "Metro" },
+        ],
+        submetros: [
+          { name: "Hetauda Sub-Metropolitan City", url: "hetauda.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Tokha Municipality", url: "tokha.gov.np", emoji: "🏘️" },
+          { name: "Budhanilkantha Municipality", url: "budhanilkantha.gov.np", emoji: "🏘️" },
+          { name: "Gokarneshwar Municipality", url: "gokarneshwar.gov.np", emoji: "🏘️" },
+          { name: "Chandragiri Municipality", url: "chandragiri.gov.np", emoji: "🏘️" },
+          { name: "Dakshinkali Municipality", url: "dakshinkali.gov.np", emoji: "🏘️" },
+          { name: "Nagarjun Municipality", url: "nagarjun.gov.np", emoji: "🏘️" },
+          { name: "Tarakeshwar Municipality", url: "tarakeshwar.gov.np", emoji: "🏘️" },
+          { name: "Kirtipur Municipality", url: "kirtipur.gov.np", emoji: "🏘️" },
+          { name: "Kageshwari Manohara Municipality", url: "kageshwarimanohara.gov.np", emoji: "🏘️" },
+          { name: "Shankharapur Municipality", url: "shankharapur.gov.np", emoji: "🏘️" },
+          { name: "Godawari Municipality", url: "godawari.gov.np", emoji: "🏘️" },
+          { name: "Mahalaxmi Municipality", url: "mahalaxmi.gov.np", emoji: "🏘️" },
+          { name: "Bhaktapur Municipality", url: "bhaktapur.gov.np", emoji: "🏘️" },
+          { name: "Suryabinayak Municipality", url: "suryabinayak.gov.np", emoji: "🏘️" },
+          { name: "Changunarayan Municipality", url: "changunarayan.gov.np", emoji: "🏘️" },
+          { name: "Madhyapur Thimi Municipality", url: "madhyapurthimi.gov.np", emoji: "🏘️" },
+          { name: "Thaha Municipality", url: "thaha.gov.np", emoji: "🏘️" },
+          { name: "Bahrabise Municipality", url: "bahrabise.gov.np", emoji: "🏘️" },
+          { name: "Melamchi Municipality", url: "melamchi.gov.np", emoji: "🏘️" },
+          { name: "Chautara Sangachowkgadhi Municipality", url: "chautara.gov.np", emoji: "🏘️" },
+          { name: "Bhimeshwar Municipality", url: "bhimeshwar.gov.np", emoji: "🏘️" },
+          { name: "Jiri Municipality", url: "jiri.gov.np", emoji: "🏘️" },
+          { name: "Kamalamai Municipality", url: "kamalamai.gov.np", emoji: "🏘️" },
+          { name: "Dudhauli Municipality", url: "dudhauli.gov.np", emoji: "🏘️" },
+          { name: "Manthali Municipality", url: "manthali.gov.np", emoji: "🏘️" },
+          { name: "Ramechhap Municipality", url: "ramechhap.gov.np", emoji: "🏘️" },
+          { name: "Dhulikhel Municipality", url: "dhulikhel.gov.np", emoji: "🏘️" },
+          { name: "Namobuddha Municipality", url: "namobuddha.gov.np", emoji: "🏘️" },
+          { name: "Panauti Municipality", url: "panauti.gov.np", emoji: "🏘️" },
+          { name: "Banepa Municipality", url: "banepa.gov.np", emoji: "🏘️" },
+          { name: "Panchkhal Municipality", url: "panchkhal.gov.np", emoji: "🏘️" },
+          { name: "Mandandeupur Municipality", url: "mandandeupur.gov.np", emoji: "🏘️" },
+          { name: "Bidur Municipality", url: "bidur.gov.np", emoji: "🏘️" },
+          { name: "Dhunibeshi Municipality", url: "dhunibeshi.gov.np", emoji: "🏘️" },
+          { name: "Nilkantha Municipality", url: "nilkantha.gov.np", emoji: "🏘️" },
+          { name: "Khairhani Municipality", url: "khairhani.gov.np", emoji: "🏘️" },
+          { name: "Ratnanagar Municipality", url: "ratnanagar.gov.np", emoji: "🏘️" },
+          { name: "Rapti Municipality", url: "rapti.gov.np", emoji: "🏘️" },
+          { name: "Kalika Municipality", url: "kalika.gov.np", emoji: "🏘️" },
+          { name: "Madi Municipality", url: "madickt.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Gandaki Province", url: "gandaki.gov.np", emoji: "🏔️", capital: "Pokhara",
+        metros: [
+          { name: "Pokhara Metropolitan City", url: "pokharamun.gov.np", emoji: "🏙️", type: "Metro" },
+        ],
+        submetros: [],
+        municipalities: [
+          { name: "Gorkha Municipality", url: "gorkha.gov.np", emoji: "🏘️" },
+          { name: "Palungtar Municipality", url: "palungtar.gov.np", emoji: "🏘️" },
+          { name: "Besisahar Municipality", url: "besisahar.gov.np", emoji: "🏘️" },
+          { name: "Madhya Nepal Municipality", url: "madhyanepal.gov.np", emoji: "🏘️" },
+          { name: "Rainas Municipality", url: "rainas.gov.np", emoji: "🏘️" },
+          { name: "Sundarbazar Municipality", url: "sundarbazar.gov.np", emoji: "🏘️" },
+          { name: "Vyas Municipality", url: "vyas.gov.np", emoji: "🏘️" },
+          { name: "Bhanu Municipality", url: "bhanu.gov.np", emoji: "🏘️" },
+          { name: "Shuklagandaki Municipality", url: "shuklagandaki.gov.np", emoji: "🏘️" },
+          { name: "Bhimad Municipality", url: "bhimad.gov.np", emoji: "🏘️" },
+          { name: "Kushma Municipality", url: "kushma.gov.np", emoji: "🏘️" },
+          { name: "Phalebas Municipality", url: "phalebas.gov.np", emoji: "🏘️" },
+          { name: "Beni Municipality", url: "beni.gov.np", emoji: "🏘️" },
+          { name: "Galkot Municipality", url: "galkot.gov.np", emoji: "🏘️" },
+          { name: "Baglung Municipality", url: "baglung.gov.np", emoji: "🏘️" },
+          { name: "Jaimuni Municipality", url: "jaimuni.gov.np", emoji: "🏘️" },
+          { name: "Dhorpatan Municipality", url: "dhorpatan.gov.np", emoji: "🏘️" },
+          { name: "Gaindakot Municipality", url: "gaindakot.gov.np", emoji: "🏘️" },
+          { name: "Kawasoti Municipality", url: "kawasoti.gov.np", emoji: "🏘️" },
+          { name: "Devachuli Municipality", url: "devachuli.gov.np", emoji: "🏘️" },
+          { name: "Madhyabindu Municipality", url: "madhyabindu.gov.np", emoji: "🏘️" },
+          { name: "Galyang Municipality", url: "galyang.gov.np", emoji: "🏘️" },
+          { name: "Putalibazar Municipality", url: "putalibazar.gov.np", emoji: "🏘️" },
+          { name: "Chapakot Municipality", url: "chapakot.gov.np", emoji: "🏘️" },
+          { name: "Bhirkot Municipality", url: "bhirkot.gov.np", emoji: "🏘️" },
+          { name: "Waling Municipality", url: "waling.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Lumbini Province", url: "lumbini.gov.np", emoji: "🕊️", capital: "Deukhuri",
+        metros: [],
+        submetros: [
+          { name: "Nepalgunj Sub-Metropolitan City", url: "nepalgunj.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Butwal Sub-Metropolitan City", url: "butwal.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Ghorahi Sub-Metropolitan City", url: "ghorahi.gov.np", emoji: "🏢", type: "Sub-Metro" },
+          { name: "Tulsipur Sub-Metropolitan City", url: "tulsipur.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Kohalpur Municipality", url: "kohalpur.gov.np", emoji: "🏘️" },
+          { name: "Gulariya Municipality", url: "gulariya.gov.np", emoji: "🏘️" },
+          { name: "Thakurbaba Municipality", url: "thakurbaba.gov.np", emoji: "🏘️" },
+          { name: "Barbardiya Municipality", url: "barbardiya.gov.np", emoji: "🏘️" },
+          { name: "Rajapur Municipality", url: "rajapur.gov.np", emoji: "🏘️" },
+          { name: "Musikot Municipality", url: "musikotgulmi.gov.np", emoji: "🏘️" },
+          { name: "Resunga Municipality", url: "resunga.gov.np", emoji: "🏘️" },
+          { name: "Tansen Municipality", url: "tansen.gov.np", emoji: "🏘️" },
+          { name: "Rampur Municipality", url: "rampur.gov.np", emoji: "🏘️" },
+          { name: "Siddharthanagar Municipality", url: "siddharthanagar.gov.np", emoji: "🏘️" },
+          { name: "Tilottama Municipality", url: "tilottama.gov.np", emoji: "🏘️" },
+          { name: "Sainamaina Municipality", url: "sainamaina.gov.np", emoji: "🏘️" },
+          { name: "Devdaha Municipality", url: "devdaha.gov.np", emoji: "🏘️" },
+          { name: "Lumbini Sanskritik Municipality", url: "lumbinisanskritik.gov.np", emoji: "🏘️" },
+          { name: "Bhumikhasthan Municipality", url: "bhumikhasthan.gov.np", emoji: "🏘️" },
+          { name: "Sandhikharka Municipality", url: "sandhikharka.gov.np", emoji: "🏘️" },
+          { name: "Sitganga Municipality", url: "sitganga.gov.np", emoji: "🏘️" },
+          { name: "Kapilvastu Municipality", url: "kapilvastu.gov.np", emoji: "🏘️" },
+          { name: "Krishnanagar Municipality", url: "krishnanagar.gov.np", emoji: "🏘️" },
+          { name: "Banganga Municipality", url: "banganga.gov.np", emoji: "🏘️" },
+          { name: "Buddhabhumi Municipality", url: "buddhabhumi.gov.np", emoji: "🏘️" },
+          { name: "Maharajgunj Municipality", url: "maharajgunj.gov.np", emoji: "🏘️" },
+          { name: "Shivraj Municipality", url: "shivraj.gov.np", emoji: "🏘️" },
+          { name: "Swargadwari Municipality", url: "swargadwari.gov.np", emoji: "🏘️" },
+          { name: "Pyuthan Municipality", url: "pyuthan.gov.np", emoji: "🏘️" },
+          { name: "Rolpa Municipality", url: "rolpa.gov.np", emoji: "🏘️" },
+          { name: "Lamahi Municipality", url: "lamahi.gov.np", emoji: "🏘️" },
+          { name: "Madhuman Municipality", url: "madhuman.gov.np", emoji: "🏘️" },
+          { name: "Basgadhi Municipality", url: "basgadhi.gov.np", emoji: "🏘️" },
+          { name: "Bardaghat Municipality", url: "bardaghat.gov.np", emoji: "🏘️" },
+          { name: "Ramgram Municipality", url: "ramgram.gov.np", emoji: "🏘️" },
+          { name: "Sunwal Municipality", url: "sunwal.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Karnali Province", url: "karnali.gov.np", emoji: "🌿", capital: "Birendranagar",
+        metros: [],
+        submetros: [
+          { name: "Birendranagar Sub-Metropolitan City", url: "birendranagar.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Gurbhakot Municipality", url: "gurbhakot.gov.np", emoji: "🏘️" },
+          { name: "Panchapuri Municipality", url: "panchapuri.gov.np", emoji: "🏘️" },
+          { name: "Lekbeshi Municipality", url: "lekbeshi.gov.np", emoji: "🏘️" },
+          { name: "Bheriganga Municipality", url: "bheriganga.gov.np", emoji: "🏘️" },
+          { name: "Musikot Municipality", url: "musikot.gov.np", emoji: "🏘️" },
+          { name: "Athbiskot Municipality", url: "athbiskot.gov.np", emoji: "🏘️" },
+          { name: "Chaurjahari Municipality", url: "chaurjahari.gov.np", emoji: "🏘️" },
+          { name: "Sarada Municipality", url: "sarada.gov.np", emoji: "🏘️" },
+          { name: "Bagchaur Municipality", url: "bagchaur.gov.np", emoji: "🏘️" },
+          { name: "Bangad Kupinde Municipality", url: "bangadkupinde.gov.np", emoji: "🏘️" },
+          { name: "Narayan Municipality", url: "narayan.gov.np", emoji: "🏘️" },
+          { name: "Aathabis Municipality", url: "aathabis.gov.np", emoji: "🏘️" },
+          { name: "Chamunda Bindrasaini Municipality", url: "chamundabindrasaini.gov.np", emoji: "🏘️" },
+          { name: "Dullu Municipality", url: "dullu.gov.np", emoji: "🏘️" },
+          { name: "Bheri Municipality", url: "bheri.gov.np", emoji: "🏘️" },
+          { name: "Chhedagad Municipality", url: "chhedagad.gov.np", emoji: "🏘️" },
+          { name: "Triveni Naalgad Municipality", url: "trivenin.gov.np", emoji: "🏘️" },
+          { name: "Thuli Bheri Municipality", url: "thulibheri.gov.np", emoji: "🏘️" },
+          { name: "Tripurasundari Municipality", url: "tripurasundari.gov.np", emoji: "🏘️" },
+          { name: "Khadachakra Municipality", url: "khadachakra.gov.np", emoji: "🏘️" },
+          { name: "Tilagupha Municipality", url: "tilagupha.gov.np", emoji: "🏘️" },
+          { name: "Raskot Municipality", url: "raskot.gov.np", emoji: "🏘️" },
+          { name: "Sija Municipality", url: "sija.gov.np", emoji: "🏘️" },
+          { name: "Chandannath Municipality", url: "chandannath.gov.np", emoji: "🏘️" },
+        ]
+      },
+      {
+        name: "Sudurpashchim Province", url: "sudurpashchim.gov.np", emoji: "🌅", capital: "Dhangadhi",
+        metros: [],
+        submetros: [
+          { name: "Dhangadhi Sub-Metropolitan City", url: "dhangadhi.gov.np", emoji: "🏢", type: "Sub-Metro" },
+        ],
+        municipalities: [
+          { name: "Tikapur Municipality", url: "tikapur.gov.np", emoji: "🏘️" },
+          { name: "Bheemdatta Municipality", url: "bheemdatta.gov.np", emoji: "🏘️" },
+          { name: "Mahendranagar Municipality", url: "mahendranagar.gov.np", emoji: "🏘️" },
+          { name: "Belauri Municipality", url: "belauri.gov.np", emoji: "🏘️" },
+          { name: "Krishnapur Municipality", url: "krishnapur.gov.np", emoji: "🏘️" },
+          { name: "Punarbas Municipality", url: "punarbas.gov.np", emoji: "🏘️" },
+          { name: "Bedkot Municipality", url: "bedkot.gov.np", emoji: "🏘️" },
+          { name: "Laljhadi Municipality", url: "laljhadi.gov.np", emoji: "🏘️" },
+          { name: "Kanchanpur Municipality", url: "kanchanpur.gov.np", emoji: "🏘️" },
+          { name: "Shuklaphanta Municipality", url: "shuklaphanta.gov.np", emoji: "🏘️" },
+          { name: "Amargadhi Municipality", url: "amargadhi.gov.np", emoji: "🏘️" },
+          { name: "Dasharathchand Municipality", url: "dasharathchand.gov.np", emoji: "🏘️" },
+          { name: "Dadeldhura Municipality", url: "dadeldhura.gov.np", emoji: "🏘️" },
+          { name: "Parashuram Municipality", url: "parashuram.gov.np", emoji: "🏘️" },
+          { name: "Aalital Municipality", url: "aalital.gov.np", emoji: "🏘️" },
+          { name: "Darchula Municipality", url: "darchula.gov.np", emoji: "🏘️" },
+          { name: "Shailyashikhar Municipality", url: "shailyashikhar.gov.np", emoji: "🏘️" },
+          { name: "Malikarjun Municipality", url: "malikarjun.gov.np", emoji: "🏘️" },
+          { name: "Dipayal Silgadhi Municipality", url: "dipayalsilgadhi.gov.np", emoji: "🏘️" },
+          { name: "Bogtan Municipality", url: "bogtan.gov.np", emoji: "🏘️" },
+          { name: "Jorayal Municipality", url: "jorayal.gov.np", emoji: "🏘️" },
+          { name: "Sayal Municipality", url: "sayal.gov.np", emoji: "🏘️" },
+          { name: "Naugadh Municipality", url: "naugadh.gov.np", emoji: "🏘️" },
+          { name: "Byas Municipality", url: "byasbaitadi.gov.np", emoji: "🏘️" },
+          { name: "Melauli Municipality", url: "melauli.gov.np", emoji: "🏘️" },
+          { name: "Dunhu Municipality", url: "dunhu.gov.np", emoji: "🏘️" },
+          { name: "Dashrathchand Municipality", url: "dashrathchand.gov.np", emoji: "🏘️" },
+          { name: "Api Municipality", url: "api.gov.np", emoji: "🏘️" },
+          { name: "Pancheshwar Municipality", url: "pancheshwar.gov.np", emoji: "🏘️" },
+          { name: "Surnaya Municipality", url: "surnaya.gov.np", emoji: "🏘️" },
+          { name: "Dogdakedar Municipality", url: "dogdakedar.gov.np", emoji: "🏘️" },
+          { name: "Dilasaini Municipality", url: "dilasaini.gov.np", emoji: "🏘️" },
+          { name: "Nawadurga Municipality", url: "nawadurga.gov.np", emoji: "🏘️" },
+        ]
+      },
+    ]
+  },
+  {
+    cat: "other",
+    catLabel: "Other Services & Departments",
+    icon: "⚙️",
+    accent: "#5F5E5A",
+    sites: [
+      { name: "Department of Passport", url: "dop.gov.np", emoji: "🛂" },
+      { name: "Vital Registration (Birth/Death)", url: "vrs.gov.np", emoji: "📜" },
+      { name: "Department of Commerce", url: "doc.gov.np", emoji: "🛒" },
+      { name: "Department of Labour", url: "dol.gov.np", emoji: "👷" },
+      { name: "Department of Foreign Employment", url: "dofe.gov.np", emoji: "🌍" },
+      { name: "Department of Tourism", url: "tourism.gov.np", emoji: "🏔️" },
+      { name: "Nepal Tourism Board", url: "welcomenepal.com", emoji: "🎋" },
+      { name: "Department of Cooperatives", url: "docd.gov.np", emoji: "🤝" },
+      { name: "Department of Food Technology", url: "dftqc.gov.np", emoji: "🍱" },
+      { name: "Department of Drug Administration", url: "dda.gov.np", emoji: "💊" },
+      { name: "Department of Livestock Services", url: "dls.gov.np", emoji: "🐄" },
+      { name: "Forest Research & Training Centre", url: "frtc.gov.np", emoji: "🌲" },
+      { name: "Department of Environment", url: "denv.gov.np", emoji: "🌿" },
+      { name: "Nepal Land Information System", url: "nagis.gov.np", emoji: "🗾" },
+      { name: "e-Sewa Portal (Government Payments)", url: "esewa.gov.np", emoji: "💳" },
+    ]
+  }
+];
+
+let activeCat = 'all';
+let searchQuery = '';
+
+function escapeHTML(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function highlightMatch(text, query) {
+  if (!query) return escapeHTML(text);
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(${escaped})`, 'gi');
+  return escapeHTML(text).replace(re, '<mark>$1</mark>');
+}
+
+function render() {
+  const main = document.getElementById('mainContent');
+  const noResults = document.getElementById('noResults');
+  const visibleCount = document.getElementById('visibleCount');
+
+  let totalVisible = 0;
+  let html = '';
+  const q = searchQuery.toLowerCase().trim();
+
+  DATA.forEach(section => {
+    if (activeCat !== 'all' && activeCat !== section.cat) return;
+
+    // Province section — special nested rendering
+    if (section.provinces) {
+      let provinceHtml = '';
+      let provinceCount = 0;
+
+      section.provinces.forEach(prov => {
+        const allMunis = [
+          ...(prov.metros || []),
+          ...(prov.submetros || []),
+          ...(prov.municipalities || [])
+        ];
+
+        // Filter: province gov site + all municipalities
+        const provMatches = !q || prov.name.toLowerCase().includes(q) || prov.url.toLowerCase().includes(q);
+        const filteredMetros = (prov.metros || []).filter(m => !q || m.name.toLowerCase().includes(q) || m.url.toLowerCase().includes(q));
+        const filteredSubmetros = (prov.submetros || []).filter(m => !q || m.name.toLowerCase().includes(q) || m.url.toLowerCase().includes(q));
+        const filteredMunis = (prov.municipalities || []).filter(m => !q || m.name.toLowerCase().includes(q) || m.url.toLowerCase().includes(q));
+
+        if (!provMatches && filteredMetros.length === 0 && filteredSubmetros.length === 0 && filteredMunis.length === 0) return;
+
+        const showProv = provMatches || filteredMetros.length > 0 || filteredSubmetros.length > 0 || filteredMunis.length > 0;
+        if (!showProv) return;
+
+        provinceCount++;
+        const dn = (name) => highlightMatch(name, searchQuery.trim());
+        const accent = section.accent;
+
+        provinceHtml += `<div class="province-block" style="--card-accent:${accent}">
+          <div class="province-header">
+            <span class="province-flag">${prov.emoji}</span>
+            <div>
+              <div class="province-name">${dn(prov.name)}</div>
+              <div class="province-cap">Capital: ${prov.capital}</div>
+            </div>
+            <a href="https://${prov.url}" target="_blank" rel="noopener" class="province-gov-btn">
+              Official Portal ↗
+            </a>
+          </div>`;
+
+        if (filteredMetros.length > 0) {
+          provinceHtml += `<div class="muni-group-label"><span class="muni-badge metro">Metropolitan</span></div><div class="muni-grid">`;
+          filteredMetros.forEach(m => {
+            provinceHtml += `<a class="muni-card metro-card" href="https://${m.url}" target="_blank" rel="noopener">${m.emoji} <span>${dn(m.name)}</span> <small>${m.url}</small></a>`;
+          });
+          provinceHtml += `</div>`;
+          totalVisible += filteredMetros.length;
+        }
+
+        if (filteredSubmetros.length > 0) {
+          provinceHtml += `<div class="muni-group-label"><span class="muni-badge submeta">Sub-Metropolitan</span></div><div class="muni-grid">`;
+          filteredSubmetros.forEach(m => {
+            provinceHtml += `<a class="muni-card submeta-card" href="https://${m.url}" target="_blank" rel="noopener">${m.emoji} <span>${dn(m.name)}</span> <small>${m.url}</small></a>`;
+          });
+          provinceHtml += `</div>`;
+          totalVisible += filteredSubmetros.length;
+        }
+
+        if (filteredMunis.length > 0) {
+          provinceHtml += `<div class="muni-group-label"><span class="muni-badge muni">Municipalities</span></div><div class="muni-grid">`;
+          filteredMunis.forEach(m => {
+            provinceHtml += `<a class="muni-card" href="https://${m.url}" target="_blank" rel="noopener">${m.emoji} <span>${dn(m.name)}</span> <small>${m.url}</small></a>`;
+          });
+          provinceHtml += `</div>`;
+          totalVisible += filteredMunis.length;
+        }
+
+        provinceHtml += `</div>`;
+        if (provMatches) totalVisible++;
+      });
+
+      if (provinceHtml) {
+        html += `<div class="section" data-section="${section.cat}">
+          <div class="section-header">
+            <div class="section-icon" style="background:${section.accent}18;color:${section.accent};font-size:20px">${section.icon}</div>
+            <div class="section-title">${section.catLabel}</div>
+            <div class="section-count">${section.provinces.length} provinces</div>
+          </div>
+          ${provinceHtml}
+        </div>`;
+      }
+      return;
+    }
+
+    // Regular section
+    const filtered = section.sites.filter(s => {
+      if (!q) return true;
+      return s.name.toLowerCase().includes(q) || s.url.toLowerCase().includes(q);
+    });
+
+    if (filtered.length === 0) return;
+    totalVisible += filtered.length;
+
+    const accentStyle = `style="--card-accent: ${section.accent}"`;
+
+    html += `<div class="section" data-section="${section.cat}">
+      <div class="section-header">
+        <div class="section-icon" style="background: ${section.accent}18; color: ${section.accent}; font-size: 20px;">${section.icon}</div>
+        <div class="section-title">${section.catLabel}</div>
+        <div class="section-count">${filtered.length} site${filtered.length !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="cards-grid">`;
+
+    filtered.forEach(site => {
+      const displayName = highlightMatch(site.name, searchQuery.trim());
+      html += `<a class="card" href="https://${site.url}" target="_blank" rel="noopener noreferrer" ${accentStyle}>
+        <div class="card-emoji">${site.emoji}</div>
+        <div class="card-name">${displayName}</div>
+        <div class="card-url"><span class="card-url-dot"></span>${site.url}</div>
+        <span class="card-arrow">↗</span>
+      </a>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  main.querySelectorAll('.section').forEach(el => el.remove());
+  main.insertAdjacentHTML('afterbegin', html);
+
+  visibleCount.textContent = totalVisible;
+  noResults.classList.toggle('visible', totalVisible === 0);
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  searchQuery = this.value;
+  activeCat = 'all';
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+  render();
+});
+
+document.getElementById('catButtons').addEventListener('click', function(e) {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b === btn));
+  document.getElementById('searchInput').value = '';
+  searchQuery = '';
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

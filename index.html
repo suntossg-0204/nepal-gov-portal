@@ -397,17 +397,113 @@
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .province-block.open {
+    box-shadow: var(--shadow-md);
   }
 
   .province-header {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 18px 22px;
+    padding: 16px 22px;
     background: linear-gradient(90deg, color-mix(in srgb, var(--card-accent, #1D9E75) 6%, transparent) 0%, transparent 100%);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.18s;
+  }
+
+  .province-header:hover {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--card-accent, #1D9E75) 12%, transparent) 0%, transparent 100%);
+  }
+
+  .province-block.open .province-header {
     border-bottom: 1px solid var(--border);
+  }
+
+  .province-search-wrap {
+    padding: 12px 22px 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--mist);
+  }
+
+  .province-search-icon {
+    font-size: 14px;
+    color: #aaa;
+    flex-shrink: 0;
+  }
+
+  .province-search-input {
+    flex: 1;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 50px;
+    padding: 7px 14px 7px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.83rem;
+    color: var(--ink);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .province-search-input:focus {
+    border-color: var(--card-accent, #1D9E75);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--card-accent, #1D9E75) 15%, transparent);
+  }
+
+  .province-search-input::placeholder { color: #bbb; }
+
+  .province-search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #bbb;
+    padding: 2px 6px;
+    border-radius: 50%;
+    transition: color 0.15s, background 0.15s;
+    display: none;
+    flex-shrink: 0;
+  }
+
+  .province-search-clear.visible { display: block; }
+  .province-search-clear:hover { color: var(--ink); background: var(--border); }
+
+  .province-no-results {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    display: none;
+  }
+
+  .province-no-results.visible { display: block; }
+    margin-left: auto;
+    font-size: 18px;
+    color: var(--card-accent, #1D9E75);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .province-block.open .province-chevron {
+    transform: rotate(180deg);
+  }
+
+  .province-body {
+    display: none;
+  }
+
+  .province-block.open .province-body {
+    display: block;
   }
 
   .province-flag { font-size: 28px; flex-shrink: 0; }
@@ -1433,21 +1529,32 @@ function render() {
         const fMunis = filt(prov.municipalities);
         if (!provMatches && !fMetros.length && !fSubs.length && !fMunis.length) return;
 
-        pHtml += `<div class="province-block" style="--card-accent:${section.accent}">
+        pHtml += `<div class="province-block" style="--card-accent:${section.accent}" onclick="toggleProvince(this)">
           <div class="province-header">
             <span class="province-flag">${prov.emoji}</span>
             <div>
               <div class="province-name">${highlightMatch(provName, q)}</div>
               <div class="province-cap">${L.capital}: ${currentLang==='ne' ? prov.capNe : prov.cap}</div>
             </div>
-            <a href="https://${prov.url}" target="_blank" rel="noopener" class="province-gov-btn">${L.portal}</a>
-          </div>`;
+            <a href="https://${prov.url}" target="_blank" rel="noopener" class="province-gov-btn" onclick="event.stopPropagation()">${L.portal}</a>
+            <span class="province-chevron">▾</span>
+          </div>
+          <div class="province-body">
+            <div class="province-search-wrap" onclick="event.stopPropagation()">
+              <span class="province-search-icon">🔍</span>
+              <input class="province-search-input" type="text"
+                placeholder="${currentLang==='ne' ? 'नगरपालिका खोज्नुहोस्…' : 'Search municipalities…'}"
+                oninput="filterProvince(this)"
+                autocomplete="off" />
+              <button class="province-search-clear" onclick="clearProvinceSearch(this)" title="Clear">✕</button>
+            </div>
+            <div class="province-no-results">${currentLang==='ne' ? 'कुनै नगरपालिका फेला परेन।' : 'No municipalities found.'}</div>`;
 
         const renderGroup = (items, cls, badge) => {
           if (!items.length) return;
           pHtml += `<div class="muni-group-label"><span class="muni-badge ${cls}">${badge}</span></div><div class="muni-grid">`;
           items.forEach(m => {
-            pHtml += `<a class="muni-card ${cls==='metro'?'metro-card':cls==='submeta'?'submeta-card':''}" href="https://${m.url}" target="_blank" rel="noopener">${m.emoji} <span>${highlightMatch(m[currentLang], q)}</span></a>`;
+            pHtml += `<a class="muni-card ${cls==='metro'?'metro-card':cls==='submeta'?'submeta-card':''}" href="https://${m.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${m.emoji} <span>${highlightMatch(m[currentLang], q)}</span></a>`;
           });
           pHtml += `</div>`;
           totalVisible += items.length;
@@ -1455,7 +1562,7 @@ function render() {
         renderGroup(fMetros, 'metro', L.metro);
         renderGroup(fSubs, 'submeta', L.submeta);
         renderGroup(fMunis, 'muni', L.muni);
-        pHtml += `</div>`;
+        pHtml += `</div></div>`;
         if (provMatches) totalVisible++;
       });
 
@@ -1496,11 +1603,67 @@ function render() {
 
   main.querySelectorAll('.section').forEach(el => el.remove());
   main.insertAdjacentHTML('afterbegin', html);
+
+  // Auto-expand provinces if search has a query (user is looking for something specific)
+  if (q) {
+    main.querySelectorAll('.province-block').forEach(block => block.classList.add('open'));
+  }
+
   document.getElementById('noResults').classList.toggle('visible', totalVisible === 0);
   document.getElementById('countBadge').innerHTML = L.showing(totalVisible);
 }
 
-// ── SEARCH & FILTER ──
+// ── PROVINCE ACCORDION ──
+function toggleProvince(block) {
+  block.classList.toggle('open');
+  // Focus the search input when opening
+  if (block.classList.contains('open')) {
+    const input = block.querySelector('.province-search-input');
+    if (input) setTimeout(() => input.focus(), 250);
+  }
+}
+
+function filterProvince(input) {
+  const q = input.value.toLowerCase().trim();
+  const block = input.closest('.province-block');
+  const clearBtn = block.querySelector('.province-search-clear');
+  const noResults = block.querySelector('.province-no-results');
+
+  // Show/hide clear button
+  clearBtn.classList.toggle('visible', q.length > 0);
+
+  // Filter all muni-cards in this province
+  const cards = block.querySelectorAll('.muni-card');
+  let anyVisible = false;
+  cards.forEach(card => {
+    const name = card.querySelector('span')?.textContent.toLowerCase() || '';
+    const match = !q || name.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) anyVisible = true;
+  });
+
+  // Hide/show group labels if all cards in that group are hidden
+  block.querySelectorAll('.muni-group-label').forEach(label => {
+    const grid = label.nextElementSibling;
+    if (!grid) return;
+    const visibleCards = [...grid.querySelectorAll('.muni-card')].some(c => c.style.display !== 'none');
+    label.style.display = visibleCards ? '' : 'none';
+    grid.style.display = visibleCards ? '' : 'none';
+  });
+
+  // No results message
+  noResults.classList.toggle('visible', !anyVisible && q.length > 0);
+}
+
+function clearProvinceSearch(btn) {
+  const block = btn.closest('.province-block');
+  const input = block.querySelector('.province-search-input');
+  input.value = '';
+  filterProvince(input);
+  input.focus();
+}
+
+
 document.getElementById('searchInput').addEventListener('input', function() {
   searchQuery = this.value;
   activeCat = 'all';

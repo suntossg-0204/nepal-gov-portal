@@ -97,10 +97,7 @@
   }
 
   .hero-toggle-wrap {
-    position: absolute;
-    top: 20px;
-    right: 32px;
-    z-index: 2;
+    display: contents;
   }
 
   .hero-emblem {
@@ -486,6 +483,8 @@
   }
 
   .province-no-results.visible { display: block; }
+
+  .province-chevron {
     margin-left: auto;
     font-size: 18px;
     color: var(--card-accent, #1D9E75);
@@ -707,16 +706,24 @@
   /* ─── LANGUAGE TOGGLE ─── */
   .lang-toggle {
     display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 50px; padding: 7px 18px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px; padding: 3px 12px;
     cursor: pointer; color: #fff;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem; font-weight: 500;
+    font-size: 0.78rem; font-weight: 500;
     transition: background 0.18s;
     white-space: nowrap;
   }
-  .lang-toggle:hover { background: rgba(255,255,255,0.22); }
+  .lang-toggle:hover { background: rgba(255,255,255,0.28); }
+
+  .dt-npt-label { }
+
+  @media (max-width: 600px) {
+    .dt-npt-label { display: none; }
+    .datetime-bar { gap: 8px; padding: 5px 12px; font-size: 0.68rem; flex-wrap: nowrap; }
+    .lang-toggle { padding: 2px 9px; font-size: 0.72rem; }
+  }
 
   /* ─── DISCLAIMER ─── */
   .disclaimer {
@@ -781,8 +788,6 @@
     .hero-text h1 { font-size: 1.6rem; }
     .hero-text .tagline { display: none; }
     .hero-emblem { width: 60px; height: 60px; font-size: 30px; }
-    .hero-toggle-wrap { top: 14px; right: 16px; }
-    .lang-toggle { padding: 5px 12px; font-size: 0.76rem; margin-left: 0; }
     .search-bar-wrap { padding: 12px 16px; }
     .search-bar-inner { flex-wrap: wrap; gap: 8px; }
     .count-badge { font-size: 0.75rem; width: 100%; }
@@ -895,16 +900,15 @@
     <div class="dt-divider"></div>
     <div class="dt-item">🕐 <span id="dtTime">—</span></div>
     <div class="dt-divider"></div>
-    <div class="dt-item">🇳🇵 NPT (UTC+5:45)</div>
-  </div>
-  <div class="hero-pattern"></div>
-  <div class="hero-geo"></div>
-  <div class="hero-geo2"></div>
-  <div class="hero-toggle-wrap">
+    <div class="dt-item dt-npt-label">🇳🇵 NPT (UTC+5:45)</div>
+    <div class="dt-divider"></div>
     <button class="lang-toggle" id="langToggle" onclick="toggleLang()">
       🌐 <span id="langLabel">नेपाली</span>
     </button>
   </div>
+  <div class="hero-pattern"></div>
+  <div class="hero-geo"></div>
+  <div class="hero-geo2"></div>
   <div class="hero-inner">
     <div class="hero-emblem">🏔️</div>
     <div class="hero-text">

@@ -810,13 +810,93 @@
     .cards-grid { grid-template-columns: 1fr; }
     .muni-grid { grid-template-columns: 1fr; }
   }
+  /* ─── DATETIME BAR ─── */
+  .datetime-bar {
+    background: rgba(0,0,0,0.25);
+    padding: 6px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .datetime-bar .dt-item { display: flex; align-items: center; gap: 5px; }
+  .datetime-bar .dt-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+
+  /* ─── EMERGENCY NUMBERS ─── */
+  .emergency-section {
+    background: #1a0000;
+    border-left: 4px solid var(--crimson);
+    padding: 12px 32px;
+  }
+  .emergency-header {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; user-select: none;
+  }
+  .emergency-title {
+    font-size: 0.82rem; font-weight: 600;
+    color: #ff6b6b; letter-spacing: 0.4px;
+  }
+  .emergency-toggle-icon {
+    font-size: 12px; color: #ff6b6b;
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+  .emergency-section.open .emergency-toggle-icon { transform: rotate(180deg); }
+  .emergency-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px; margin-top: 12px;
+  }
+  .emergency-section.open .emergency-grid { display: grid; }
+  .emergency-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,100,100,0.2);
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 10px;
+  }
+  .emergency-name {
+    font-size: 0.78rem; color: rgba(255,255,255,0.8);
+    font-weight: 400; line-height: 1.3; flex: 1;
+  }
+  .emergency-num {
+    font-size: 1.05rem; font-weight: 700;
+    color: #ff6b6b; white-space: nowrap; letter-spacing: 0.5px;
+  }
+  .emergency-free {
+    font-size: 0.62rem; color: #4caf50; font-weight: 500;
+    background: rgba(76,175,80,0.15); border-radius: 50px;
+    padding: 1px 6px; white-space: nowrap;
+  }
+  @media (max-width: 768px) {
+    .datetime-bar { padding: 5px 16px; font-size: 0.7rem; gap: 10px; }
+    .emergency-section { padding: 10px 16px; }
+    .emergency-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .emergency-num { font-size: 0.92rem; }
+  }
+  @media (max-width: 400px) {
+    .emergency-grid { grid-template-columns: 1fr; }
+  }
 </style>
-</head>
 <body>
 
 <!-- HERO -->
 <header class="hero">
   <div class="hero-stripe"></div>
+  <div class="datetime-bar">
+    <div class="dt-item">📅 <span id="dtDate">—</span></div>
+    <div class="dt-divider"></div>
+    <div class="dt-item">🕐 <span id="dtTime">—</span></div>
+    <div class="dt-divider"></div>
+    <div class="dt-item">🇳🇵 NPT (UTC+5:45)</div>
+  </div>
   <div class="hero-pattern"></div>
   <div class="hero-geo"></div>
   <div class="hero-geo2"></div>
@@ -834,6 +914,16 @@
     </div>
   </div>
 </header>
+
+<!-- EMERGENCY NUMBERS -->
+<div class="emergency-section" id="emergencySection">
+  <div class="emergency-header" onclick="document.getElementById('emergencySection').classList.toggle('open')">
+    <span>🚨</span>
+    <span class="emergency-title" id="emergencyTitle">EMERGENCY HELPLINE NUMBERS — FREE (निःशुल्क)</span>
+    <span class="emergency-toggle-icon">▾</span>
+  </div>
+  <div class="emergency-grid" id="emergencyGrid"></div>
+</div>
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
@@ -1420,6 +1510,10 @@ let searchQuery = '';
 const UI = {
   en: {
     searchPlaceholder: "Search ministries, departments, services…",
+    emergencyTitle: "EMERGENCY HELPLINE NUMBERS — FREE",
+    free: "FREE",
+    dtDays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    dtMonths: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     showing: (n) => `Showing <strong>${n}</strong> site${n!==1?'s':''}`,
     noResults: "No results found. Try a different search term.",
     capital: "Capital", portal: "Official Portal ↗",
@@ -1440,6 +1534,10 @@ const UI = {
   },
   ne: {
     searchPlaceholder: "मन्त्रालय, विभाग, सेवाहरू खोज्नुहोस्…",
+    emergencyTitle: "आपतकालीन हेल्पलाइन नम्बरहरू — निःशुल्क",
+    free: "निःशुल्क",
+    dtDays: ["आइतबार","सोमबार","मंगलबार","बुधबार","बिहीबार","शुक्रबार","शनिबार"],
+    dtMonths: ["बैशाख","जेठ","असार","साउन","भदौ","असोज","कार्तिक","मंसिर","पुस","माघ","फागुन","चैत"],
     showing: (n) => `<strong>${n}</strong> साइटहरू देखाउँदै`,
     noResults: "कुनै नतिजा फेला परेन। फरक खोज शब्द प्रयास गर्नुहोस्।",
     capital: "राजधानी", portal: "आधिकारिक पोर्टल ↗",
@@ -1476,6 +1574,11 @@ function applyUI() {
   document.getElementById('disclaimerText').innerHTML = L.disclaimer;
   document.getElementById('noResultsText').textContent = L.noResults;
   document.getElementById('footerText').innerHTML = L.footer;
+  // Emergency
+  document.getElementById('emergencyTitle').textContent = L.emergencyTitle;
+  renderEmergency();
+  // Clock language refresh
+  updateClock();
   // Feedback section
   document.getElementById('fbTitle').textContent = L.fbTitle;
   document.getElementById('fbSubtitle').textContent = L.fbSubtitle;
@@ -1720,6 +1823,78 @@ async function submitFeedback() {
       : 'केही गलत भयो। कृपया फेरि प्रयास गर्नुहोस्।');
   }
 }
+
+// ── EMERGENCY DATA ──
+const EMERGENCY = [
+  { en:"Nepal Police",               ne:"नेपाल प्रहरी",                num:"100"  },
+  { en:"Fire Support",               ne:"दमकल सेवा",                   num:"101"  },
+  { en:"Ambulance Support",          ne:"एम्बुलेन्स सेवा",              num:"102"  },
+  { en:"Traffic Support",            ne:"ट्राफिक सेवा",                 num:"103"  },
+  { en:"Missing Child Response",     ne:"हराएको बालबालिका",             num:"104"  },
+  { en:"CIAA (Anti-Corruption)",     ne:"अख्तियार दुरुपयोग अनुसन्धान", num:"107"  },
+  { en:"Child Helpline",             ne:"बाल हेल्पलाइन",                num:"1098" },
+  { en:"Armed Police Force",         ne:"सशस्त्र प्रहरी बल",            num:"1114" },
+  { en:"Women Helpline",             ne:"महिला हेल्पलाइन",              num:"1145" },
+  { en:"NEA Helpline",               ne:"नेपाल विद्युत् प्राधिकरण",    num:"1149" },
+  { en:"Patan Mental Hospital",      ne:"पाटन मानसिक अस्पताल",         num:"1166" },
+  { en:"Ministry of Home Affairs",   ne:"गृह मन्त्रालय",                num:"1112" },
+];
+
+function renderEmergency() {
+  const L = UI[currentLang];
+  const grid = document.getElementById('emergencyGrid');
+  grid.innerHTML = EMERGENCY.map(e => `
+    <div class="emergency-card">
+      <div class="emergency-name">${e[currentLang]}</div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span class="emergency-num">${e.num}</span>
+        <span class="emergency-free">${L.free}</span>
+      </div>
+    </div>`).join('');
+}
+
+// ── NEPALI DATE & TIME CLOCK ──
+function toNepaliNumerals(n) {
+  const ne = ['०','१','२','३','४','५','६','७','८','९'];
+  return String(n).split('').map(d => /\d/.test(d) ? ne[+d] : d).join('');
+}
+
+function gregorianToBS(date) {
+  let bsYear = date.getFullYear() + 56;
+  let bsMonth = date.getMonth() + 1 + 8;
+  let bsDay = date.getDate() + 16;
+  if (bsDay > 30)  { bsDay -= 30; bsMonth++; }
+  if (bsMonth > 12){ bsMonth -= 12; bsYear++; }
+  return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+function updateClock() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const npt = new Date(utc + 5 * 3600000 + 45 * 60000);
+  const L = UI[currentLang];
+  const h = npt.getHours(), m = npt.getMinutes(), s = npt.getSeconds();
+  let dateStr, timeStr;
+
+  if (currentLang === 'ne') {
+    const bs = gregorianToBS(npt);
+    const monthNames = ["बैशाख","जेठ","असार","साउन","भदौ","असोज","कार्तिक","मंसिर","पुस","माघ","फागुन","चैत"];
+    dateStr = `${L.dtDays[npt.getDay()]}, ${toNepaliNumerals(bs.day)} ${monthNames[bs.month-1]} ${toNepaliNumerals(bs.year)}`;
+    const hh = h % 12 || 12;
+    const ampm = h < 12 ? 'बिहान' : h < 17 ? 'दिउँसो' : h < 20 ? 'साँझ' : 'राति';
+    timeStr = `${toNepaliNumerals(hh)}:${toNepaliNumerals(String(m).padStart(2,'0'))}:${toNepaliNumerals(String(s).padStart(2,'0'))} ${ampm}`;
+  } else {
+    dateStr = `${L.dtDays[npt.getDay()]}, ${L.dtMonths[npt.getMonth()]} ${npt.getDate()}, ${npt.getFullYear()}`;
+    const hh = h % 12 || 12;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    timeStr = `${hh}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ampm} NPT`;
+  }
+  document.getElementById('dtDate').textContent = dateStr;
+  document.getElementById('dtTime').textContent = timeStr;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
 
 render();
 applyUI();

@@ -2,7 +2,6 @@
 <html lang="en" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="ucFIGdADZX-PEAaHp_P1xtWD8PDaVekDl120jogW9Eo" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A comprehensive directory of Nepal Government Portals, Provinces, and Municipalities.">
 <meta name="keywords" content="Nepal, Government, Municipality, Province, Portal, Bagmati, Gandaki, Lumbini">
@@ -95,10 +94,6 @@
     display: flex;
     align-items: center;
     gap: 40px;
-  }
-
-  .hero-toggle-wrap {
-    display: contents;
   }
 
   .hero-emblem {
@@ -390,7 +385,34 @@
     transform: translate(2px, -2px);
   }
 
-  /* ─── PROVINCE BLOCKS ─── */
+  /* ─── DISTRICT BLOCKS ─── */
+  .district-block {
+    margin: 0 22px 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--mist);
+  }
+  .district-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px; cursor: pointer; user-select: none;
+    background: var(--white);
+    transition: background 0.15s;
+  }
+  .district-header:hover { background: var(--blue-light); }
+  .district-name-en { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .district-name-ne { font-size: 0.78rem; color: var(--ink-soft); font-weight: 300; margin-left: 4px; }
+  .district-count { font-size: 0.72rem; color: var(--ink-soft); font-weight: 300; margin-left: auto; white-space: nowrap; }
+  .district-chevron { font-size: 12px; color: var(--ink-soft); transition: transform 0.2s; flex-shrink: 0; }
+  .district-block.open .district-chevron { transform: rotate(180deg); }
+  .district-body { display: none; padding: 8px 14px 12px; }
+  .district-block.open .district-body { display: block; }
+  .district-block.open .district-header { border-bottom: 1px solid var(--border); }
+
+  @media (max-width: 768px) {
+    .district-block { margin: 0 12px 8px; }
+    .district-header { padding: 9px 12px; }
+  }
   .province-block {
     background: var(--white);
     border: 1px solid var(--border);
@@ -484,8 +506,6 @@
   }
 
   .province-no-results.visible { display: block; }
-
-  .province-chevron {
     margin-left: auto;
     font-size: 18px;
     color: var(--card-accent, #1D9E75);
@@ -553,7 +573,9 @@
 
   .muni-badge.metro { background: #003893; color: #fff; }
   .muni-badge.submeta { background: #e8f0fb; color: #003893; }
-  .muni-badge.muni { background: #f0f0f0; color: #555; }
+  .muni-badge.muni { background: #e8f5e9; color: #2e7d32; }
+  .muni-badge.rural { background: #f3ede0; color: #6d4c41; }
+  .rural-card { background: #fdf6ee; border-color: #e5d5c0; }
 
   .muni-grid {
     display: grid;
@@ -704,27 +726,6 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-  /* ─── LANGUAGE TOGGLE ─── */
-  .lang-toggle {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50px; padding: 3px 12px;
-    cursor: pointer; color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem; font-weight: 500;
-    transition: background 0.18s;
-    white-space: nowrap;
-  }
-  .lang-toggle:hover { background: rgba(255,255,255,0.28); }
-
-  .dt-npt-label { }
-
-  @media (max-width: 600px) {
-    .dt-npt-label { display: none; }
-    .datetime-bar { gap: 8px; padding: 5px 12px; font-size: 0.68rem; flex-wrap: nowrap; }
-    .lang-toggle { padding: 2px 9px; font-size: 0.72rem; }
-  }
 
   /* ─── DISCLAIMER ─── */
   .disclaimer {
@@ -789,6 +790,7 @@
     .hero-text h1 { font-size: 1.6rem; }
     .hero-text .tagline { display: none; }
     .hero-emblem { width: 60px; height: 60px; font-size: 30px; }
+    .lang-toggle { padding: 5px 12px; font-size: 0.76rem; margin-left: 0; }
     .search-bar-wrap { padding: 12px 16px; }
     .search-bar-inner { flex-wrap: wrap; gap: 8px; }
     .count-badge { font-size: 0.75rem; width: 100%; }
@@ -816,113 +818,65 @@
     .cards-grid { grid-template-columns: 1fr; }
     .muni-grid { grid-template-columns: 1fr; }
   }
+
   /* ─── DATETIME BAR ─── */
   .datetime-bar {
     background: rgba(0,0,0,0.25);
     padding: 6px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 18px;
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.75);
-    font-weight: 300;
-    letter-spacing: 0.3px;
-    position: relative;
-    z-index: 2;
+    display: flex; align-items: center; justify-content: flex-end;
+    gap: 14px; font-size: 0.78rem;
+    color: rgba(255,255,255,0.75); font-weight: 300;
+    position: relative; z-index: 2;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .datetime-bar .dt-item { display: flex; align-items: center; gap: 5px; }
   .datetime-bar .dt-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+  .dt-npt-label {}
+  .lang-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px; padding: 3px 12px; cursor: pointer; color: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+    transition: background 0.18s; white-space: nowrap;
+  }
+  .lang-toggle:hover { background: rgba(255,255,255,0.28); }
 
   /* ─── EMERGENCY NUMBERS ─── */
   .emergency-section {
-    background: #1a0000;
-    border-left: 4px solid var(--crimson);
+    background: #1a0000; border-left: 4px solid var(--crimson);
     padding: 12px 32px;
   }
   .emergency-header {
     display: flex; align-items: center; gap: 10px;
     cursor: pointer; user-select: none;
   }
-  .emergency-title {
-    font-size: 0.82rem; font-weight: 600;
-    color: #ff6b6b; letter-spacing: 0.4px;
-  }
-  .emergency-toggle-icon {
-    font-size: 12px; color: #ff6b6b;
-    margin-left: auto;
-    transition: transform 0.2s;
-  }
+  .emergency-title { font-size: 0.82rem; font-weight: 600; color: #ff6b6b; letter-spacing: 0.4px; }
+  .emergency-toggle-icon { font-size: 12px; color: #ff6b6b; margin-left: auto; transition: transform 0.2s; }
   .emergency-section.open .emergency-toggle-icon { transform: rotate(180deg); }
   .emergency-grid {
-    display: none;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 8px; margin-top: 12px;
   }
   .emergency-section.open .emergency-grid { display: grid; }
   .emergency-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,100,100,0.2);
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,100,100,0.2);
     border-radius: 10px; padding: 10px 14px;
-    display: flex; align-items: center;
-    justify-content: space-between; gap: 10px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
-  .emergency-name {
-    font-size: 0.78rem; color: rgba(255,255,255,0.8);
-    font-weight: 400; line-height: 1.3; flex: 1;
-  }
-  .emergency-num {
-    font-size: 1.05rem; font-weight: 700;
-    color: #ff6b6b; white-space: nowrap; letter-spacing: 0.5px;
-  }
-  .emergency-free {
-    font-size: 0.62rem; color: #4caf50; font-weight: 500;
-    background: rgba(76,175,80,0.15); border-radius: 50px;
-    padding: 1px 6px; white-space: nowrap;
-  }
+  .emergency-name { font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 400; line-height: 1.3; flex: 1; }
+  .emergency-num { font-size: 1.05rem; font-weight: 700; color: #ff6b6b; white-space: nowrap; }
+  .emergency-free { font-size: 0.62rem; color: #4caf50; font-weight: 500; background: rgba(76,175,80,0.15); border-radius: 50px; padding: 1px 6px; white-space: nowrap; }
+
   @media (max-width: 768px) {
-    .datetime-bar { padding: 5px 16px; font-size: 0.7rem; gap: 10px; }
+    .datetime-bar { padding: 5px 16px; font-size: 0.7rem; gap: 8px; }
+    .dt-npt-label { display: none; }
+    .lang-toggle { padding: 2px 9px; font-size: 0.72rem; }
     .emergency-section { padding: 10px 16px; }
     .emergency-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
     .emergency-num { font-size: 0.92rem; }
   }
-  @media (max-width: 400px) {
-    .emergency-grid { grid-template-columns: 1fr; }
-  }
-  /* ─── BACK TO TOP BUTTON ─── */
-.back-to-top {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  width: 46px;
-  height: 46px;
-  background: var(--blue);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(12px);
-  transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.2s;
-  z-index: 999;
-}
-.back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-.back-to-top:hover { background: var(--crimson); }
-@media (max-width: 600px) {
-  .back-to-top { bottom: 20px; right: 16px; width: 40px; height: 40px; font-size: 17px; }
-}
 </style>
+</head>
 <body>
 
 <!-- HERO -->
@@ -1063,7 +1017,7 @@ const DATA = [
     sites:[
       { en:"Government of Nepal (Official Portal)", ne:"नेपाल सरकार (आधिकारिक पोर्टल)", url:"nepal.gov.np", emoji:"🇳🇵" },
       { en:"Office of the President", ne:"राष्ट्रपतिको कार्यालय", url:"president.gov.np", emoji:"🏛️" },
-      { en:"Office of the Vice-President", ne:"उपराष्ट्रपतिको कार्यालय", url:"vpn.gov.np", emoji:"🏛️" },
+      { en:"Office of the Vice-President", ne:"उपराष्ट्रपतिको कार्यालय", url:"vicepresident.gov.np", emoji:"🏛️" },
       { en:"Office of the Prime Minister & Council of Ministers", ne:"प्रधानमन्त्री तथा मन्त्रिपरिषद्को कार्यालय", url:"opmcm.gov.np", emoji:"🏛️" },
       { en:"Federal Parliament of Nepal", ne:"संघीय संसद, नेपाल", url:"parliament.gov.np", emoji:"🏛️" },
       { en:"Supreme Court of Nepal", ne:"नेपालको सर्वोच्च अदालत", url:"supremecourt.gov.np", emoji:"⚖️" },
@@ -1088,7 +1042,7 @@ const DATA = [
       { en:"Ministry of Land Management, Co-operatives, Federal Affairs and General Administration", ne:"भूमि व्यवस्था, सहकारी, सङ्घीय मामिला तथा सामान्य प्रशासन मन्त्रालय", url:"molcpa.gov.np", emoji:"🗺️" },
       { en:"Ministry of Industry, Commerce & Supplies", ne:"उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय", url:"moics.gov.np", emoji:"🏭" },
       { en:"Ministry of Youth, Labour and Employment", ne:"युवा, श्रम तथा रोजगार मन्त्रालय", url:"moless.gov.np", emoji:"👷" },
-      { en:"Ministry of Culture, Tourism & Civil Aviation", ne:"संस्कृति, पर्यटन तथा नागरिक उड्डयन मन्त्रालय", url:"tourism.gov.np", emoji:"✈️" },
+      { en:"Ministry of Culture, Tourism & Civil Aviation", ne:"संस्कृति, पर्यटन तथा नागरिक उड्डयन मन्त्रालय", url:"moctca.gov.np", emoji:"✈️" },
       { en:"Ministry of Information and Communication", ne:"सूचना तथा सञ्‍चार मन्त्रालय", url:"mocit.gov.np", emoji:"📡" },
       { en:"Ministry of Science, Technology and Innovation", ne:"विज्ञान, प्रविधि तथा नवप्रवर्तन मन्त्रालय", url:"moys.gov.np", emoji:"🔬" },
     ]
@@ -1175,348 +1129,1157 @@ const DATA = [
     cat:"province", en:"Provincial & Local Governments", ne:"प्रदेश र स्थानीय सरकारहरू", icon:"🗺️", accent:"#1D9E75",
     provinces:[
       {
-        en:"Koshi Province", ne:"कोशी प्रदेश", url:"koshi.gov.np", emoji:"🏔️", cap:"Biratnagar", capNe:"विराटनगर",
-        metros:[{ en:"Biratnagar Metropolitan City", ne:"विराटनगर महानगरपालिका", url:"biratnagar.gov.np", emoji:"🏙️" }],
-        submetros:[
-          { en:"Dharan Sub-Metropolitan City", ne:"धरान उपमहानगरपालिका", url:"dharan.gov.np", emoji:"🏢" },
-          { en:"Itahari Sub-Metropolitan City", ne:"इटहरी उपमहानगरपालिका", url:"itahari.gov.np", emoji:"🏢" },
-          { en:"Damak Sub-Metropolitan City", ne:"दमक उपमहानगरपालिका", url:"damak.gov.np", emoji:"🏢" },
-        ],
-        municipalities:[
-          { en:"Phungling Municipality", ne:"फुङलिङ नगरपालिका", url:"phungling.gov.np", emoji:"🏘️" },
-          { en:"Phidim Municipality", ne:"फिदिम नगरपालिका", url:"phidim.gov.np", emoji:"🏘️" },
-          { en:"Ilam Municipality", ne:"इलाम नगरपालिका", url:"ilam.gov.np", emoji:"🏘️" },
-          { en:"Deumai Municipality", ne:"देउमाई नगरपालिका", url:"deumai.gov.np", emoji:"🏘️" },
-          { en:"Mai Municipality", ne:"माई नगरपालिका", url:"mai.gov.np", emoji:"🏘️" },
-          { en:"Suryodaya Municipality", ne:"सूर्योदय नगरपालिका", url:"suryodaya.gov.np", emoji:"🏘️" },
-          { en:"Bhadrapur Municipality", ne:"भद्रपुर नगरपालिका", url:"bhadrapur.gov.np", emoji:"🏘️" },
-          { en:"Mechinagar Municipality", ne:"मेचीनगर नगरपालिका", url:"mechinagar.gov.np", emoji:"🏘️" },
-          { en:"Birtamod Municipality", ne:"बिर्तामोड नगरपालिका", url:"birtamod.gov.np", emoji:"🏘️" },
-          { en:"Gauradaha Municipality", ne:"गौरादह नगरपालिका", url:"gauradaha.gov.np", emoji:"🏘️" },
-          { en:"Arjundhara Municipality", ne:"अर्जुनधारा नगरपालिका", url:"arjundhara.gov.np", emoji:"🏘️" },
-          { en:"Kankai Municipality", ne:"कंकाई नगरपालिका", url:"kankai.gov.np", emoji:"🏘️" },
-          { en:"Shivasatakshi Municipality", ne:"शिवसताक्षी नगरपालिका", url:"shivasatakshi.gov.np", emoji:"🏘️" },
-          { en:"Pathari Sanischare Municipality", ne:"पाथरी शनिश्चरे नगरपालिका", url:"patharisanischare.gov.np", emoji:"🏘️" },
-          { en:"Belbari Municipality", ne:"बेलबारी नगरपालिका", url:"belbari.gov.np", emoji:"🏘️" },
-          { en:"Rangeli Municipality", ne:"रंगेली नगरपालिका", url:"rangeli.gov.np", emoji:"🏘️" },
-          { en:"Urlabari Municipality", ne:"उर्लाबारी नगरपालिका", url:"urlabari.gov.np", emoji:"🏘️" },
-          { en:"Letang Municipality", ne:"लेटाङ नगरपालिका", url:"letang.gov.np", emoji:"🏘️" },
-          { en:"Sunbarsi Municipality", ne:"सुनबर्सी नगरपालिका", url:"sunbarsi.gov.np", emoji:"🏘️" },
-          { en:"Sundar Haraicha Municipality", ne:"सुन्दरहरैचा नगरपालिका", url:"sundarharaicha.gov.np", emoji:"🏘️" },
-          { en:"Ratuwamai Municipality", ne:"रतुवामाई नगरपालिका", url:"ratuwamai.gov.np", emoji:"🏘️" },
-          { en:"Inaruwa Municipality", ne:"इनरुवा नगरपालिका", url:"inaruwa.gov.np", emoji:"🏘️" },
-          { en:"Barahakshetra Municipality", ne:"बराहक्षेत्र नगरपालिका", url:"barahakshetra.gov.np", emoji:"🏘️" },
-          { en:"Duhabi Municipality", ne:"दुहबी नगरपालिका", url:"duhabi.gov.np", emoji:"🏘️" },
-          { en:"Ramdhuni Municipality", ne:"रामधुनी नगरपालिका", url:"ramdhuni.gov.np", emoji:"🏘️" },
-          { en:"Dhankuta Municipality", ne:"धनकुटा नगरपालिका", url:"dhankuta.gov.np", emoji:"🏘️" },
-          { en:"Pakhribas Municipality", ne:"पाख्रिबास नगरपालिका", url:"pakhribas.gov.np", emoji:"🏘️" },
-          { en:"Chainpur Municipality", ne:"चैनपुर नगरपालिका", url:"chainpur.gov.np", emoji:"🏘️" },
-          { en:"Dharmadevi Municipality", ne:"धर्मदेवी नगरपालिका", url:"dharmadevi.gov.np", emoji:"🏘️" },
-          { en:"Khandbari Municipality", ne:"खाँदबारी नगरपालिका", url:"khandbari.gov.np", emoji:"🏘️" },
-          { en:"Panchkhapan Municipality", ne:"पाँचखपन नगरपालिका", url:"panchkhapan.gov.np", emoji:"🏘️" },
-          { en:"Bhojpur Municipality", ne:"भोजपुर नगरपालिका", url:"bhojpur.gov.np", emoji:"🏘️" },
-          { en:"Sadananda Municipality", ne:"सदानन्द नगरपालिका", url:"sadananda.gov.np", emoji:"🏘️" },
-          { en:"Myanglung Municipality", ne:"म्याङलुङ नगरपालिका", url:"myanglung.gov.np", emoji:"🏘️" },
-          { en:"Laligurans Municipality", ne:"लालीगुराँस नगरपालिका", url:"laligurans.gov.np", emoji:"🏘️" },
-          { en:"Siddhicharan Municipality", ne:"सिद्धिचरण नगरपालिका", url:"siddhicharan.gov.np", emoji:"🏘️" },
-          { en:"Diktel Rupakot Majhuwagadhi Municipality", ne:"दिक्तेल रुपाकोट मझुवागढी नगरपालिका", url:"diktel.gov.np", emoji:"🏘️" },
-          { en:"Halesi Tuwachung Municipality", ne:"हालेसी तुवाचुङ नगरपालिका", url:"halesi.gov.np", emoji:"🏘️" },
-          { en:"Solududhkund Municipality", ne:"सोलुदुधकुण्ड नगरपालिका", url:"solududhkund.gov.np", emoji:"🏘️" },
-          { en:"Chaudandigadhi Municipality", ne:"चौदण्डीगढी नगरपालिका", url:"chaudandigadhi.gov.np", emoji:"🏘️" },
-          { en:"Triyuga Municipality", ne:"त्रियुगा नगरपालिका", url:"triyuga.gov.np", emoji:"🏘️" },
-          { en:"Katari Municipality", ne:"कटारी नगरपालिका", url:"katari.gov.np", emoji:"🏘️" },
-          { en:"Belaka Municipality", ne:"बेलका नगरपालिका", url:"belaka.gov.np", emoji:"🏘️" },
+        en:"Koshi Province", ne:"कोशी प्रदेश", url:"https://ocmcm.koshi.gov.np", emoji:"🏔️", cap:"Biratnagar", capNe:"विराटनगर",
+        districts:[
+          {
+            en:"Bhojpur", ne:"भोजपुर",
+            units:[
+              {en:"Bhojpur Municipality", ne:"Bhojpur Municipality", url:"https://bhojpurmun.gov.np", type:"Municipality"},
+              {en:"Sadananda Municipality", ne:"Sadananda Municipality", url:"https://sadanandamun.gov.np", type:"Municipality"},
+              {en:"Hatuwagadhi Rural Municipality", ne:"Hatuwagadhi Rural Municipality", url:"https://hatuwagadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Ramprasad Rai Rural Municipality", ne:"Ramprasad Rai Rural Municipality", url:"https://ramprasadraimun.gov.np", type:"Rural Municipality"},
+              {en:"Aamchok Rural Municipality", ne:"Aamchok Rural Municipality", url:"https://aamchowkmun.gov.np", type:"Rural Municipality"},
+              {en:"Tyamke Maiyun Rural Municipality", ne:"Tyamke Maiyun Rural Municipality", url:"https://tyamkemaiyummun.gov.np", type:"Rural Municipality"},
+              {en:"Arun Rural Municipality", ne:"Arun Rural Municipality", url:"https://arunmun.gov.np", type:"Rural Municipality"},
+              {en:"Pauwadungma Rural Municipality", ne:"Pauwadungma Rural Municipality", url:"https://www.pauwadungmamun.gov.np", type:"Rural Municipality"},
+              {en:"Salpasilichho Rural Municipality", ne:"Salpasilichho Rural Municipality", url:"https://www.salpasilichhomun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dhankuta", ne:"धनकुटा",
+            units:[
+              {en:"Dhankuta Municipality", ne:"Dhankuta Municipality", url:"https://dhankutamun.gov.np", type:"Municipality"},
+              {en:"Pakhribas Municipality", ne:"Pakhribas Municipality", url:"https://pakhribasmun.gov.np", type:"Municipality"},
+              {en:"Mahalaxmi Municipality", ne:"Mahalaxmi Municipality", url:"https://mahalaxmimundhankuta.gov.np", type:"Municipality"},
+              {en:"Sangurigadhi Rural Municipality", ne:"Sangurigadhi Rural Municipality", url:"https://sangurigadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Chaubise Rural Municipality", ne:"Chaubise Rural Municipality", url:"https://choubisemun.gov.np", type:"Rural Municipality"},
+              {en:"Shahidbhumi Rural Municipality", ne:"Shahidbhumi Rural Municipality", url:"https://shahidbhumimun.gov.np", type:"Rural Municipality"},
+              {en:"Chhathar Jorpati Rural Municipality", ne:"Chhathar Jorpati Rural Municipality", url:"https://chhatharjorpatimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Ilam", ne:"इलाम",
+            units:[
+              {en:"Ilam Municipality", ne:"Ilam Municipality", url:"https://ilammun.gov.np", type:"Municipality"},
+              {en:"Deumai Municipality", ne:"Deumai Municipality", url:"https://deumaimun.gov.np", type:"Municipality"},
+              {en:"Mai Municipality", ne:"Mai Municipality", url:"https://maimun.gov.np", type:"Municipality"},
+              {en:"Suryodaya Municipality", ne:"Suryodaya Municipality", url:"https://suryodayamun.gov.np", type:"Municipality"},
+              {en:"Phakphokthum Rural Municipality", ne:"Phakphokthum Rural Municipality", url:"https://phakphokthummun.gov.np", type:"Rural Municipality"},
+              {en:"Mai Jogmai Rural Municipality", ne:"Mai Jogmai Rural Municipality", url:"https://maijogmaimun.gov.np", type:"Rural Municipality"},
+              {en:"Chulachuli Rural Municipality", ne:"Chulachuli Rural Municipality", url:"https://chulachulimun.gov.np", type:"Rural Municipality"},
+              {en:"Rong Rural Municipality", ne:"Rong Rural Municipality", url:"https://rongmun.gov.np", type:"Rural Municipality"},
+              {en:"Mangsebung Rural Municipality", ne:"Mangsebung Rural Municipality", url:"https://mansebungmun.gov.np", type:"Rural Municipality"},
+              {en:"Sandakpur Rural Municipality", ne:"Sandakpur Rural Municipality", url:"https://www.sandakpurmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Jhapa", ne:"झापा",
+            units:[
+              {en:"Bhadrapur Municipality", ne:"Bhadrapur Municipality", url:"https://bhadrapurmun.gov.np", type:"Municipality"},
+              {en:"Mechinagar Municipality", ne:"Mechinagar Municipality", url:"https://mechinagarmun.gov.np", type:"Municipality"},
+              {en:"Birtamod Municipality", ne:"Birtamod Municipality", url:"https://birtamodmun.gov.np", type:"Municipality"},
+              {en:"Gauradaha Municipality", ne:"Gauradaha Municipality", url:"https://gauradahamun.gov.np", type:"Municipality"},
+              {en:"Arjundhara Municipality", ne:"Arjundhara Municipality", url:"https://arjundharamun.gov.np", type:"Municipality"},
+              {en:"Kankai Municipality", ne:"Kankai Municipality", url:"https://kankaimun.gov.np", type:"Municipality"},
+              {en:"Shivasatakshi Municipality", ne:"Shivasatakshi Municipality", url:"https://shivasatakshimun.gov.np", type:"Municipality"},
+              {en:"Damak Municipality", ne:"Damak Municipality", url:"https://damakmun.gov.np", type:"Municipality"},
+              {en:"Buddhashanti Rural Municipality", ne:"Buddhashanti Rural Municipality", url:"https://www.buddhashantimun.gov.np", type:"Rural Municipality"},
+              {en:"Haldibari Rural Municipality", ne:"Haldibari Rural Municipality", url:"https://haldibarimun.gov.np", type:"Rural Municipality"},
+              {en:"Kachankawal Rural Municipality", ne:"Kachankawal Rural Municipality", url:"https://kachankawalmun.gov.np", type:"Rural Municipality"},
+              {en:"Barhadashi Rural Municipality", ne:"Barhadashi Rural Municipality", url:"https://bahradashimun.gov.np", type:"Rural Municipality"},
+              {en:"Jhapa Rural Municipality", ne:"Jhapa Rural Municipality", url:"https://www.jhapamun.gov.np", type:"Rural Municipality"},
+              {en:"Gauriganj Rural Municipality", ne:"Gauriganj Rural Municipality", url:"https://gaurigunjmun.gov.np", type:"Rural Municipality"},
+              {en:"Kamal Rural Municipality", ne:"Kamal Rural Municipality", url:"https://www.kamalmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Khotang", ne:"खोटाङ",
+            units:[
+              {en:"Halesi Tuwachung Municipality", ne:"Halesi Tuwachung Municipality", url:"https://halesimun.gov.np", type:"Municipality"},
+              {en:"Diktel Rupakot Majhuwagadhi Municipality", ne:"Diktel Rupakot Majhuwagadhi Municipality", url:"https://diktelmun.gov.np", type:"Municipality"},
+              {en:"Aiselukharka Rural Municipality", ne:"Aiselukharka Rural Municipality", url:"https://aiselukharkamun.gov.np", type:"Rural Municipality"},
+              {en:"Rawa Besi Rural Municipality", ne:"Rawa Besi Rural Municipality", url:"https://www.rawabesimun.gov.np", type:"Rural Municipality"},
+              {en:"Kepilasagadhi Rural Municipality", ne:"Kepilasagadhi Rural Municipality", url:"https://kepilasgadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Sakela Rural Municipality", ne:"Sakela Rural Municipality", url:"https://www.sakelamun.gov.np", type:"Rural Municipality"},
+              {en:"Diprung Chuichumma Rural Municipality", ne:"Diprung Chuichumma Rural Municipality", url:"https://diprungmun.gov.np", type:"Rural Municipality"},
+              {en:"Khotehang Rural Municipality", ne:"Khotehang Rural Municipality", url:"https://khotehangmun.gov.np", type:"Rural Municipality"},
+              {en:"Jantedhunga Rural Municipality", ne:"Jantedhunga Rural Municipality", url:"https://jantedhungamun.gov.np", type:"Rural Municipality"},
+              {en:"Barahapokhari Rural Municipality", ne:"Barahapokhari Rural Municipality", url:"https://www.barahapokharimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Morang", ne:"मोरङ",
+            units:[
+              {en:"Biratnagar Metropolitan City", ne:"Biratnagar Metropolitan City", url:"https://biratnagar.gov.np", type:"Metropolitan"},
+              {en:"Sundar Haraicha Municipality", ne:"Sundar Haraicha Municipality", url:"https://sundarharaichamun.gov.np", type:"Municipality"},
+              {en:"Urlabari Municipality", ne:"Urlabari Municipality", url:"https://urlabarimun.gov.np", type:"Municipality"},
+              {en:"Sunawarsi Municipality", ne:"Sunawarsi Municipality", url:"https://sunawarshimun.gov.np", type:"Municipality"},
+              {en:"Ratuwamai Municipality", ne:"Ratuwamai Municipality", url:"https://ratuwamaimun.gov.np", type:"Municipality"},
+              {en:"Rangeli Municipality", ne:"Rangeli Municipality", url:"https://rangelimun.gov.np", type:"Municipality"},
+              {en:"Pathari Sanischare Municipality", ne:"Pathari Sanischare Municipality", url:"https://patharisanischaremun.gov.np", type:"Municipality"},
+              {en:"Letang Municipality", ne:"Letang Municipality", url:"https://letangmun.gov.np", type:"Municipality"},
+              {en:"Belbari Municipality", ne:"Belbari Municipality", url:"https://belbarimun.gov.np", type:"Municipality"},
+            ]
+          },
+          {
+            en:"Okhaldhunga", ne:"ओखलढुङ्गा",
+            units:[
+              {en:"Siddhicharan Municipality", ne:"Siddhicharan Municipality", url:"https://siddhicharanmun.gov.np", type:"Municipality"},
+              {en:"Champadevi Rural Municipality", ne:"Champadevi Rural Municipality", url:"https://www.champadevimun.gov.np", type:"Rural Municipality"},
+              {en:"Sunkoshi Rural Municipality", ne:"Sunkoshi Rural Municipality", url:"https://www.sunkoshimunokhaldhunga.gov.np", type:"Rural Municipality"},
+              {en:"Likhu Rural Municipality", ne:"Likhu Rural Municipality", url:"https://likhumunokhaldhunga.gov.np", type:"Rural Municipality"},
+              {en:"Chisankhugadhi Rural Municipality", ne:"Chisankhugadhi Rural Municipality", url:"https://chishankhugadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Molung Rural Municipality", ne:"Molung Rural Municipality", url:"https://www.molungmun.gov.np", type:"Rural Municipality"},
+              {en:"Khijidemba Rural Municipality", ne:"Khijidemba Rural Municipality", url:"https://www.khijidembamun.gov.np", type:"Rural Municipality"},
+              {en:"Manebhanjyang Rural Municipality", ne:"Manebhanjyang Rural Municipality", url:"https://www.manebhanjyangmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Panchthar", ne:"पाँचथर",
+            units:[
+              {en:"Phidim Municipality", ne:"Phidim Municipality", url:"https://phidimmun.gov.np", type:"Municipality"},
+              {en:"Hilihang Rural Municipality", ne:"Hilihang Rural Municipality", url:"https://hilihangmun.gov.np", type:"Rural Municipality"},
+              {en:"Kummayak Rural Municipality", ne:"Kummayak Rural Municipality", url:"https://kummayakmun.gov.np", type:"Rural Municipality"},
+              {en:"Miklajung Rural Municipality", ne:"Miklajung Rural Municipality", url:"https://miklajungmunpanchthar.gov.np", type:"Rural Municipality"},
+              {en:"Phalelung Rural Municipality", ne:"Phalelung Rural Municipality", url:"https://phalelungmun.gov.np", type:"Rural Municipality"},
+              {en:"Phalgunanda Rural Municipality", ne:"Phalgunanda Rural Municipality", url:"https://phalgunandamun.gov.np", type:"Rural Municipality"},
+              {en:"Tumbewa Rural Municipality", ne:"Tumbewa Rural Municipality", url:"https://tumwewamun.gov.np", type:"Rural Municipality"},
+              {en:"Yangawarak Rural Municipality", ne:"Yangawarak Rural Municipality", url:"https://yangwarakmunpanchthar.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Sankhuwasabha", ne:"सङ्खुवासभा",
+            units:[
+              {en:"Dharmadevi Municipality", ne:"Dharmadevi Municipality", url:"https://dharmadevimun.gov.np", type:"Municipality"},
+              {en:"Khandbari Municipality", ne:"Khandbari Municipality", url:"https://khandbarimun.gov.np", type:"Municipality"},
+              {en:"Panchkhapan Municipality", ne:"Panchkhapan Municipality", url:"https://panchkhapanmun.gov.np", type:"Municipality"},
+              {en:"Madi Municipality", ne:"Madi Municipality", url:"https://madimun.gov.np", type:"Municipality"},
+              {en:"Chainpur Municipality", ne:"Chainpur Municipality", url:"https://chainpurmun.gov.np", type:"Municipality"},
+              {en:"Bhotkhola Rural Municipality", ne:"Bhotkhola Rural Municipality", url:"https://www.bhotkholamun.gov.np", type:"Rural Municipality"},
+              {en:"Chichila Rural Municipality", ne:"Chichila Rural Municipality", url:"https://chichilamun.gov.np", type:"Rural Municipality"},
+              {en:"Makalu Rural Municipality", ne:"Makalu Rural Municipality", url:"https://makalumun.gov.np", type:"Rural Municipality"},
+              {en:"Savapokhari Rural Municipality", ne:"Savapokhari Rural Municipality", url:"https://www.savapokharimun.gov.np", type:"Rural Municipality"},
+              {en:"Silichong Rural Municipality", ne:"Silichong Rural Municipality", url:"https://www.silichongmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Solukhumbu", ne:"सोलुखुम्बु",
+            units:[
+              {en:"Solududhkunda Municipality", ne:"Solududhkunda Municipality", url:"https://solududhkundamun.gov.np", type:"Municipality"},
+              {en:"Dudhakaushika Rural Municipality", ne:"Dudhakaushika Rural Municipality", url:"https://dudhkaushikamun.gov.np", type:"Rural Municipality"},
+              {en:"Necha Salyan Rural Municipality", ne:"Necha Salyan Rural Municipality", url:"https://nechasalyanmun.gov.np", type:"Rural Municipality"},
+              {en:"Dudhkoshi Rural Municipality", ne:"Dudhkoshi Rural Municipality", url:"https://dudhkoshimun.gov.np", type:"Rural Municipality"},
+              {en:"Maha Kulung Rural Municipality", ne:"Maha Kulung Rural Municipality", url:"https://mahakulungmun.gov.np", type:"Rural Municipality"},
+              {en:"Sotang Rural Municipality", ne:"Sotang Rural Municipality", url:"https://sotangmun.gov.np", type:"Rural Municipality"},
+              {en:"Likhu Pike Rural Municipality", ne:"Likhu Pike Rural Municipality", url:"https://likhupikemun.gov.np", type:"Rural Municipality"},
+              {en:"Khumbu Pasanglhamu Rural Municipality", ne:"Khumbu Pasanglhamu Rural Municipality", url:"https://khumbupasanglhamumun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Sunsari", ne:"सुनसरी",
+            units:[
+              {en:"Dharan Sub-Metropolitan City", ne:"Dharan Sub-Metropolitan City", url:"https://dharan.gov.np", type:"Sub-Metropolitan"},
+              {en:"Itahari Sub-Metropolitan City", ne:"Itahari Sub-Metropolitan City", url:"https://itaharimun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Inaruwa Municipality", ne:"Inaruwa Municipality", url:"https://inaruwamun.gov.np", type:"Municipality"},
+              {en:"Duhabi Municipality", ne:"Duhabi Municipality", url:"https://duhabimun.gov.np", type:"Municipality"},
+              {en:"Ramdhuni Municipality", ne:"Ramdhuni Municipality", url:"https://ramdhunimun.gov.np", type:"Municipality"},
+              {en:"Barahachhetra Municipality", ne:"Barahachhetra Municipality", url:"https://barahamun.gov.np", type:"Municipality"},
+              {en:"Koshi Rural Municipality", ne:"Koshi Rural Municipality", url:"https://www.koshimun.gov.np", type:"Rural Municipality"},
+              {en:"Gadhi Rural Municipality", ne:"Gadhi Rural Municipality", url:"https://www.gadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Barju Rural Municipality", ne:"Barju Rural Municipality", url:"https://www.barjumun.gov.np", type:"Rural Municipality"},
+              {en:"Bhokraha Narsingh Rural Municipality", ne:"Bhokraha Narsingh Rural Municipality", url:"https://www.bhokrahamun.gov.np", type:"Rural Municipality"},
+              {en:"Harinagar Rural Municipality", ne:"Harinagar Rural Municipality", url:"https://www.harinagaramun.gov.np", type:"Rural Municipality"},
+              {en:"Dewanganj Rural Municipality", ne:"Dewanganj Rural Municipality", url:"https://www.dewanganjmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Taplejung", ne:"ताप्लेजुङ",
+            units:[
+              {en:"Phungling Municipality", ne:"Phungling Municipality", url:"https://phunglingmun.gov.np", type:"Municipality"},
+              {en:"Aathrai Tribeni Rural Municipality", ne:"Aathrai Tribeni Rural Municipality", url:"https://aathraitribenimun.gov.np", type:"Rural Municipality"},
+              {en:"Sidingwa Rural Municipality", ne:"Sidingwa Rural Municipality", url:"https://sidingbamun.gov.np", type:"Rural Municipality"},
+              {en:"Phaktanglung Rural Municipality", ne:"Phaktanglung Rural Municipality", url:"https://phaktanglungmun.gov.np", type:"Rural Municipality"},
+              {en:"Mikkwakhola Rural Municipality", ne:"Mikkwakhola Rural Municipality", url:"https://mikwakholamun.gov.np", type:"Rural Municipality"},
+              {en:"Meringden Rural Municipality", ne:"Meringden Rural Municipality", url:"https://meringdenmun.gov.np", type:"Rural Municipality"},
+              {en:"Maiwakhola Rural Municipality", ne:"Maiwakhola Rural Municipality", url:"https://maiwakholamun.gov.np", type:"Rural Municipality"},
+              {en:"Pathibhara Yangwarak Rural Municipality", ne:"Pathibhara Yangwarak Rural Municipality", url:"https://www.yangwarakmuntaplejung.gov.np", type:"Rural Municipality"},
+              {en:"Sirijangha Rural Municipality", ne:"Sirijangha Rural Municipality", url:"https://sirijanghamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Tehrathum", ne:"तेह्रथुम",
+            units:[
+              {en:"Laligurans Municipality", ne:"Laligurans Municipality", url:"https://laliguransmun.gov.np", type:"Municipality"},
+              {en:"Myanglung Municipality", ne:"Myanglung Municipality", url:"https://myanglungmun.gov.np", type:"Municipality"},
+              {en:"Aathrai Rural Municipality", ne:"Aathrai Rural Municipality", url:"https://www.aathraimun.gov.np", type:"Rural Municipality"},
+              {en:"Chhathar Rural Municipality", ne:"Chhathar Rural Municipality", url:"https://www.chhatharmun.gov.np", type:"Rural Municipality"},
+              {en:"Menchhayayem Rural Municipality", ne:"Menchhayayem Rural Municipality", url:"https://www.menchhayayemmun.gov.np", type:"Rural Municipality"},
+              {en:"Phedap Rural Municipality", ne:"Phedap Rural Municipality", url:"https://www.phedapmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Udayapur", ne:"उदयपुर",
+            units:[
+              {en:"Chaudandigadhi Municipality", ne:"Chaudandigadhi Municipality", url:"https://chaudandigadhimun.gov.np", type:"Municipality"},
+              {en:"Triyuga Municipality", ne:"Triyuga Municipality", url:"https://triyugamun.gov.np", type:"Municipality"},
+              {en:"Katari Municipality", ne:"Katari Municipality", url:"https://katarimun.gov.np", type:"Municipality"},
+              {en:"Belaka Municipality", ne:"Belaka Municipality", url:"https://belakamun.gov.np", type:"Municipality"},
+              {en:"Udayapurgadhi Rural Municipality", ne:"Udayapurgadhi Rural Municipality", url:"https://udayapurgadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Tapli Rural Municipality", ne:"Tapli Rural Municipality", url:"https://taplimun.gov.np", type:"Rural Municipality"},
+              {en:"Rautamai Rural Municipality", ne:"Rautamai Rural Municipality", url:"https://rautamaimun.gov.np", type:"Rural Municipality"},
+              {en:"Limchungbung Rural Municipality", ne:"Limchungbung Rural Municipality", url:"https://limchungbungmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Madhesh Province", ne:"मधेश प्रदेश", url:"madhesh.gov.np", emoji:"🌾", cap:"Janakpur", capNe:"जनकपुर",
-        metros:[
-          { en:"Birgunj Metropolitan City", ne:"वीरगञ्ज महानगरपालिका", url:"birgunj.gov.np", emoji:"🏙️" },
-          { en:"Janakpur Sub-Metropolitan City", ne:"जनकपुर उपमहानगरपालिका", url:"janakpurdham.gov.np", emoji:"🏙️" },
-        ],
-        submetros:[
-          { en:"Kalaiya Sub-Metropolitan City", ne:"कलैया उपमहानगरपालिका", url:"kalaiya.gov.np", emoji:"🏢" },
-          { en:"Jitpur Simara Sub-Metropolitan City", ne:"जितपुर सिमरा उपमहानगरपालिका", url:"jitpursimara.gov.np", emoji:"🏢" },
-          { en:"Malangawa Sub-Metropolitan City", ne:"मलङगवा उपमहानगरपालिका", url:"malangawa.gov.np", emoji:"🏢" },
-        ],
-        municipalities:[
-          { en:"Kanchanrup Municipality", ne:"कञ्चनरूप नगरपालिका", url:"kanchanrup.gov.np", emoji:"🏘️" },
-          { en:"Saptakoshi Municipality", ne:"सप्तकोशी नगरपालिका", url:"saptakoshi.gov.np", emoji:"🏘️" },
-          { en:"Surunga Municipality", ne:"सुरुङ्गा नगरपालिका", url:"surunga.gov.np", emoji:"🏘️" },
-          { en:"Dakneshwori Municipality", ne:"दकनेश्वरी नगरपालिका", url:"dakneshwori.gov.np", emoji:"🏘️" },
-          { en:"Bodebarsain Municipality", ne:"बोदेबर्साइन नगरपालिका", url:"bodebarsain.gov.np", emoji:"🏘️" },
-          { en:"Rajbiraj Municipality", ne:"राजविराज नगरपालिका", url:"rajbiraj.gov.np", emoji:"🏘️" },
-          { en:"Khadak Municipality", ne:"खडक नगरपालिका", url:"khadak.gov.np", emoji:"🏘️" },
-          { en:"Hanumannagar Kankalini Municipality", ne:"हनुमाननगर कङ्कालिनी नगरपालिका", url:"hanumannagar.gov.np", emoji:"🏘️" },
-          { en:"Shambhunath Municipality", ne:"शम्भुनाथ नगरपालिका", url:"shambhunath.gov.np", emoji:"🏘️" },
-          { en:"Lahan Municipality", ne:"लहान नगरपालिका", url:"lahan.gov.np", emoji:"🏘️" },
-          { en:"Mirchaiya Municipality", ne:"मिर्चैया नगरपालिका", url:"mirchaiya.gov.np", emoji:"🏘️" },
-          { en:"Sukhipur Municipality", ne:"सुखीपुर नगरपालिका", url:"sukhipur.gov.np", emoji:"🏘️" },
-          { en:"Golbazar Municipality", ne:"गोलबजार नगरपालिका", url:"golbazar.gov.np", emoji:"🏘️" },
-          { en:"Dhangadhimai Municipality", ne:"धनगढीमाई नगरपालिका", url:"dhangadhimai.gov.np", emoji:"🏘️" },
-          { en:"Karjanha Municipality", ne:"कर्जन्हा नगरपालिका", url:"karjanha.gov.np", emoji:"🏘️" },
-          { en:"Siraha Municipality", ne:"सिराहा नगरपालिका", url:"siraha.gov.np", emoji:"🏘️" },
-          { en:"Kalyanpur Municipality", ne:"कल्याणपुर नगरपालिका", url:"kalyanpur.gov.np", emoji:"🏘️" },
-          { en:"Dhanushadham Municipality", ne:"धनुषाधाम नगरपालिका", url:"dhanushadham.gov.np", emoji:"🏘️" },
-          { en:"Nagarain Municipality", ne:"नगराइन नगरपालिका", url:"nagarain.gov.np", emoji:"🏘️" },
-          { en:"Mithila Municipality", ne:"मिथिला नगरपालिका", url:"mithila.gov.np", emoji:"🏘️" },
-          { en:"Kamala Municipality", ne:"कमला नगरपालिका", url:"kamala.gov.np", emoji:"🏘️" },
-          { en:"Hansapur Municipality", ne:"हंसपुर नगरपालिका", url:"hansapur.gov.np", emoji:"🏘️" },
-          { en:"Mithila Bihari Municipality", ne:"मिथिला बिहारी नगरपालिका", url:"mithilabihari.gov.np", emoji:"🏘️" },
-          { en:"Ganeshman Charanath Municipality", ne:"गणेशमान चारनाथ नगरपालिका", url:"ganeshmancharanath.gov.np", emoji:"🏘️" },
-          { en:"Chhireshwarnath Municipality", ne:"छिरेश्वरनाथ नगरपालिका", url:"chhireshwarnath.gov.np", emoji:"🏘️" },
-          { en:"Bideha Municipality", ne:"विदेह नगरपालिका", url:"bideha.gov.np", emoji:"🏘️" },
-          { en:"Sabaila Municipality", ne:"सबैला नगरपालिका", url:"sabaila.gov.np", emoji:"🏘️" },
-          { en:"Sahidnagar Municipality", ne:"शहीदनगर नगरपालिका", url:"sahidnagar.gov.np", emoji:"🏘️" },
-          { en:"Aurahi Municipality", ne:"औराही नगरपालिका", url:"aurahi.gov.np", emoji:"🏘️" },
-          { en:"Matihani Municipality", ne:"मटिहानी नगरपालिका", url:"matihani.gov.np", emoji:"🏘️" },
-          { en:"Balawa Municipality", ne:"बलवा नगरपालिका", url:"balawa.gov.np", emoji:"🏘️" },
-          { en:"Bhangaha Municipality", ne:"भंगाहा नगरपालिका", url:"bhangaha.gov.np", emoji:"🏘️" },
-          { en:"Gaushala Municipality", ne:"गौशाला नगरपालिका", url:"gaushala.gov.np", emoji:"🏘️" },
-          { en:"Jaleshwar Municipality", ne:"जलेश्वर नगरपालिका", url:"jaleshwor.gov.np", emoji:"🏘️" },
-          { en:"Ramgopalpur Municipality", ne:"रामगोपालपुर नगरपालिका", url:"ramgopalpur.gov.np", emoji:"🏘️" },
-          { en:"Loharpatti Municipality", ne:"लोहारपट्टी नगरपालिका", url:"loharpatti.gov.np", emoji:"🏘️" },
-          { en:"Bardibas Municipality", ne:"बर्दिबास नगरपालिका", url:"bardibas.gov.np", emoji:"🏘️" },
-          { en:"Manara Shiswa Municipality", ne:"मनरा शिसवा नगरपालिका", url:"manarasishwa.gov.np", emoji:"🏘️" },
-          { en:"Bagmati Municipality", ne:"बागमती नगरपालिका", url:"bagmati.gov.np", emoji:"🏘️" },
-          { en:"Balara Municipality", ne:"बलरा नगरपालिका", url:"balara.gov.np", emoji:"🏘️" },
-          { en:"Hariwan Municipality", ne:"हरिवन नगरपालिका", url:"hariwan.gov.np", emoji:"🏘️" },
-          { en:"Barahathwa Municipality", ne:"बरहथवा नगरपालिका", url:"barahathwa.gov.np", emoji:"🏘️" },
-          { en:"Godaita Municipality", ne:"गोडैटा नगरपालिका", url:"godaita.gov.np", emoji:"🏘️" },
-          { en:"Ishwarpur Municipality", ne:"ईश्वरपुर नगरपालिका", url:"ishwarpur.gov.np", emoji:"🏘️" },
-          { en:"Lalbandi Municipality", ne:"लालबन्दी नगरपालिका", url:"lalbandi.gov.np", emoji:"🏘️" },
-          { en:"Haripurwa Municipality", ne:"हरिपुर्वा नगरपालिका", url:"haripurwa.gov.np", emoji:"🏘️" },
-          { en:"Kabilasi Municipality", ne:"कविलासी नगरपालिका", url:"kabilasi.gov.np", emoji:"🏘️" },
-          { en:"Haripur Municipality", ne:"हरिपुर नगरपालिका", url:"haripur.gov.np", emoji:"🏘️" },
-          { en:"Gujara Municipality", ne:"गुजरा नगरपालिका", url:"gujara.gov.np", emoji:"🏘️" },
-          { en:"Garuda Municipality", ne:"गरुडा नगरपालिका", url:"garuda.gov.np", emoji:"🏘️" },
-          { en:"Dewahi Gonahi Municipality", ne:"देवाही गोनाही नगरपालिका", url:"dewahigonahi.gov.np", emoji:"🏘️" },
-          { en:"Maulapur Municipality", ne:"मौलापुर नगरपालिका", url:"maulapur.gov.np", emoji:"🏘️" },
-          { en:"Ishanath Municipality", ne:"ईशनाथ नगरपालिका", url:"ishanath.gov.np", emoji:"🏘️" },
-          { en:"Phatuwa Bijayapur Municipality", ne:"फतुवा विजयपुर नगरपालिका", url:"phatuwabijayapur.gov.np", emoji:"🏘️" },
-          { en:"Gadhimai Municipality", ne:"गढीमाई नगरपालिका", url:"gadhimai.gov.np", emoji:"🏘️" },
-          { en:"Madhav Narayan Municipality", ne:"माधव नारायण नगरपालिका", url:"madhavnarayan.gov.np", emoji:"🏘️" },
-          { en:"Katahariya Municipality", ne:"कटहरिया नगरपालिका", url:"katahariya.gov.np", emoji:"🏘️" },
-          { en:"Chandrapur Municipality", ne:"चन्द्रपुर नगरपालिका", url:"chandrapur.gov.np", emoji:"🏘️" },
-          { en:"Paroha Municipality", ne:"पारोहा नगरपालिका", url:"paroha.gov.np", emoji:"🏘️" },
-          { en:"Rajpur Municipality", ne:"राजपुर नगरपालिका", url:"rajpur.gov.np", emoji:"🏘️" },
-          { en:"Budhimai Municipality", ne:"बुधीमाई नगरपालिका", url:"budhimai.gov.np", emoji:"🏘️" },
-          { en:"Brindaban Municipality", ne:"वृन्दावन नगरपालिका", url:"brindaban.gov.np", emoji:"🏘️" },
-          { en:"Gaur Municipality", ne:"गौर नगरपालिका", url:"gaur.gov.np", emoji:"🏘️" },
-          { en:"Rajdevi Municipality", ne:"राजदेवी नगरपालिका", url:"rajdevi.gov.np", emoji:"🏘️" },
-          { en:"Kolhabi Municipality", ne:"कोल्हबी नगरपालिका", url:"kolhabi.gov.np", emoji:"🏘️" },
-          { en:"Mahagadhimai Municipality", ne:"महागढीमाई नगरपालिका", url:"mahagadhimai.gov.np", emoji:"🏘️" },
-          { en:"Nijgadh Municipality", ne:"निजगढ नगरपालिका", url:"nijgadh.gov.np", emoji:"🏘️" },
-          { en:"Simraungadh Municipality", ne:"सिमरौनगढ नगरपालिका", url:"simraungadh.gov.np", emoji:"🏘️" },
-          { en:"Parsagadhi Municipality", ne:"पर्सागढी नगरपालिका", url:"parsagadhi.gov.np", emoji:"🏘️" },
-          { en:"Pokhariya Municipality", ne:"पोखरिया नगरपालिका", url:"pokhariya.gov.np", emoji:"🏘️" },
-          { en:"Bahudarmai Municipality", ne:"बहुदरमाई नगरपालिका", url:"bahudarmai.gov.np", emoji:"🏘️" },
-          { en:"Pacharauta Municipality", ne:"पचरौता नगरपालिका", url:"pacharauta.gov.np", emoji:"🏘️" },
+        en:"Madhesh Province", ne:"मधेश प्रदेश", url:"https://ocmcm.madhesh.gov.np", emoji:"🌾", cap:"Janakpur", capNe:"जनकपुर",
+        districts:[
+          {
+            en:"Bara", ne:"बारा",
+            units:[
+              {en:"Kalaiya Sub-Metropolitan City", ne:"Kalaiya Sub-Metropolitan City", url:"https://kalaiyamun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Jeetpur Simara Sub-Metropolitan City", ne:"Jeetpur Simara Sub-Metropolitan City", url:"https://www.jeetpursimaramun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Kolhabi Municipality", ne:"Kolhabi Municipality", url:"https://kolhabimun.gov.np", type:"Municipality"},
+              {en:"Nijgadh Municipality", ne:"Nijgadh Municipality", url:"https://nijgadhmun.gov.np", type:"Municipality"},
+              {en:"Mahagadhimai Municipality", ne:"Mahagadhimai Municipality", url:"https://mahagadimaimun.gov.np", type:"Municipality"},
+              {en:"Simraungadh Municipality", ne:"Simraungadh Municipality", url:"https://simraungadhmun.gov.np", type:"Municipality"},
+              {en:"Pacharauta Municipality", ne:"Pacharauta Municipality", url:"https://pachrautamun.gov.np", type:"Municipality"},
+              {en:"Pheta Rural Municipality", ne:"Pheta Rural Municipality", url:"https://www.phetamun.gov.np", type:"Rural Municipality"},
+              {en:"Bishrampur Rural Municipality", ne:"Bishrampur Rural Municipality", url:"https://bishrampurmun.gov.np", type:"Rural Municipality"},
+              {en:"Prasauni Rural Municipality", ne:"Prasauni Rural Municipality", url:"https://www.prasaunimun.gov.np", type:"Rural Municipality"},
+              {en:"Adarsh Kotwal Rural Municipality", ne:"Adarsh Kotwal Rural Municipality", url:"https://www.aadarshakotwalmun.gov.np", type:"Rural Municipality"},
+              {en:"Karaiyamai Rural Municipality", ne:"Karaiyamai Rural Municipality", url:"https://www.karaiyamaimun.gov.np", type:"Rural Municipality"},
+              {en:"Devtal Rural Municipality", ne:"Devtal Rural Municipality", url:"https://www.devtalmun.gov.np", type:"Rural Municipality"},
+              {en:"Parwanipur Rural Municipality", ne:"Parwanipur Rural Municipality", url:"https://www.parwanipurmun.gov.np", type:"Rural Municipality"},
+              {en:"Baragadhi Rural Municipality", ne:"Baragadhi Rural Municipality", url:"https://www.baragadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Suwarna Rural Municipality", ne:"Suwarna Rural Municipality", url:"https://www.suwarnamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dhanusha", ne:"धनुषा",
+            units:[
+              {en:"Janakpur Sub-Metropolitan City", ne:"Janakpur Sub-Metropolitan City", url:"https://janakpurmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Dhanushadham Municipality", ne:"Dhanushadham Municipality", url:"https://dhanushadhammun.gov.np", type:"Municipality"},
+              {en:"Nagarain Municipality", ne:"Nagarain Municipality", url:"https://nagrainmun.gov.np", type:"Municipality"},
+              {en:"Mithila Municipality", ne:"Mithila Municipality", url:"https://mithilamun.gov.np", type:"Municipality"},
+              {en:"Kamala Municipality", ne:"Kamala Municipality", url:"https://kamalamun.gov.np", type:"Municipality"},
+              {en:"Hansapur Municipality", ne:"Hansapur Municipality", url:"https://hansapurmun.gov.np", type:"Municipality"},
+              {en:"Mithila Bihari Municipality", ne:"Mithila Bihari Municipality", url:"https://mithilabiharimun.gov.np", type:"Municipality"},
+              {en:"Ganeshman Charanath Municipality", ne:"Ganeshman Charanath Municipality", url:"https://ganeshmancharnathmun.gov.np", type:"Municipality"},
+              {en:"Kshireshwarnath Municipality", ne:"Kshireshwarnath Municipality", url:"https://kshireshwornathmun.gov.np", type:"Municipality"},
+              {en:"Bideha Municipality", ne:"Bideha Municipality", url:"https://bidehamun.gov.np", type:"Municipality"},
+              {en:"Sabaila Municipality", ne:"Sabaila Municipality", url:"https://sabailamun.gov.np", type:"Municipality"},
+              {en:"Sahidnagar Municipality", ne:"Sahidnagar Municipality", url:"https://shahidnagarmun.gov.np", type:"Municipality"},
+              {en:"Janaknandani Rural Municipality", ne:"Janaknandani Rural Municipality", url:"https://www.janaknandinimun.gov.np", type:"Rural Municipality"},
+              {en:"Bateshwar Rural Municipality", ne:"Bateshwar Rural Municipality", url:"https://www.bateshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Mukhiyapatti Musharniya Rural Municipality", ne:"Mukhiyapatti Musharniya Rural Municipality", url:"https://mukhiyapattimusaharmiyamun.gov.np", type:"Rural Municipality"},
+              {en:"Lakshminya Rural Municipality", ne:"Lakshminya Rural Municipality", url:"https://www.laxminiyamun.gov.np", type:"Rural Municipality"},
+              {en:"Aurahi Rural Municipality", ne:"Aurahi Rural Municipality", url:"https://aurahimundhanusha.gov.np", type:"Rural Municipality"},
+              {en:"Dhanauji Rural Municipality", ne:"Dhanauji Rural Municipality", url:"https://dhanaujimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Mahottari", ne:"महोत्तरी",
+            units:[
+              {en:"Aurahi Municipality", ne:"Aurahi Municipality", url:"https://aurahimunmahottari.gov.np", type:"Municipality"},
+              {en:"Balawa Municipality", ne:"Balawa Municipality", url:"https://balwamun.gov.np", type:"Municipality"},
+              {en:"Bardibas Municipality", ne:"Bardibas Municipality", url:"https://bardibasmun.gov.np", type:"Municipality"},
+              {en:"Bhangaha Municipality", ne:"Bhangaha Municipality", url:"https://bhagahamun.gov.np", type:"Municipality"},
+              {en:"Gaushala Municipality", ne:"Gaushala Municipality", url:"https://gaushalamun.gov.np", type:"Municipality"},
+              {en:"Jaleshwor Municipality", ne:"Jaleshwor Municipality", url:"https://jaleshwormun.gov.np", type:"Municipality"},
+              {en:"Loharpatti Municipality", ne:"Loharpatti Municipality", url:"https://loharpattimun.gov.np", type:"Municipality"},
+              {en:"Manara Shiswa Municipality", ne:"Manara Shiswa Municipality", url:"https://manrashiswamun.gov.np", type:"Municipality"},
+              {en:"Matihani Municipality", ne:"Matihani Municipality", url:"https://matihanimun.gov.np", type:"Municipality"},
+              {en:"Ramgopalpur Municipality", ne:"Ramgopalpur Municipality", url:"https://ramgopalpurmun.gov.np", type:"Municipality"},
+              {en:"Ekdara Rural Municipality", ne:"Ekdara Rural Municipality", url:"https://www.ekdaramun.gov.np", type:"Rural Municipality"},
+              {en:"Mahottari Rural Municipality", ne:"Mahottari Rural Municipality", url:"https://www.mahottarimun.gov.np", type:"Rural Municipality"},
+              {en:"Pipara Rural Municipality", ne:"Pipara Rural Municipality", url:"https://www.pipramun.gov.np", type:"Rural Municipality"},
+              {en:"Samsi Rural Municipality", ne:"Samsi Rural Municipality", url:"https://samsimun.gov.np", type:"Rural Municipality"},
+              {en:"Sonama Rural Municipality", ne:"Sonama Rural Municipality", url:"https://sonmamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Parsa", ne:"पर्सा",
+            units:[
+              {en:"Birgunj Metropolitan City", ne:"Birgunj Metropolitan City", url:"https://birgunjmun.gov.np", type:"Metropolitan"},
+              {en:"Bahudarmai Municipality", ne:"Bahudarmai Municipality", url:"https://bahudarmaimun.gov.np", type:"Municipality"},
+              {en:"Parsagadhi Municipality", ne:"Parsagadhi Municipality", url:"https://parsagadhimun.gov.np", type:"Municipality"},
+              {en:"Pokhariya Municipality", ne:"Pokhariya Municipality", url:"https://pokhariyamun.gov.np", type:"Municipality"},
+              {en:"Bindabasini Rural Municipality", ne:"Bindabasini Rural Municipality", url:"https://www.bindabasinimun.gov.np", type:"Rural Municipality"},
+              {en:"Dhobini Rural Municipality", ne:"Dhobini Rural Municipality", url:"https://dhobinimun.gov.np", type:"Rural Municipality"},
+              {en:"Chhipaharmai Rural Municipality", ne:"Chhipaharmai Rural Municipality", url:"https://chhipaharmaimun.gov.np", type:"Rural Municipality"},
+              {en:"Jagarnathpur Rural Municipality", ne:"Jagarnathpur Rural Municipality", url:"https://www.jagarnathpurmun.gov.np", type:"Rural Municipality"},
+              {en:"Jirabhawani Rural Municipality", ne:"Jirabhawani Rural Municipality", url:"https://www.jirabhawanimun.gov.np", type:"Rural Municipality"},
+              {en:"Kalikamai Rural Municipality", ne:"Kalikamai Rural Municipality", url:"https://www.kalikamaimun.gov.np", type:"Rural Municipality"},
+              {en:"Pakaha Mainpur Rural Municipality", ne:"Pakaha Mainpur Rural Municipality", url:"https://www.pakahamainpurmun.gov.np", type:"Rural Municipality"},
+              {en:"Paterwa Sugauli Rural Municipality", ne:"Paterwa Sugauli Rural Municipality", url:"https://www.paterwasugaulimun.gov.np", type:"Rural Municipality"},
+              {en:"Sakhuwa Prasauni Rural Municipality", ne:"Sakhuwa Prasauni Rural Municipality", url:"https://www.sakhuwaprasaunimun.gov.np", type:"Rural Municipality"},
+              {en:"Thori Rural Municipality", ne:"Thori Rural Municipality", url:"https://www.thorimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Rautahat", ne:"रौतहट",
+            units:[
+              {en:"Baudhimai Municipality", ne:"Baudhimai Municipality", url:"https://baudhimaimun.gov.np", type:"Municipality"},
+              {en:"Brindawan Municipality", ne:"Brindawan Municipality", url:"https://brindawanmun.gov.np", type:"Municipality"},
+              {en:"Chandrapur Municipality", ne:"Chandrapur Municipality", url:"https://chandrapurmun.gov.np", type:"Municipality"},
+              {en:"Dewahi Gonahi Municipality", ne:"Dewahi Gonahi Municipality", url:"https://dewahigonahimun.gov.np", type:"Municipality"},
+              {en:"Gadhimai Municipality", ne:"Gadhimai Municipality", url:"https://gadhimaimun.gov.np", type:"Municipality"},
+              {en:"Garuda Municipality", ne:"Garuda Municipality", url:"https://garudamun.gov.np", type:"Municipality"},
+              {en:"Gaur Municipality", ne:"Gaur Municipality", url:"https://gaurmun.gov.np", type:"Municipality"},
+              {en:"Gujara Municipality", ne:"Gujara Municipality", url:"https://gujaramun.gov.np", type:"Municipality"},
+              {en:"Ishanath Municipality", ne:"Ishanath Municipality", url:"https://ishnathmun.gov.np", type:"Municipality"},
+              {en:"Katahariya Municipality", ne:"Katahariya Municipality", url:"https://katahariyamun.gov.np", type:"Municipality"},
+              {en:"Madhav Narayan Municipality", ne:"Madhav Narayan Municipality", url:"https://madhavnarayanmun.gov.np", type:"Municipality"},
+              {en:"Maulapur Municipality", ne:"Maulapur Municipality", url:"https://maulapurmun.gov.np", type:"Municipality"},
+              {en:"Paroha Municipality", ne:"Paroha Municipality", url:"https://parohamun.gov.np", type:"Municipality"},
+              {en:"Phatuwa Bijayapur Municipality", ne:"Phatuwa Bijayapur Municipality", url:"https://phatuwabijaypurmun.gov.np", type:"Municipality"},
+              {en:"Rajdevi Municipality", ne:"Rajdevi Municipality", url:"https://rajdevimun.gov.np", type:"Municipality"},
+              {en:"Rajpur Municipality", ne:"Rajpur Municipality", url:"https://rajpurmunrautahat.gov.np", type:"Municipality"},
+              {en:"Durga Bhagwati Rural Municipality", ne:"Durga Bhagwati Rural Municipality", url:"https://www.durgabhagawatimun.gov.np", type:"Rural Municipality"},
+              {en:"Yamunamai Rural Municipality", ne:"Yamunamai Rural Municipality", url:"https://yamunamaimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Saptari", ne:"सप्तरी",
+            units:[
+              {en:"Bodebarsain Municipality", ne:"Bodebarsain Municipality", url:"https://www.bodebarsainmun.gov.np", type:"Municipality"},
+              {en:"Dakneshwori Municipality", ne:"Dakneshwori Municipality", url:"https://dakneshworimun.gov.np", type:"Municipality"},
+              {en:"Hanumannagar Kankalini Municipality", ne:"Hanumannagar Kankalini Municipality", url:"https://hanumannagarkankalinimun.gov.np", type:"Municipality"},
+              {en:"Kanchanrup Municipality", ne:"Kanchanrup Municipality", url:"https://kanchanrupmun.gov.np", type:"Municipality"},
+              {en:"Khadak Municipality", ne:"Khadak Municipality", url:"https://khadakmun.gov.np", type:"Municipality"},
+              {en:"Sambhunath Municipality", ne:"Sambhunath Municipality", url:"https://shambhunathmun.gov.np", type:"Municipality"},
+              {en:"Saptakoshi Municipality", ne:"Saptakoshi Municipality", url:"https://saptakoshimun.gov.np", type:"Municipality"},
+              {en:"Surunga Municipality", ne:"Surunga Municipality", url:"https://surungamun.gov.np", type:"Municipality"},
+              {en:"Rajbiraj Municipality", ne:"Rajbiraj Municipality", url:"https://rajbirajmun.gov.np", type:"Municipality"},
+              {en:"Agnisaira Krishnasavaran Rural Municipality", ne:"Agnisaira Krishnasavaran Rural Municipality", url:"https://www.agnisairkrishnasawaranmun.gov.np", type:"Rural Municipality"},
+              {en:"Balan-Bihul Rural Municipality", ne:"Balan-Bihul Rural Municipality", url:"https://balanbihulmun.gov.np", type:"Rural Municipality"},
+              {en:"Rajgadh Rural Municipality", ne:"Rajgadh Rural Municipality", url:"https://rajgadhmun.gov.np", type:"Rural Municipality"},
+              {en:"Bishnupur Rural Municipality", ne:"Bishnupur Rural Municipality", url:"https://bishnupurmunsaptari.gov.np", type:"Rural Municipality"},
+              {en:"Chhinnamasta Rural Municipality", ne:"Chhinnamasta Rural Municipality", url:"https://www.chhinnamastamun.gov.np", type:"Rural Municipality"},
+              {en:"Mahadeva Rural Municipality", ne:"Mahadeva Rural Municipality", url:"https://mahadevamun.gov.np", type:"Rural Municipality"},
+              {en:"Rupani Rural Municipality", ne:"Rupani Rural Municipality", url:"https://rupanimun.gov.np", type:"Rural Municipality"},
+              {en:"Tilathi Koiladi Rural Municipality", ne:"Tilathi Koiladi Rural Municipality", url:"https://www.tilathikoiladimun.gov.np", type:"Rural Municipality"},
+              {en:"Tirhut Rural Municipality", ne:"Tirhut Rural Municipality", url:"https://www.tirahutmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Sarlahi", ne:"सर्लाही",
+            units:[
+              {en:"Bagmati Municipality", ne:"Bagmati Municipality", url:"https://bagmatimunsarlahi.gov.np", type:"Municipality"},
+              {en:"Balara Municipality", ne:"Balara Municipality", url:"https://balramun.gov.np", type:"Municipality"},
+              {en:"Barahathwa Municipality", ne:"Barahathwa Municipality", url:"https://barhathwamun.gov.np", type:"Municipality"},
+              {en:"Godaita Municipality", ne:"Godaita Municipality", url:"https://godaitamun.gov.np", type:"Municipality"},
+              {en:"Harion Municipality", ne:"Harion Municipality", url:"https://harionmun.gov.np", type:"Municipality"},
+              {en:"Haripur Municipality", ne:"Haripur Municipality", url:"https://haripurmun.gov.np", type:"Municipality"},
+              {en:"Haripurwa Municipality", ne:"Haripurwa Municipality", url:"https://haripurwamun.gov.np", type:"Municipality"},
+              {en:"Ishworpur Municipality", ne:"Ishworpur Municipality", url:"https://ishworpurmun.gov.np", type:"Municipality"},
+              {en:"Kawilasi Municipality", ne:"Kawilasi Municipality", url:"https://kawilasimun.gov.np", type:"Municipality"},
+              {en:"Lalbandi Municipality", ne:"Lalbandi Municipality", url:"https://lalbandimun.gov.np", type:"Municipality"},
+              {en:"Malangwa Municipality", ne:"Malangwa Municipality", url:"https://malangwamun.gov.np", type:"Municipality"},
+              {en:"Kaudena Rural Municipality", ne:"Kaudena Rural Municipality", url:"https://kaudenamun.gov.np", type:"Rural Municipality"},
+              {en:"Basbariya Rural Municipality", ne:"Basbariya Rural Municipality", url:"https://www.basbariyamun.gov.np", type:"Rural Municipality"},
+              {en:"Bishnu Rural Municipality", ne:"Bishnu Rural Municipality", url:"https://bishnumun.gov.np", type:"Rural Municipality"},
+              {en:"Brahampuri Rural Municipality", ne:"Brahampuri Rural Municipality", url:"https://brahmapurimun.gov.np", type:"Rural Municipality"},
+              {en:"Chakraghatta Rural Municipality", ne:"Chakraghatta Rural Municipality", url:"https://chakraghattamun.gov.np", type:"Rural Municipality"},
+              {en:"Chandranagar Rural Municipality", ne:"Chandranagar Rural Municipality", url:"https://chandranagarmun.gov.np", type:"Rural Municipality"},
+              {en:"Dhankaul Rural Municipality", ne:"Dhankaul Rural Municipality", url:"https://dhankaulmun.gov.np", type:"Rural Municipality"},
+              {en:"Parsa Rural Municipality", ne:"Parsa Rural Municipality", url:"https://parsamun.gov.np", type:"Rural Municipality"},
+              {en:"Ramnagar Rural Municipality", ne:"Ramnagar Rural Municipality", url:"https://ramnagarmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Siraha", ne:"सिराहा",
+            units:[
+              {en:"Lahan Municipality", ne:"Lahan Municipality", url:"https://lahanmun.gov.np", type:"Municipality"},
+              {en:"Dhangadhimai Municipality", ne:"Dhangadhimai Municipality", url:"https://dhangadhimaimun.gov.np", type:"Municipality"},
+              {en:"Siraha Municipality", ne:"Siraha Municipality", url:"https://sirahamun.gov.np", type:"Municipality"},
+              {en:"Golbazar Municipality", ne:"Golbazar Municipality", url:"https://golbazarmun.gov.np", type:"Municipality"},
+              {en:"Mirchaiya Municipality", ne:"Mirchaiya Municipality", url:"https://mirchaiyamun.gov.np", type:"Municipality"},
+              {en:"Kalyanpur Municipality", ne:"Kalyanpur Municipality", url:"https://kalyanpurmun.gov.np", type:"Municipality"},
+              {en:"Karjanha Municipality", ne:"Karjanha Municipality", url:"https://karjanhamun.gov.np", type:"Municipality"},
+              {en:"Sukhipur Municipality", ne:"Sukhipur Municipality", url:"https://sukhipurmun.gov.np", type:"Municipality"},
+              {en:"Bhagwanpur Rural Municipality", ne:"Bhagwanpur Rural Municipality", url:"https://bhagwanpurmun.gov.np", type:"Rural Municipality"},
+              {en:"Aurahi Rural Municipality", ne:"Aurahi Rural Municipality", url:"https://aurahimunsiraha.gov.np", type:"Rural Municipality"},
+              {en:"Bishnupur Rural Municipality", ne:"Bishnupur Rural Municipality", url:"https://www.bishnupurmunsiraha.gov.np", type:"Rural Municipality"},
+              {en:"Bariyarpatti Rural Municipality", ne:"Bariyarpatti Rural Municipality", url:"https://bariyapattimun.gov.np", type:"Rural Municipality"},
+              {en:"Lakshmipur Patari Rural Municipality", ne:"Lakshmipur Patari Rural Municipality", url:"https://laxmipurpatarimun.gov.np", type:"Rural Municipality"},
+              {en:"Naraha Rural Municipality", ne:"Naraha Rural Municipality", url:"https://www.narahamun.gov.np", type:"Rural Municipality"},
+              {en:"Sakhuwanankar Katti Rural Municipality", ne:"Sakhuwanankar Katti Rural Municipality", url:"https://sakhuwanankarkattimun.gov.np", type:"Rural Municipality"},
+              {en:"Arnama Rural Municipality", ne:"Arnama Rural Municipality", url:"https://www.anarmamun.gov.np", type:"Rural Municipality"},
+              {en:"Navarajpur Rural Municipality", ne:"Navarajpur Rural Municipality", url:"https://nawarajpurmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Bagmati Province", ne:"बागमती प्रदेश", url:"bagamati.gov.np", emoji:"🌊", cap:"Hetauda", capNe:"हेटौंडा",
-        metros:[
-          { en:"Kathmandu Metropolitan City", ne:"काठमाडौं महानगरपालिका", url:"kathmandu.gov.np", emoji:"🏙️" },
-          { en:"Lalitpur Metropolitan City", ne:"ललितपुर महानगरपालिका", url:"lmc.gov.np", emoji:"🏙️" },
-          { en:"Bharatpur Metropolitan City", ne:"भरतपुर महानगरपालिका", url:"bharatpur.gov.np", emoji:"🏙️" },
-        ],
-        submetros:[
-          { en:"Hetauda Sub-Metropolitan City", ne:"हेटौंडा उपमहानगरपालिका", url:"hetauda.gov.np", emoji:"🏢" },
-        ],
-        municipalities:[
-          { en:"Tokha Municipality", ne:"टोखा नगरपालिका", url:"tokha.gov.np", emoji:"🏘️" },
-          { en:"Budhanilkantha Municipality", ne:"बुद्धनीलकण्ठ नगरपालिका", url:"budhanilkantha.gov.np", emoji:"🏘️" },
-          { en:"Gokarneshwar Municipality", ne:"गोकर्णेश्वर नगरपालिका", url:"gokarneshwar.gov.np", emoji:"🏘️" },
-          { en:"Chandragiri Municipality", ne:"चन्द्रागिरी नगरपालिका", url:"chandragiri.gov.np", emoji:"🏘️" },
-          { en:"Dakshinkali Municipality", ne:"दक्षिणकाली नगरपालिका", url:"dakshinkali.gov.np", emoji:"🏘️" },
-          { en:"Nagarjun Municipality", ne:"नागार्जुन नगरपालिका", url:"nagarjun.gov.np", emoji:"🏘️" },
-          { en:"Tarakeshwar Municipality", ne:"तारकेश्वर नगरपालिका", url:"tarakeshwar.gov.np", emoji:"🏘️" },
-          { en:"Kirtipur Municipality", ne:"कीर्तिपुर नगरपालिका", url:"kirtipur.gov.np", emoji:"🏘️" },
-          { en:"Kageshwari Manohara Municipality", ne:"कागेश्वरी मनोहरा नगरपालिका", url:"kageshwarimanohara.gov.np", emoji:"🏘️" },
-          { en:"Shankharapur Municipality", ne:"शंखरापुर नगरपालिका", url:"shankharapur.gov.np", emoji:"🏘️" },
-          { en:"Godawari Municipality", ne:"गोदावरी नगरपालिका", url:"godawari.gov.np", emoji:"🏘️" },
-          { en:"Mahalaxmi Municipality", ne:"महालक्ष्मी नगरपालिका", url:"mahalaxmi.gov.np", emoji:"🏘️" },
-          { en:"Bhaktapur Municipality", ne:"भक्तपुर नगरपालिका", url:"bhaktapur.gov.np", emoji:"🏘️" },
-          { en:"Suryabinayak Municipality", ne:"सूर्यबिनायक नगरपालिका", url:"suryabinayak.gov.np", emoji:"🏘️" },
-          { en:"Changunarayan Municipality", ne:"चाँगुनारायण नगरपालिका", url:"changunarayan.gov.np", emoji:"🏘️" },
-          { en:"Madhyapur Thimi Municipality", ne:"मध्यपुर थिमी नगरपालिका", url:"madhyapurthimi.gov.np", emoji:"🏘️" },
-          { en:"Thaha Municipality", ne:"थाहा नगरपालिका", url:"thaha.gov.np", emoji:"🏘️" },
-          { en:"Bahrabise Municipality", ne:"बाह्रबिसे नगरपालिका", url:"bahrabise.gov.np", emoji:"🏘️" },
-          { en:"Melamchi Municipality", ne:"मेलम्ची नगरपालिका", url:"melamchi.gov.np", emoji:"🏘️" },
-          { en:"Chautara Sangachowkgadhi Municipality", ne:"चौतारा साँगाचोकगढी नगरपालिका", url:"chautara.gov.np", emoji:"🏘️" },
-          { en:"Bhimeshwar Municipality", ne:"भीमेश्वर नगरपालिका", url:"bhimeshwar.gov.np", emoji:"🏘️" },
-          { en:"Jiri Municipality", ne:"जिरी नगरपालिका", url:"jiri.gov.np", emoji:"🏘️" },
-          { en:"Kamalamai Municipality", ne:"कमलामाई नगरपालिका", url:"kamalamai.gov.np", emoji:"🏘️" },
-          { en:"Dudhauli Municipality", ne:"दुधौली नगरपालिका", url:"dudhauli.gov.np", emoji:"🏘️" },
-          { en:"Manthali Municipality", ne:"मन्थली नगरपालिका", url:"manthali.gov.np", emoji:"🏘️" },
-          { en:"Ramechhap Municipality", ne:"रामेछाप नगरपालिका", url:"ramechhap.gov.np", emoji:"🏘️" },
-          { en:"Dhulikhel Municipality", ne:"धुलिखेल नगरपालिका", url:"dhulikhel.gov.np", emoji:"🏘️" },
-          { en:"Namobuddha Municipality", ne:"नमोबुद्ध नगरपालिका", url:"namobuddha.gov.np", emoji:"🏘️" },
-          { en:"Panauti Municipality", ne:"पनौती नगरपालिका", url:"panauti.gov.np", emoji:"🏘️" },
-          { en:"Banepa Municipality", ne:"बनेपा नगरपालिका", url:"banepa.gov.np", emoji:"🏘️" },
-          { en:"Panchkhal Municipality", ne:"पाँचखाल नगरपालिका", url:"panchkhal.gov.np", emoji:"🏘️" },
-          { en:"Mandandeupur Municipality", ne:"मण्डनदेउपुर नगरपालिका", url:"mandandeupur.gov.np", emoji:"🏘️" },
-          { en:"Bidur Municipality", ne:"बिदुर नगरपालिका", url:"bidur.gov.np", emoji:"🏘️" },
-          { en:"Dhunibeshi Municipality", ne:"धुनीबेशी नगरपालिका", url:"dhunibeshi.gov.np", emoji:"🏘️" },
-          { en:"Nilkantha Municipality", ne:"नीलकण्ठ नगरपालिका", url:"nilkantha.gov.np", emoji:"🏘️" },
-          { en:"Khairhani Municipality", ne:"खैरहनी नगरपालिका", url:"khairhani.gov.np", emoji:"🏘️" },
-          { en:"Ratnanagar Municipality", ne:"रत्ननगर नगरपालिका", url:"ratnanagar.gov.np", emoji:"🏘️" },
-          { en:"Rapti Municipality", ne:"राप्ती नगरपालिका", url:"rapti.gov.np", emoji:"🏘️" },
-          { en:"Kalika Municipality", ne:"कालिका नगरपालिका", url:"kalika.gov.np", emoji:"🏘️" },
-          { en:"Madi Municipality", ne:"माडी नगरपालिका", url:"madickt.gov.np", emoji:"🏘️" },
+        en:"Bagmati Province", ne:"बागमती प्रदेश", url:"https://ocmcm.bagamati.gov.np/", emoji:"🌊", cap:"Hetauda", capNe:"हेटौंडा",
+        districts:[
+          {
+            en:"Bhaktapur", ne:"भक्तपुर",
+            units:[
+              {en:"Bhaktapur Municipality", ne:"Bhaktapur Municipality", url:"https://bhaktapurmun.gov.np", type:"Municipality"},
+              {en:"Suryabinayak Municipality", ne:"Suryabinayak Municipality", url:"https://suryabinayakmun.gov.np", type:"Municipality"},
+              {en:"Changunarayan Municipality", ne:"Changunarayan Municipality", url:"https://changunarayanmun.gov.np", type:"Municipality"},
+              {en:"Madhyapur Thimi Municipality", ne:"Madhyapur Thimi Municipality", url:"https://www.madhyapurthimimun.gov.np", type:"Municipality"},
+            ]
+          },
+          {
+            en:"Chitwan", ne:"चितवन",
+            units:[
+              {en:"Bharatpur Metropolitan City", ne:"Bharatpur Metropolitan City", url:"https://bharatpurmun.gov.np", type:"Metropolitan"},
+              {en:"Khairhani Municipality", ne:"Khairhani Municipality", url:"https://khairhanimun.gov.np", type:"Municipality"},
+              {en:"Ratnanagar Municipality", ne:"Ratnanagar Municipality", url:"https://ratnanagarmun.gov.np", type:"Municipality"},
+              {en:"Rapti Municipality", ne:"Rapti Municipality", url:"https://raptimunchitwan.gov.np", type:"Municipality"},
+              {en:"Kalika Municipality", ne:"Kalika Municipality", url:"https://kalikamunchitwan.gov.np", type:"Municipality"},
+              {en:"Madi Municipality", ne:"Madi Municipality", url:"https://madimunchitwan.gov.np", type:"Municipality"},
+              {en:"Ichchhakamana Rural Municipality", ne:"Ichchhakamana Rural Municipality", url:"https://ichchhakamanamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dhading", ne:"धादिङ",
+            units:[
+              {en:"Nilkantha Municipality", ne:"Nilkantha Municipality", url:"https://nilkanthamun.gov.np", type:"Municipality"},
+              {en:"Dhunibeshi Municipality", ne:"Dhunibeshi Municipality", url:"https://dhunibeshimun.gov.np", type:"Municipality"},
+              {en:"Siddhalek Rural Municipality", ne:"Siddhalek Rural Municipality", url:"https://siddhalekmun.gov.np", type:"Rural Municipality"},
+              {en:"Tripurasundari Rural Municipality", ne:"Tripurasundari Rural Municipality", url:"https://tripurasundarimundhadhing.gov.np", type:"Rural Municipality"},
+              {en:"Khaniyabas Rural Municipality", ne:"Khaniyabas Rural Municipality", url:"https://khaniyabasmun.gov.np", type:"Rural Municipality"},
+              {en:"Gajuri Rural Municipality", ne:"Gajuri Rural Municipality", url:"https://gajurimun.gov.np", type:"Rural Municipality"},
+              {en:"Galchhi Rural Municipality", ne:"Galchhi Rural Municipality", url:"https://galchhimun.gov.np", type:"Rural Municipality"},
+              {en:"Gangajamuna Rural Municipality", ne:"Gangajamuna Rural Municipality", url:"https://gangajamunamun.gov.np", type:"Rural Municipality"},
+              {en:"Jwalamukhi Rural Municipality", ne:"Jwalamukhi Rural Municipality", url:"https://jwalamukhimun.gov.np", type:"Rural Municipality"},
+              {en:"Thakre Rural Municipality", ne:"Thakre Rural Municipality", url:"https://thakremun.gov.np", type:"Rural Municipality"},
+              {en:"Netrawati Dabjong Rural Municipality", ne:"Netrawati Dabjong Rural Municipality", url:"https://netrawatimun.gov.np", type:"Rural Municipality"},
+              {en:"Benighat Rorang Rural Municipality", ne:"Benighat Rorang Rural Municipality", url:"https://benighatrorangmun.gov.np", type:"Rural Municipality"},
+              {en:"Rubi Valley Rural Municipality", ne:"Rubi Valley Rural Municipality", url:"https://rubivalleymun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dolakha", ne:"दोलखा",
+            units:[
+              {en:"Bhimeshwar Municipality", ne:"Bhimeshwar Municipality", url:"https://bhimeshwarmun.gov.np", type:"Municipality"},
+              {en:"Jiri Municipality", ne:"Jiri Municipality", url:"https://www.jirimun.gov.np", type:"Municipality"},
+              {en:"Sailung Rural Municipality", ne:"Sailung Rural Municipality", url:"https://sailungmun.gov.np", type:"Rural Municipality"},
+              {en:"Tamakoshi Rural Municipality", ne:"Tamakoshi Rural Municipality", url:"https://tamakoshimun.gov.np", type:"Rural Municipality"},
+              {en:"Baiteshwor Rural Municipality", ne:"Baiteshwor Rural Municipality", url:"https://baiteshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Bigu Rural Municipality", ne:"Bigu Rural Municipality", url:"https://bigumun.gov.np", type:"Rural Municipality"},
+              {en:"Gaurishankar Rural Municipality", ne:"Gaurishankar Rural Municipality", url:"https://gaurishankarmun.gov.np", type:"Rural Municipality"},
+              {en:"Kalinchok Rural Municipality", ne:"Kalinchok Rural Municipality", url:"https://kalinchokmun.gov.np", type:"Rural Municipality"},
+              {en:"Melung Rural Municipality", ne:"Melung Rural Municipality", url:"https://melungmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kathmandu", ne:"काठमाडौं",
+            units:[
+              {en:"Kathmandu Metropolitan City", ne:"Kathmandu Metropolitan City", url:"https://kathmandu.gov.np", type:"Metropolitan"},
+              {en:"Tokha Municipality", ne:"Tokha Municipality", url:"https://tokhamun.gov.np", type:"Municipality"},
+              {en:"Budhanilkantha Municipality", ne:"Budhanilkantha Municipality", url:"https://budhanilkanthamun.gov.np", type:"Municipality"},
+              {en:"Gokarneshwar Municipality", ne:"Gokarneshwar Municipality", url:"https://www.gokarneshwormun.gov.np", type:"Municipality"},
+              {en:"Chandragiri Municipality", ne:"Chandragiri Municipality", url:"https://www.chandragirimun.gov.np", type:"Municipality"},
+              {en:"Dakshinkali Municipality", ne:"Dakshinkali Municipality", url:"https://dakshinkalimun.gov.np", type:"Municipality"},
+              {en:"Nagarjun Municipality", ne:"Nagarjun Municipality", url:"https://nagarjunmun.gov.np", type:"Municipality"},
+              {en:"Tarakeshwar Municipality", ne:"Tarakeshwar Municipality", url:"https://tarakeshwormun.gov.np", type:"Municipality"},
+              {en:"Kirtipur Municipality", ne:"Kirtipur Municipality", url:"https://kirtipurmun.gov.np", type:"Municipality"},
+              {en:"Kageshwari Manohara Municipality", ne:"Kageshwari Manohara Municipality", url:"https://kageshworimanoharamun.gov.np", type:"Municipality"},
+              {en:"Shankharapur Municipality", ne:"Shankharapur Municipality", url:"https://shankharapurmun.gov.np", type:"Municipality"},
+            ]
+          },
+          {
+            en:"Kavrepalanchok", ne:"काभ्रेपलाञ्चोक",
+            units:[
+              {en:"Dhulikhel Municipality", ne:"Dhulikhel Municipality", url:"https://dhulikhelmun.gov.np", type:"Municipality"},
+              {en:"Namobuddha Municipality", ne:"Namobuddha Municipality", url:"https://namobuddhamun.gov.np", type:"Municipality"},
+              {en:"Panauti Municipality", ne:"Panauti Municipality", url:"https://panautimun.gov.np", type:"Municipality"},
+              {en:"Banepa Municipality", ne:"Banepa Municipality", url:"https://banepamun.gov.np", type:"Municipality"},
+              {en:"Panchkhal Municipality", ne:"Panchkhal Municipality", url:"https://panchkhalmun.gov.np", type:"Municipality"},
+              {en:"Mandandeupur Municipality", ne:"Mandandeupur Municipality", url:"https://mandandeupurmun.gov.np", type:"Municipality"},
+              {en:"Khanikhola Rural Municipality", ne:"Khanikhola Rural Municipality", url:"https://khanikholamun.gov.np", type:"Rural Municipality"},
+              {en:"Mahabharat Rural Municipality", ne:"Mahabharat Rural Municipality", url:"https://mahabharatmun.gov.np", type:"Rural Municipality"},
+              {en:"Roshi Rural Municipality", ne:"Roshi Rural Municipality", url:"https://roshimun.gov.np", type:"Rural Municipality"},
+              {en:"Temal Rural Municipality", ne:"Temal Rural Municipality", url:"https://temalmun.gov.np", type:"Rural Municipality"},
+              {en:"Bethanchok Rural Municipality", ne:"Bethanchok Rural Municipality", url:"https://bethanchokmun.gov.np", type:"Rural Municipality"},
+              {en:"Bhojpur Rural Municipality", ne:"Bhojpur Rural Municipality", url:"https://bhojpurmunkavrepalanchok.gov.np", type:"Rural Municipality"},
+              {en:"Chaurideurali Rural Municipality", ne:"Chaurideurali Rural Municipality", url:"https://chaurideuralimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Lalitpur", ne:"ललितपुर",
+            units:[
+              {en:"Lalitpur Metropolitan City", ne:"Lalitpur Metropolitan City", url:"https://lalitpurmun.gov.np", type:"Metropolitan"},
+              {en:"Godawari Municipality", ne:"Godawari Municipality", url:"https://www.godawarimun.gov.np", type:"Municipality"},
+              {en:"Mahalaxmi Municipality", ne:"Mahalaxmi Municipality", url:"https://mahalaxmimun.gov.np", type:"Municipality"},
+              {en:"Bagmati Rural Municipality", ne:"Bagmati Rural Municipality", url:"https://bagmatimunlalitpur.gov.np", type:"Rural Municipality"},
+              {en:"Konjyosom Rural Municipality", ne:"Konjyosom Rural Municipality", url:"https://konjyosommun.gov.np", type:"Rural Municipality"},
+              {en:"Mahankal Rural Municipality", ne:"Mahankal Rural Municipality", url:"https://mahankalmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Makawanpur", ne:"मकवानपुर",
+            units:[
+              {en:"Hetauda Sub-Metropolitan City", ne:"Hetauda Sub-Metropolitan City", url:"https://hetaudamun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Thaha Municipality", ne:"Thaha Municipality", url:"https://thahamun.gov.np", type:"Municipality"},
+              {en:"Indrasarowar Rural Municipality", ne:"Indrasarowar Rural Municipality", url:"https://indrasarowarmun.gov.np", type:"Rural Municipality"},
+              {en:"Kailash Rural Municipality", ne:"Kailash Rural Municipality", url:"https://kailashmun.gov.np", type:"Rural Municipality"},
+              {en:"Bhimphedi Rural Municipality", ne:"Bhimphedi Rural Municipality", url:"https://bhimphedimun.gov.np", type:"Rural Municipality"},
+              {en:"Makawanpurgadhi Rural Municipality", ne:"Makawanpurgadhi Rural Municipality", url:"https://makawanpurgadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Manahari Rural Municipality", ne:"Manahari Rural Municipality", url:"https://manaharimun.gov.np", type:"Rural Municipality"},
+              {en:"Raksirang Rural Municipality", ne:"Raksirang Rural Municipality", url:"https://raksirangmun.gov.np", type:"Rural Municipality"},
+              {en:"Bakaiya Rural Municipality", ne:"Bakaiya Rural Municipality", url:"https://bakaiyamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Nuwakot", ne:"नुवाकोट",
+            units:[
+              {en:"Belkotgadhi Municipality", ne:"Belkotgadhi Municipality", url:"https://belkotgadhimun.gov.np", type:"Municipality"},
+              {en:"Bidur Municipality", ne:"Bidur Municipality", url:"https://bidurmun.gov.np", type:"Municipality"},
+              {en:"Tadi Rural Municipality", ne:"Tadi Rural Municipality", url:"https://tadimun.gov.np", type:"Rural Municipality"},
+              {en:"Tarkeshwor Rural Municipality", ne:"Tarkeshwor Rural Municipality", url:"https://tarkeshwormunnuwakot.gov.np", type:"Rural Municipality"},
+              {en:"Kakani Rural Municipality", ne:"Kakani Rural Municipality", url:"https://kakanimun.gov.np", type:"Rural Municipality"},
+              {en:"Kispang Rural Municipality", ne:"Kispang Rural Municipality", url:"https://kispangmun.gov.np", type:"Rural Municipality"},
+              {en:"Likhu Rural Municipality", ne:"Likhu Rural Municipality", url:"https://likhumunnuwakot.gov.np", type:"Rural Municipality"},
+              {en:"Myangang Rural Municipality", ne:"Myangang Rural Municipality", url:"https://myangangmun.gov.np", type:"Rural Municipality"},
+              {en:"Panchakanya Rural Municipality", ne:"Panchakanya Rural Municipality", url:"https://panchakanyamun.gov.np", type:"Rural Municipality"},
+              {en:"Shivapuri Rural Municipality", ne:"Shivapuri Rural Municipality", url:"https://shivapurimun.gov.np", type:"Rural Municipality"},
+              {en:"Dupcheswor Rural Municipality", ne:"Dupcheswor Rural Municipality", url:"https://dupcheshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Suryagadhi Rural Municipality", ne:"Suryagadhi Rural Municipality", url:"https://suryagadhimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Ramechhap", ne:"रामेछाप",
+            units:[
+              {en:"Manthali Municipality", ne:"Manthali Municipality", url:"https://manthalimun.gov.np", type:"Municipality"},
+              {en:"Ramechhap Municipality", ne:"Ramechhap Municipality", url:"https://ramechhapmun.gov.np", type:"Municipality"},
+              {en:"Gokulganga Rural Municipality", ne:"Gokulganga Rural Municipality", url:"https://gokulgangamun.gov.np", type:"Rural Municipality"},
+              {en:"Sunapati Rural Municipality", ne:"Sunapati Rural Municipality", url:"https://sunapatimun.gov.np", type:"Rural Municipality"},
+              {en:"Umakunda Rural Municipality", ne:"Umakunda Rural Municipality", url:"https://umakundamun.gov.np", type:"Rural Municipality"},
+              {en:"Khandadevi Rural Municipality", ne:"Khandadevi Rural Municipality", url:"https://khandadevimun.gov.np", type:"Rural Municipality"},
+              {en:"Likhu Tamakoshi Rural Municipality", ne:"Likhu Tamakoshi Rural Municipality", url:"https://likhutamakoshimun.gov.np", type:"Rural Municipality"},
+              {en:"Doramba Rural Municipality", ne:"Doramba Rural Municipality", url:"https://dorambamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Sindhuli", ne:"सिन्धुली",
+            units:[
+              {en:"Kamalamai Municipality", ne:"Kamalamai Municipality", url:"https://www.kamalamaimun.gov.np", type:"Municipality"},
+              {en:"Dudhauli Municipality", ne:"Dudhauli Municipality", url:"https://dudhauli.gov.np", type:"Municipality"},
+              {en:"Sunkoshi Rural Municipality", ne:"Sunkoshi Rural Municipality", url:"https://sunkoshimunsindhuli.gov.np", type:"Rural Municipality"},
+              {en:"Golanjor Rural Municipality", ne:"Golanjor Rural Municipality", url:"https://golanjormun.gov.np", type:"Rural Municipality"},
+              {en:"Gyanglekh Rural Municipality", ne:"Gyanglekh Rural Municipality", url:"https://gyanglekhmun.gov.np", type:"Rural Municipality"},
+              {en:"Hariharpurgadhi Rural Municipality", ne:"Hariharpurgadhi Rural Municipality", url:"https://hariharpurgadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Marin Rural Municipality", ne:"Marin Rural Municipality", url:"https://marinmun.gov.np", type:"Rural Municipality"},
+              {en:"Phikkal Rural Municipality", ne:"Phikkal Rural Municipality", url:"https://phikkalmunsindhuli.gov.np", type:"Rural Municipality"},
+              {en:"Tinpatan Rural Municipality", ne:"Tinpatan Rural Municipality", url:"https://tinpatanmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Sindhupalchok", ne:"सिन्धुपाल्चोक",
+            units:[
+              {en:"Bahrabise Municipality", ne:"Bahrabise Municipality", url:"https://bahrabisemun.gov.np", type:"Municipality"},
+              {en:"Melamchi Municipality", ne:"Melamchi Municipality", url:"https://melamchimun.gov.np", type:"Municipality"},
+              {en:"Chautara Sangachowkgadhi Municipality", ne:"Chautara Sangachowkgadhi Municipality", url:"https://chautaramun.gov.np", type:"Municipality"},
+              {en:"Balephi Rural Municipality", ne:"Balephi Rural Municipality", url:"https://balephimun.gov.np", type:"Rural Municipality"},
+              {en:"Bhotekoshi Rural Municipality", ne:"Bhotekoshi Rural Municipality", url:"https://bhotekoshimun.gov.np", type:"Rural Municipality"},
+              {en:"Helambu Rural Municipality", ne:"Helambu Rural Municipality", url:"https://helambumun.gov.np", type:"Rural Municipality"},
+              {en:"Indrawati Rural Municipality", ne:"Indrawati Rural Municipality", url:"https://indrawatimun.gov.np", type:"Rural Municipality"},
+              {en:"Jugal Rural Municipality", ne:"Jugal Rural Municipality", url:"https://jugalmun.gov.np", type:"Rural Municipality"},
+              {en:"Lisankhu Pakhar Rural Municipality", ne:"Lisankhu Pakhar Rural Municipality", url:"https://lisankhupakharmun.gov.np", type:"Rural Municipality"},
+              {en:"Panchpokhari Thangpal Rural Municipality", ne:"Panchpokhari Thangpal Rural Municipality", url:"https://panchpokharithangpalmun.gov.np", type:"Rural Municipality"},
+              {en:"Sunkoshi Rural Municipality (Sindhupalchok)", ne:"Sunkoshi Rural Municipality (Sindhupalchok)", url:"https://sunkoshimunsindhupalchok.gov.np", type:"Rural Municipality"},
+              {en:"Tripurasundari Rural Municipality (Sindhupalchok)", ne:"Tripurasundari Rural Municipality (Sindhupalchok)", url:"https://tripurasundarimunsindhupalchok.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Gandaki Province", ne:"गण्डकी प्रदेश", url:"gandaki.gov.np", emoji:"🏔️", cap:"Pokhara", capNe:"पोखरा",
-        metros:[{ en:"Pokhara Metropolitan City", ne:"पोखरा महानगरपालिका", url:"pokharamun.gov.np", emoji:"🏙️" }],
-        submetros:[],
-        municipalities:[
-          { en:"Gorkha Municipality", ne:"गोरखा नगरपालिका", url:"gorkha.gov.np", emoji:"🏘️" },
-          { en:"Palungtar Municipality", ne:"पालुङटार नगरपालिका", url:"palungtar.gov.np", emoji:"🏘️" },
-          { en:"Besisahar Municipality", ne:"बेसीशहर नगरपालिका", url:"besisahar.gov.np", emoji:"🏘️" },
-          { en:"Madhya Nepal Municipality", ne:"मध्य नेपाल नगरपालिका", url:"madhyanepal.gov.np", emoji:"🏘️" },
-          { en:"Rainas Municipality", ne:"राइनास नगरपालिका", url:"rainas.gov.np", emoji:"🏘️" },
-          { en:"Sundarbazar Municipality", ne:"सुन्दरबजार नगरपालिका", url:"sundarbazar.gov.np", emoji:"🏘️" },
-          { en:"Vyas Municipality", ne:"व्यास नगरपालिका", url:"vyas.gov.np", emoji:"🏘️" },
-          { en:"Bhanu Municipality", ne:"भानु नगरपालिका", url:"bhanu.gov.np", emoji:"🏘️" },
-          { en:"Shuklagandaki Municipality", ne:"शुक्लागण्डकी नगरपालिका", url:"shuklagandaki.gov.np", emoji:"🏘️" },
-          { en:"Bhimad Municipality", ne:"भिमाद नगरपालिका", url:"bhimad.gov.np", emoji:"🏘️" },
-          { en:"Kushma Municipality", ne:"कुश्मा नगरपालिका", url:"kushma.gov.np", emoji:"🏘️" },
-          { en:"Phalebas Municipality", ne:"फलेबास नगरपालिका", url:"phalebas.gov.np", emoji:"🏘️" },
-          { en:"Beni Municipality", ne:"बेनी नगरपालिका", url:"beni.gov.np", emoji:"🏘️" },
-          { en:"Galkot Municipality", ne:"गल्कोट नगरपालिका", url:"galkot.gov.np", emoji:"🏘️" },
-          { en:"Baglung Municipality", ne:"बागलुङ नगरपालिका", url:"baglung.gov.np", emoji:"🏘️" },
-          { en:"Jaimuni Municipality", ne:"जैमिनी नगरपालिका", url:"jaimuni.gov.np", emoji:"🏘️" },
-          { en:"Dhorpatan Municipality", ne:"ढोरपाटन नगरपालिका", url:"dhorpatan.gov.np", emoji:"🏘️" },
-          { en:"Gaindakot Municipality", ne:"गैंडाकोट नगरपालिका", url:"gaindakot.gov.np", emoji:"🏘️" },
-          { en:"Kawasoti Municipality", ne:"कावासोती नगरपालिका", url:"kawasoti.gov.np", emoji:"🏘️" },
-          { en:"Devachuli Municipality", ne:"देवचुली नगरपालिका", url:"devachuli.gov.np", emoji:"🏘️" },
-          { en:"Madhyabindu Municipality", ne:"मध्यबिन्दु नगरपालिका", url:"madhyabindu.gov.np", emoji:"🏘️" },
-          { en:"Galyang Municipality", ne:"गल्याङ नगरपालिका", url:"galyang.gov.np", emoji:"🏘️" },
-          { en:"Putalibazar Municipality", ne:"पुतलीबजार नगरपालिका", url:"putalibazar.gov.np", emoji:"🏘️" },
-          { en:"Chapakot Municipality", ne:"चापाकोट नगरपालिका", url:"chapakot.gov.np", emoji:"🏘️" },
-          { en:"Bhirkot Municipality", ne:"भीरकोट नगरपालिका", url:"bhirkot.gov.np", emoji:"🏘️" },
-          { en:"Waling Municipality", ne:"वालिङ नगरपालिका", url:"waling.gov.np", emoji:"🏘️" },
+        en:"Gandaki Province", ne:"गण्डकी प्रदेश", url:"https://ocmcm.gandaki.gov.np/", emoji:"🏔️", cap:"Pokhara", capNe:"पोखरा",
+        districts:[
+          {
+            en:"Baglung", ne:"बागलुङ",
+            units:[
+              {en:"Jaimuni Municipality", ne:"Jaimuni Municipality", url:"https://jaimunimun.gov.np", type:"Municipality"},
+              {en:"Baglung Municipality", ne:"Baglung Municipality", url:"https://baglungmun.gov.np", type:"Municipality"},
+              {en:"Galkot Municipality", ne:"Galkot Municipality", url:"https://galkotmun.gov.np", type:"Municipality"},
+              {en:"Dhorpatan Municipality", ne:"Dhorpatan Municipality", url:"https://dhorpatanmun.gov.np", type:"Municipality"},
+              {en:"Khathekhola Rural Municipality", ne:"Khathekhola Rural Municipality", url:"https://kathekholamun.gov.np", type:"Rural Municipality"},
+              {en:"Nisikhola Rural Municipality", ne:"Nisikhola Rural Municipality", url:"https://nisikholamun.gov.np", type:"Rural Municipality"},
+              {en:"Taman Khola Rural Municipality", ne:"Taman Khola Rural Municipality", url:"https://tamankholamun.gov.np", type:"Rural Municipality"},
+              {en:"Tara Khola Rural Municipality", ne:"Tara Khola Rural Municipality", url:"https://tarakholamun.gov.np", type:"Rural Municipality"},
+              {en:"Bareng Rural Municipality", ne:"Bareng Rural Municipality", url:"https://barengmun.gov.np", type:"Rural Municipality"},
+              {en:"Badigad Rural Municipality", ne:"Badigad Rural Municipality", url:"https://badigadmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Gorkha", ne:"गोरखा",
+            units:[
+              {en:"Gorkha Municipality", ne:"Gorkha Municipality", url:"https://gorkhamun.gov.np", type:"Municipality"},
+              {en:"Palungtar Municipality", ne:"Palungtar Municipality", url:"https://palungtarmun.gov.np", type:"Municipality"},
+              {en:"Gandaki Rural Municipality", ne:"Gandaki Rural Municipality", url:"https://gandakimungorkha.gov.np", type:"Rural Municipality"},
+              {en:"Barpak Sulikot Rural Municipality", ne:"Barpak Sulikot Rural Municipality", url:"https://barpaksulikotmun.gov.np", type:"Rural Municipality"},
+              {en:"Siranchowk Rural Municipality", ne:"Siranchowk Rural Municipality", url:"https://siranchowkmun.gov.np", type:"Rural Municipality"},
+              {en:"Ajirkot Rural Municipality", ne:"Ajirkot Rural Municipality", url:"https://ajirkotmun.gov.np", type:"Rural Municipality"},
+              {en:"Tsum Nubri Rural Municipality", ne:"Tsum Nubri Rural Municipality", url:"https://tsumnubrimun.gov.np", type:"Rural Municipality"},
+              {en:"Dharche Rural Municipality", ne:"Dharche Rural Municipality", url:"https://dharchemun.gov.np", type:"Rural Municipality"},
+              {en:"Bhimsen Thapa Rural Municipality", ne:"Bhimsen Thapa Rural Municipality", url:"https://bhimsenthapamun.gov.np", type:"Rural Municipality"},
+              {en:"Sahid Lakhan Rural Municipality", ne:"Sahid Lakhan Rural Municipality", url:"https://sahidlakhanmun.gov.np", type:"Rural Municipality"},
+              {en:"Aarughat Rural Municipality", ne:"Aarughat Rural Municipality", url:"https://aarughatmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kaski", ne:"कास्की",
+            units:[
+              {en:"Pokhara Metropolitan City", ne:"Pokhara Metropolitan City", url:"https://pokharamun.gov.np", type:"Metropolitan"},
+              {en:"Rupa Rural Municipality", ne:"Rupa Rural Municipality", url:"https://rupamun.gov.np", type:"Rural Municipality"},
+              {en:"Annapurna Rural Municipality", ne:"Annapurna Rural Municipality", url:"https://annapurnamunkaski.gov.np", type:"Rural Municipality"},
+              {en:"Machhapuchchhre Rural Municipality", ne:"Machhapuchchhre Rural Municipality", url:"https://machhapuchchhremun.gov.np", type:"Rural Municipality"},
+              {en:"Madi Rural Municipality", ne:"Madi Rural Municipality", url:"https://madimunkaski.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Lamjung", ne:"लमजुङ",
+            units:[
+              {en:"Besisahar Municipality", ne:"Besisahar Municipality", url:"https://www.besishaharmun.gov.np", type:"Municipality"},
+              {en:"Rainas Municipality", ne:"Rainas Municipality", url:"https://rainasmun.gov.np", type:"Municipality"},
+              {en:"Sundarbazar Municipality", ne:"Sundarbazar Municipality", url:"https://sundarbazarmun.gov.np", type:"Municipality"},
+              {en:"Madhya Nepal Municipality", ne:"Madhya Nepal Municipality", url:"https://madhyanepalmun.gov.np", type:"Municipality"},
+              {en:"Marsyandi Rural Municipality", ne:"Marsyandi Rural Municipality", url:"https://marsyangdimun.gov.np", type:"Rural Municipality"},
+              {en:"Dordi Rural Municipality", ne:"Dordi Rural Municipality", url:"https://dordimun.gov.np", type:"Rural Municipality"},
+              {en:"Dudhpokhari Rural Municipality", ne:"Dudhpokhari Rural Municipality", url:"https://dudhpokharimun.gov.np", type:"Rural Municipality"},
+              {en:"Kwholasothar Rural Municipality", ne:"Kwholasothar Rural Municipality", url:"https://kwhlosotharmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Manang", ne:"मनाङ",
+            units:[
+              {en:"Chame Rural Municipality", ne:"Chame Rural Municipality", url:"https://chamemun.gov.np", type:"Rural Municipality"},
+              {en:"Nason Rural Municipality", ne:"Nason Rural Municipality", url:"https://nasonmun.gov.np", type:"Rural Municipality"},
+              {en:"Narpa Bhumi Rural Municipality", ne:"Narpa Bhumi Rural Municipality", url:"https://narpabhumimun.gov.np", type:"Rural Municipality"},
+              {en:"Manang Ngisyang Rural Municipality", ne:"Manang Ngisyang Rural Municipality", url:"https://nesyangmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Mustang", ne:"मुस्ताङ",
+            units:[
+              {en:"Thasang Rural Municipality", ne:"Thasang Rural Municipality", url:"https://thasangmun.gov.np", type:"Rural Municipality"},
+              {en:"Varagung Muktichhetra Rural Municipality", ne:"Varagung Muktichhetra Rural Municipality", url:"https://varagungmuktichhetramun.gov.np", type:"Rural Municipality"},
+              {en:"Lomanthang Rural Municipality", ne:"Lomanthang Rural Municipality", url:"https://lomanthangmun.gov.np", type:"Rural Municipality"},
+              {en:"Lo-Ghekar Damodarkunda Rural Municipality", ne:"Lo-Ghekar Damodarkunda Rural Municipality", url:"https://loghekardamodarkundamun.gov.np", type:"Rural Municipality"},
+              {en:"Gharapjhong Rural Municipality", ne:"Gharapjhong Rural Municipality", url:"https://gharapjhongmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Myagdi", ne:"म्याग्दी",
+            units:[
+              {en:"Beni Municipality", ne:"Beni Municipality", url:"https://benimun.gov.np", type:"Municipality"},
+              {en:"Raghuganga Rural Municipality", ne:"Raghuganga Rural Municipality", url:"https://raghugangamun.gov.np", type:"Rural Municipality"},
+              {en:"Annapurna Rural Municipality (Myagdi)", ne:"Annapurna Rural Municipality (Myagdi)", url:"https://annapurnamunmyagdi.gov.np", type:"Rural Municipality"},
+              {en:"Dhaulagiri Rural Municipality", ne:"Dhaulagiri Rural Municipality", url:"https://dhaulagirimun.gov.np", type:"Rural Municipality"},
+              {en:"Mangala Rural Municipality", ne:"Mangala Rural Municipality", url:"https://mangalamun.gov.np", type:"Rural Municipality"},
+              {en:"Malika Rural Municipality", ne:"Malika Rural Municipality", url:"https://malikamunmyagdi.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Nawalparasi East", ne:"नवलपरासी (पूर्व)",
+            units:[
+              {en:"Gaindakot Municipality", ne:"Gaindakot Municipality", url:"https://gaindakotmun.gov.np", type:"Municipality"},
+              {en:"Kawasoti Municipality", ne:"Kawasoti Municipality", url:"https://kawasotimun.gov.np", type:"Municipality"},
+              {en:"Devachuli Municipality", ne:"Devachuli Municipality", url:"https://devchulimun.gov.np", type:"Municipality"},
+              {en:"Madhyabindu Municipality", ne:"Madhyabindu Municipality", url:"https://madhyabindumun.gov.np", type:"Municipality"},
+              {en:"Hupsekot Rural Municipality", ne:"Hupsekot Rural Municipality", url:"https://hupsekotmun.gov.np", type:"Rural Municipality"},
+              {en:"Baudikali Rural Municipality", ne:"Baudikali Rural Municipality", url:"https://baudikalimun.gov.np", type:"Rural Municipality"},
+              {en:"Bulingtar Rural Municipality", ne:"Bulingtar Rural Municipality", url:"https://bulingtarmun.gov.np", type:"Rural Municipality"},
+              {en:"Binayi Tribeni Rural Municipality", ne:"Binayi Tribeni Rural Municipality", url:"https://binayitribenimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Parbat", ne:"पर्वत",
+            units:[
+              {en:"Kushma Municipality", ne:"Kushma Municipality", url:"https://kushmamun.gov.np", type:"Municipality"},
+              {en:"Phalewas Municipality", ne:"Phalewas Municipality", url:"https://phalewasmun.gov.np", type:"Municipality"},
+              {en:"Modi Rural Municipality", ne:"Modi Rural Municipality", url:"https://modimun.gov.np", type:"Rural Municipality"},
+              {en:"Jaljala Rural Municipality", ne:"Jaljala Rural Municipality", url:"https://jaljalamun.gov.np", type:"Rural Municipality"},
+              {en:"Paiyun Rural Municipality", ne:"Paiyun Rural Municipality", url:"https://paiyunmun.gov.np", type:"Rural Municipality"},
+              {en:"Mahashila Rural Municipality", ne:"Mahashila Rural Municipality", url:"https://mahashilamun.gov.np", type:"Rural Municipality"},
+              {en:"Bihadi Rural Municipality", ne:"Bihadi Rural Municipality", url:"https://bihadimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Syangja", ne:"स्याङजा",
+            units:[
+              {en:"Galyang Municipality", ne:"Galyang Municipality", url:"https://galyangmun.gov.np", type:"Municipality"},
+              {en:"Putalibazar Municipality", ne:"Putalibazar Municipality", url:"https://putalibazarmun.gov.np", type:"Municipality"},
+              {en:"Chapakot Municipality", ne:"Chapakot Municipality", url:"https://chapakotmun.gov.np", type:"Municipality"},
+              {en:"Bhirkot Municipality", ne:"Bhirkot Municipality", url:"https://bheerkotmun.gov.np", type:"Municipality"},
+              {en:"Waling Municipality", ne:"Waling Municipality", url:"https://walingmun.gov.np", type:"Municipality"},
+              {en:"Harinas Rural Municipality", ne:"Harinas Rural Municipality", url:"https://harinasmun.gov.np", type:"Rural Municipality"},
+              {en:"Phedikhola Rural Municipality", ne:"Phedikhola Rural Municipality", url:"https://phedikholamun.gov.np", type:"Rural Municipality"},
+              {en:"Biruwa Rural Municipality", ne:"Biruwa Rural Municipality", url:"https://biruwamun.gov.np", type:"Rural Municipality"},
+              {en:"Arjun Chaupari Rural Municipality", ne:"Arjun Chaupari Rural Municipality", url:"https://arjunchauparimun.gov.np", type:"Rural Municipality"},
+              {en:"Aandhikhola Rural Municipality", ne:"Aandhikhola Rural Municipality", url:"https://aandhikholamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Tanahun", ne:"तनहुँ",
+            units:[
+              {en:"Vyas Municipality", ne:"Vyas Municipality", url:"https://vyasmun.gov.np", type:"Municipality"},
+              {en:"Bhanu Municipality", ne:"Bhanu Municipality", url:"https://bhanumun.gov.np", type:"Municipality"},
+              {en:"Shuklagandaki Municipality", ne:"Shuklagandaki Municipality", url:"https://shuklagandakimun.gov.np", type:"Municipality"},
+              {en:"Bhimad Municipality", ne:"Bhimad Municipality", url:"https://bhimadmun.gov.np", type:"Municipality"},
+              {en:"Ghiring Rural Municipality", ne:"Ghiring Rural Municipality", url:"https://ghiringmun.gov.np", type:"Rural Municipality"},
+              {en:"Myagde Rural Municipality", ne:"Myagde Rural Municipality", url:"https://myagdemun.gov.np", type:"Rural Municipality"},
+              {en:"Rishing Rural Municipality", ne:"Rishing Rural Municipality", url:"https://rishingmun.gov.np", type:"Rural Municipality"},
+              {en:"Anbu Khaireni Rural Municipality", ne:"Anbu Khaireni Rural Municipality", url:"https://anbukhairenimun.gov.np", type:"Rural Municipality"},
+              {en:"Devghat Rural Municipality", ne:"Devghat Rural Municipality", url:"https://devghatmun.gov.np", type:"Rural Municipality"},
+              {en:"Bandipur Rural Municipality", ne:"Bandipur Rural Municipality", url:"https://bandipurmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Lumbini Province", ne:"लुम्बिनी प्रदेश", url:"lumbini.gov.np", emoji:"🕊️", cap:"Deukhuri", capNe:"देउखुरी",
-        metros:[],
-        submetros:[
-          { en:"Nepalgunj Sub-Metropolitan City", ne:"नेपालगञ्ज उपमहानगरपालिका", url:"nepalgunj.gov.np", emoji:"🏢" },
-          { en:"Butwal Sub-Metropolitan City", ne:"बुटवल उपमहानगरपालिका", url:"butwal.gov.np", emoji:"🏢" },
-          { en:"Ghorahi Sub-Metropolitan City", ne:"घोराही उपमहानगरपालिका", url:"ghorahi.gov.np", emoji:"🏢" },
-          { en:"Tulsipur Sub-Metropolitan City", ne:"तुलसीपुर उपमहानगरपालिका", url:"tulsipur.gov.np", emoji:"🏢" },
-        ],
-        municipalities:[
-          { en:"Kohalpur Municipality", ne:"कोहलपुर नगरपालिका", url:"kohalpur.gov.np", emoji:"🏘️" },
-          { en:"Gulariya Municipality", ne:"गुलरिया नगरपालिका", url:"gulariya.gov.np", emoji:"🏘️" },
-          { en:"Thakurbaba Municipality", ne:"ठाकुरबाबा नगरपालिका", url:"thakurbaba.gov.np", emoji:"🏘️" },
-          { en:"Barbardiya Municipality", ne:"बारबर्दिया नगरपालिका", url:"barbardiya.gov.np", emoji:"🏘️" },
-          { en:"Rajapur Municipality", ne:"राजापुर नगरपालिका", url:"rajapur.gov.np", emoji:"🏘️" },
-          { en:"Musikot Municipality", ne:"मुसिकोट नगरपालिका", url:"musikotgulmi.gov.np", emoji:"🏘️" },
-          { en:"Resunga Municipality", ne:"रेसुङ्गा नगरपालिका", url:"resunga.gov.np", emoji:"🏘️" },
-          { en:"Tansen Municipality", ne:"तानसेन नगरपालिका", url:"tansen.gov.np", emoji:"🏘️" },
-          { en:"Rampur Municipality", ne:"रामपुर नगरपालिका", url:"rampur.gov.np", emoji:"🏘️" },
-          { en:"Siddharthanagar Municipality", ne:"सिद्धार्थनगर नगरपालिका", url:"siddharthanagar.gov.np", emoji:"🏘️" },
-          { en:"Tilottama Municipality", ne:"तिलोत्तमा नगरपालिका", url:"tilottama.gov.np", emoji:"🏘️" },
-          { en:"Sainamaina Municipality", ne:"सैनामैना नगरपालिका", url:"sainamaina.gov.np", emoji:"🏘️" },
-          { en:"Devdaha Municipality", ne:"देवदह नगरपालिका", url:"devdaha.gov.np", emoji:"🏘️" },
-          { en:"Lumbini Sanskritik Municipality", ne:"लुम्बिनी संस्कृतिक नगरपालिका", url:"lumbinisanskritik.gov.np", emoji:"🏘️" },
-          { en:"Bhumikhasthan Municipality", ne:"भूमिकास्थान नगरपालिका", url:"bhumikhasthan.gov.np", emoji:"🏘️" },
-          { en:"Sandhikharka Municipality", ne:"सन्धिखर्क नगरपालिका", url:"sandhikharka.gov.np", emoji:"🏘️" },
-          { en:"Sitganga Municipality", ne:"सितगंगा नगरपालिका", url:"sitganga.gov.np", emoji:"🏘️" },
-          { en:"Kapilvastu Municipality", ne:"कपिलवस्तु नगरपालिका", url:"kapilvastu.gov.np", emoji:"🏘️" },
-          { en:"Krishnanagar Municipality", ne:"कृष्णनगर नगरपालिका", url:"krishnanagar.gov.np", emoji:"🏘️" },
-          { en:"Banganga Municipality", ne:"बाणगंगा नगरपालिका", url:"banganga.gov.np", emoji:"🏘️" },
-          { en:"Buddhabhumi Municipality", ne:"बुद्धभूमि नगरपालिका", url:"buddhabhumi.gov.np", emoji:"🏘️" },
-          { en:"Maharajgunj Municipality", ne:"महाराजगञ्ज नगरपालिका", url:"maharajgunj.gov.np", emoji:"🏘️" },
-          { en:"Shivraj Municipality", ne:"शिवराज नगरपालिका", url:"shivraj.gov.np", emoji:"🏘️" },
-          { en:"Swargadwari Municipality", ne:"स्वर्गद्वारी नगरपालिका", url:"swargadwari.gov.np", emoji:"🏘️" },
-          { en:"Pyuthan Municipality", ne:"प्युठान नगरपालिका", url:"pyuthan.gov.np", emoji:"🏘️" },
-          { en:"Rolpa Municipality", ne:"रोल्पा नगरपालिका", url:"rolpa.gov.np", emoji:"🏘️" },
-          { en:"Lamahi Municipality", ne:"लमही नगरपालिका", url:"lamahi.gov.np", emoji:"🏘️" },
-          { en:"Madhuman Municipality", ne:"मधुवन नगरपालिका", url:"madhuman.gov.np", emoji:"🏘️" },
-          { en:"Basgadhi Municipality", ne:"बासगढी नगरपालिका", url:"basgadhi.gov.np", emoji:"🏘️" },
-          { en:"Bardaghat Municipality", ne:"बर्दघाट नगरपालिका", url:"bardaghat.gov.np", emoji:"🏘️" },
-          { en:"Ramgram Municipality", ne:"रामग्राम नगरपालिका", url:"ramgram.gov.np", emoji:"🏘️" },
-          { en:"Sunwal Municipality", ne:"सुनवल नगरपालिका", url:"sunwal.gov.np", emoji:"🏘️" },
+        en:"Lumbini Province", ne:"लुम्बिनी प्रदेश", url:"https://ocmcm.lumbini.gov.np/", emoji:"🕊️", cap:"Deukhuri", capNe:"देउखुरी",
+        districts:[
+          {
+            en:"Arghakhanchi", ne:"अर्घाखाँची",
+            units:[
+              {en:"Sandhikharka Municipality", ne:"Sandhikharka Municipality", url:"https://sandhikharkamun.gov.np", type:"Municipality"},
+              {en:"Sitganga Municipality", ne:"Sitganga Municipality", url:"https://shitagangamun.gov.np", type:"Municipality"},
+              {en:"Bhumikasthan Municipality", ne:"Bhumikasthan Municipality", url:"https://bhumikasthanmun.gov.np", type:"Municipality"},
+              {en:"Chhatradev Rural Municipality", ne:"Chhatradev Rural Municipality", url:"https://chhatradevmun.gov.np", type:"Rural Municipality"},
+              {en:"Panini Rural Municipality", ne:"Panini Rural Municipality", url:"https://paninimun.gov.np", type:"Rural Municipality"},
+              {en:"Malarani Rural Municipality", ne:"Malarani Rural Municipality", url:"https://malaranimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Banke", ne:"बाँके",
+            units:[
+              {en:"Nepalgunj Sub-Metropolitan City", ne:"Nepalgunj Sub-Metropolitan City", url:"https://nepalgunjmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Kohalpur Municipality", ne:"Kohalpur Municipality", url:"https://kohalpurmun.gov.np", type:"Municipality"},
+              {en:"Rapti-Sonari Rural Municipality", ne:"Rapti-Sonari Rural Municipality", url:"https://raptisonarimun.gov.np", type:"Rural Municipality"},
+              {en:"Narainapur Rural Municipality", ne:"Narainapur Rural Municipality", url:"https://narainapurmun.gov.np", type:"Rural Municipality"},
+              {en:"Duduwa Rural Municipality", ne:"Duduwa Rural Municipality", url:"https://duduwamun.gov.np", type:"Rural Municipality"},
+              {en:"Janaki Rural Municipality", ne:"Janaki Rural Municipality", url:"https://janakimunbanke.gov.np", type:"Rural Municipality"},
+              {en:"Khajura Rural Municipality", ne:"Khajura Rural Municipality", url:"https://www.khajuramun.gov.np", type:"Rural Municipality"},
+              {en:"Baijanath Rural Municipality", ne:"Baijanath Rural Municipality", url:"https://baijanathmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Bardiya", ne:"बर्दिया",
+            units:[
+              {en:"Gulariya Municipality", ne:"Gulariya Municipality", url:"https://gulariyamun.gov.np", type:"Municipality"},
+              {en:"Rajapur Municipality", ne:"Rajapur Municipality", url:"https://rajapurmun.gov.np", type:"Municipality"},
+              {en:"Madhuwan Municipality", ne:"Madhuwan Municipality", url:"https://madhuwanmun.gov.np", type:"Municipality"},
+              {en:"Thakurbaba Municipality", ne:"Thakurbaba Municipality", url:"https://thakurbabamun.gov.np", type:"Municipality"},
+              {en:"Basgadhi Municipality", ne:"Basgadhi Municipality", url:"https://bansgadhimun.gov.np", type:"Municipality"},
+              {en:"Barbardiya Municipality", ne:"Barbardiya Municipality", url:"https://barbardiyamun.gov.np", type:"Municipality"},
+              {en:"Badhaiyatal Rural Municipality", ne:"Badhaiyatal Rural Municipality", url:"https://badhaiyatalmun.gov.np", type:"Rural Municipality"},
+              {en:"Geruwa Rural Municipality", ne:"Geruwa Rural Municipality", url:"https://geruwamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dang", ne:"दाङ",
+            units:[
+              {en:"Ghorahi Sub-Metropolitan City", ne:"Ghorahi Sub-Metropolitan City", url:"https://ghorahimun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Tulsipur Sub-Metropolitan City", ne:"Tulsipur Sub-Metropolitan City", url:"https://tulsipurmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Lamahi Municipality", ne:"Lamahi Municipality", url:"https://lamahimun.gov.np", type:"Municipality"},
+              {en:"Gadhawa Rural Municipality", ne:"Gadhawa Rural Municipality", url:"https://www.gadhawamun.gov.np", type:"Rural Municipality"},
+              {en:"Rajpur Rural Municipality", ne:"Rajpur Rural Municipality", url:"https://rajpurmundang.gov.np", type:"Rural Municipality"},
+              {en:"Shantinagar Rural Municipality", ne:"Shantinagar Rural Municipality", url:"https://shantinagarmun.gov.np", type:"Rural Municipality"},
+              {en:"Rapti Rural Municipality", ne:"Rapti Rural Municipality", url:"https://raptimundang.gov.np", type:"Rural Municipality"},
+              {en:"Banglachuli Rural Municipality", ne:"Banglachuli Rural Municipality", url:"https://bangalachulimun.gov.np", type:"Rural Municipality"},
+              {en:"Dangisharan Rural Municipality", ne:"Dangisharan Rural Municipality", url:"https://dangisharanmun.gov.np", type:"Rural Municipality"},
+              {en:"Babai Rural Municipality", ne:"Babai Rural Municipality", url:"https://babaimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Gulmi", ne:"गुल्मी",
+            units:[
+              {en:"Musikot Municipality", ne:"Musikot Municipality", url:"https://musikotmungulmi.gov.np", type:"Municipality"},
+              {en:"Resunga Municipality", ne:"Resunga Municipality", url:"https://resungamun.gov.np", type:"Municipality"},
+              {en:"Ishma Rural Municipality", ne:"Ishma Rural Municipality", url:"https://ishmamun.gov.np", type:"Rural Municipality"},
+              {en:"Kaligandaki Rural Municipality", ne:"Kaligandaki Rural Municipality", url:"https://kaligandakimungulmi.gov.np", type:"Rural Municipality"},
+              {en:"Gulmi Darbar Rural Municipality", ne:"Gulmi Darbar Rural Municipality", url:"https://gulmidarbarmun.gov.np", type:"Rural Municipality"},
+              {en:"Satyawati Rural Municipality", ne:"Satyawati Rural Municipality", url:"https://satyawatimun.gov.np", type:"Rural Municipality"},
+              {en:"Chandrakot Rural Municipality", ne:"Chandrakot Rural Municipality", url:"https://chandrakotmun.gov.np", type:"Rural Municipality"},
+              {en:"Rurukshetra Rural Municipality", ne:"Rurukshetra Rural Municipality", url:"https://rurumun.gov.np", type:"Rural Municipality"},
+              {en:"Chhatrakot Rural Municipality", ne:"Chhatrakot Rural Municipality", url:"https://chhatrakotmun.gov.np", type:"Rural Municipality"},
+              {en:"Dhurkot Rural Municipality", ne:"Dhurkot Rural Municipality", url:"https://dhurkotmun.gov.np", type:"Rural Municipality"},
+              {en:"Madane Rural Municipality", ne:"Madane Rural Municipality", url:"https://madanemun.gov.np", type:"Rural Municipality"},
+              {en:"Malika Rural Municipality", ne:"Malika Rural Municipality", url:"https://malikamungulmi.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kapilvastu", ne:"कपिलवस्तु",
+            units:[
+              {en:"Kapilvastu Municipality", ne:"Kapilvastu Municipality", url:"https://kapilvastumun.gov.np", type:"Municipality"},
+              {en:"Banganga Municipality", ne:"Banganga Municipality", url:"https://bangangamun.gov.np", type:"Municipality"},
+              {en:"Buddhabhumi Municipality", ne:"Buddhabhumi Municipality", url:"https://buddhabhumimun.gov.np", type:"Municipality"},
+              {en:"Shivraj Municipality", ne:"Shivraj Municipality", url:"https://shivrajmun.gov.np", type:"Municipality"},
+              {en:"Krishnanagar Municipality", ne:"Krishnanagar Municipality", url:"https://krishnanagarmun.gov.np", type:"Municipality"},
+              {en:"Maharajgunj Municipality", ne:"Maharajgunj Municipality", url:"https://maharajgunjmun.gov.np", type:"Municipality"},
+              {en:"Mayadevi Rural Municipality", ne:"Mayadevi Rural Municipality", url:"https://mayadevimunkapilvastu.gov.np", type:"Rural Municipality"},
+              {en:"Yashodhara Rural Municipality", ne:"Yashodhara Rural Municipality", url:"https://yasodharamun.gov.np", type:"Rural Municipality"},
+              {en:"Bijaynagar Rural Municipality", ne:"Bijaynagar Rural Municipality", url:"https://bijaynagarmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Nawalparasi West", ne:"नवलपरासी (पश्चिम)",
+            units:[
+              {en:"Sunwal Municipality", ne:"Sunwal Municipality", url:"https://sunwalmun.gov.np", type:"Municipality"},
+              {en:"Ramgram Municipality", ne:"Ramgram Municipality", url:"https://ramgrammun.gov.np", type:"Municipality"},
+              {en:"Bardaghat Municipality", ne:"Bardaghat Municipality", url:"https://bardghatmun.gov.np", type:"Municipality"},
+              {en:"Susta Rural Municipality", ne:"Susta Rural Municipality", url:"https://sustamun.gov.np", type:"Rural Municipality"},
+              {en:"Palhinandan Rural Municipality", ne:"Palhinandan Rural Municipality", url:"https://palhinandanmun.gov.np", type:"Rural Municipality"},
+              {en:"Pratappur Rural Municipality", ne:"Pratappur Rural Municipality", url:"https://pratappurmun.gov.np", type:"Rural Municipality"},
+              {en:"Sarawal Rural Municipality", ne:"Sarawal Rural Municipality", url:"https://sarawalmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Palpa", ne:"पाल्पा",
+            units:[
+              {en:"Tansen Municipality", ne:"Tansen Municipality", url:"https://tansenmun.gov.np", type:"Municipality"},
+              {en:"Rampur Municipality", ne:"Rampur Municipality", url:"https://rampurmun.gov.np", type:"Municipality"},
+              {en:"Rainadevi Chhahara Rural Municipality", ne:"Rainadevi Chhahara Rural Municipality", url:"https://rainadevichhaharamun.gov.np", type:"Rural Municipality"},
+              {en:"Ripdikot Rural Municipality", ne:"Ripdikot Rural Municipality", url:"https://ribdikotmun.gov.np", type:"Rural Municipality"},
+              {en:"Bagnaskali Rural Municipality", ne:"Bagnaskali Rural Municipality", url:"https://baganaskalimun.gov.np", type:"Rural Municipality"},
+              {en:"Rambha Rural Municipality", ne:"Rambha Rural Municipality", url:"https://rambhamun.gov.np", type:"Rural Municipality"},
+              {en:"Purbakhola Rural Municipality", ne:"Purbakhola Rural Municipality", url:"https://purbakholamun.gov.np", type:"Rural Municipality"},
+              {en:"Nisdi Rural Municipality", ne:"Nisdi Rural Municipality", url:"https://nisdimun.gov.np", type:"Rural Municipality"},
+              {en:"Mathagadi Rural Municipality", ne:"Mathagadi Rural Municipality", url:"https://mathagadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Tinahu Rural Municipality", ne:"Tinahu Rural Municipality", url:"https://tinaumun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Pyuthan", ne:"प्युठान",
+            units:[
+              {en:"Pyuthan Municipality", ne:"Pyuthan Municipality", url:"https://pyuthanmun.gov.np", type:"Municipality"},
+              {en:"Sworgadwari Municipality", ne:"Sworgadwari Municipality", url:"https://swargadwarimun.gov.np", type:"Municipality"},
+              {en:"Gaumukhi Rural Municipality", ne:"Gaumukhi Rural Municipality", url:"https://gaumukhimun.gov.np", type:"Rural Municipality"},
+              {en:"Mandavi Rural Municipality", ne:"Mandavi Rural Municipality", url:"https://mandavimun.gov.np", type:"Rural Municipality"},
+              {en:"Sarumarani Rural Municipality", ne:"Sarumarani Rural Municipality", url:"https://sarumaranimun.gov.np", type:"Rural Municipality"},
+              {en:"Mallarani Rural Municipality", ne:"Mallarani Rural Municipality", url:"https://mallaranimun.gov.np", type:"Rural Municipality"},
+              {en:"Naubahini Rural Municipality", ne:"Naubahini Rural Municipality", url:"https://naubahinimun.gov.np", type:"Rural Municipality"},
+              {en:"Jhimruk Rural Municipality", ne:"Jhimruk Rural Municipality", url:"https://jhimrukmun.gov.np", type:"Rural Municipality"},
+              {en:"Airawati Rural Municipality", ne:"Airawati Rural Municipality", url:"https://airawatimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Rolpa", ne:"रोल्पा",
+            units:[
+              {en:"Rolpa Municipality", ne:"Rolpa Municipality", url:"https://rolpamun.gov.np", type:"Municipality"},
+              {en:"Runtigadhi Rural Municipality", ne:"Runtigadhi Rural Municipality", url:"https://runtigadhimun.gov.np", type:"Rural Municipality"},
+              {en:"Triveni Rural Municipality", ne:"Triveni Rural Municipality", url:"https://trivenimunrolpa.gov.np", type:"Rural Municipality"},
+              {en:"Sunilsmriti Rural Municipality", ne:"Sunilsmriti Rural Municipality", url:"https://sunilsmritimun.gov.np", type:"Rural Municipality"},
+              {en:"Lungri Rural Municipality", ne:"Lungri Rural Municipality", url:"https://lungrimun.gov.np", type:"Rural Municipality"},
+              {en:"Sunchhahari Rural Municipality", ne:"Sunchhahari Rural Municipality", url:"https://sunchhaharimun.gov.np", type:"Rural Municipality"},
+              {en:"Thabang Rural Municipality", ne:"Thabang Rural Municipality", url:"https://thabangmun.gov.np", type:"Rural Municipality"},
+              {en:"Madi Rural Municipality", ne:"Madi Rural Municipality", url:"https://madimunrolpa.gov.np", type:"Rural Municipality"},
+              {en:"Gangadev Rural Municipality", ne:"Gangadev Rural Municipality", url:"https://gangadevmun.gov.np", type:"Rural Municipality"},
+              {en:"Paribartan Rural Municipality", ne:"Paribartan Rural Municipality", url:"https://paribartanmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Rukum East", ne:"रुकुम (पूर्व)",
+            units:[
+              {en:"Bhume Rural Municipality", ne:"Bhume Rural Municipality", url:"https://bhumemun.gov.np", type:"Rural Municipality"},
+              {en:"Putha Uttarganga Rural Municipality", ne:"Putha Uttarganga Rural Municipality", url:"https://puthauttargangamun.gov.np", type:"Rural Municipality"},
+              {en:"Sisne Rural Municipality", ne:"Sisne Rural Municipality", url:"https://sisnemun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Rupandehi", ne:"रुपन्देही",
+            units:[
+              {en:"Butwal Sub-Metropolitan City", ne:"Butwal Sub-Metropolitan City", url:"https://butwalmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Devdaha Municipality", ne:"Devdaha Municipality", url:"https://devdahamun.gov.np", type:"Municipality"},
+              {en:"Lumbini Sanskritik Municipality", ne:"Lumbini Sanskritik Municipality", url:"https://lumbinisanskritikmun.gov.np", type:"Municipality"},
+              {en:"Sainamaina Municipality", ne:"Sainamaina Municipality", url:"https://sainamainamun.gov.np", type:"Municipality"},
+              {en:"Siddharthanagar Municipality", ne:"Siddharthanagar Municipality", url:"https://siddharthanagarmun.gov.np", type:"Municipality"},
+              {en:"Tilottama Municipality", ne:"Tilottama Municipality", url:"https://tilottamamun.gov.np", type:"Municipality"},
+              {en:"Gaidahawa Rural Municipality", ne:"Gaidahawa Rural Municipality", url:"https://gaidahawamun.gov.np", type:"Rural Municipality"},
+              {en:"Kanchan Rural Municipality", ne:"Kanchan Rural Municipality", url:"https://kanchanmun.gov.np", type:"Rural Municipality"},
+              {en:"Kotahimai Rural Municipality", ne:"Kotahimai Rural Municipality", url:"https://kotahimaimun.gov.np", type:"Rural Municipality"},
+              {en:"Marchawari Rural Municipality", ne:"Marchawari Rural Municipality", url:"https://marchawarimun.gov.np", type:"Rural Municipality"},
+              {en:"Mayadevi Rural Municipality", ne:"Mayadevi Rural Municipality", url:"https://mayadevimunrupandehi.gov.np", type:"Rural Municipality"},
+              {en:"Omsatiya Rural Municipality", ne:"Omsatiya Rural Municipality", url:"https://omsatiyamun.gov.np", type:"Rural Municipality"},
+              {en:"Rohini Rural Municipality", ne:"Rohini Rural Municipality", url:"https://rohinimun.gov.np", type:"Rural Municipality"},
+              {en:"Sammarimai Rural Municipality", ne:"Sammarimai Rural Municipality", url:"https://sammarimaimun.gov.np", type:"Rural Municipality"},
+              {en:"Siyari Rural Municipality", ne:"Siyari Rural Municipality", url:"https://siyarimun.gov.np", type:"Rural Municipality"},
+              {en:"Suddodhan Rural Municipality", ne:"Suddodhan Rural Municipality", url:"https://suddhodhanmunrupandehi.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Karnali Province", ne:"कर्णाली प्रदेश", url:"karnali.gov.np", emoji:"🌿", cap:"Birendranagar", capNe:"बीरेन्द्रनगर",
-        metros:[],
-        submetros:[{ en:"Birendranagar Sub-Metropolitan City", ne:"बीरेन्द्रनगर उपमहानगरपालिका", url:"birendranagar.gov.np", emoji:"🏢" }],
-        municipalities:[
-          { en:"Gurbhakot Municipality", ne:"गुर्भाकोट नगरपालिका", url:"gurbhakot.gov.np", emoji:"🏘️" },
-          { en:"Panchapuri Municipality", ne:"पञ्चपुरी नगरपालिका", url:"panchapuri.gov.np", emoji:"🏘️" },
-          { en:"Lekbeshi Municipality", ne:"लेकबेशी नगरपालिका", url:"lekbeshi.gov.np", emoji:"🏘️" },
-          { en:"Bheriganga Municipality", ne:"भेरीगंगा नगरपालिका", url:"bheriganga.gov.np", emoji:"🏘️" },
-          { en:"Musikot Municipality", ne:"मुसिकोट नगरपालिका", url:"musikot.gov.np", emoji:"🏘️" },
-          { en:"Athbiskot Municipality", ne:"अठबिसकोट नगरपालिका", url:"athbiskot.gov.np", emoji:"🏘️" },
-          { en:"Chaurjahari Municipality", ne:"चौरजहारी नगरपालिका", url:"chaurjahari.gov.np", emoji:"🏘️" },
-          { en:"Sarada Municipality", ne:"शारदा नगरपालिका", url:"sarada.gov.np", emoji:"🏘️" },
-          { en:"Bagchaur Municipality", ne:"बागचौर नगरपालिका", url:"bagchaur.gov.np", emoji:"🏘️" },
-          { en:"Bangad Kupinde Municipality", ne:"बाँगड कुपिण्डे नगरपालिका", url:"bangadkupinde.gov.np", emoji:"🏘️" },
-          { en:"Narayan Municipality", ne:"नारायण नगरपालिका", url:"narayan.gov.np", emoji:"🏘️" },
-          { en:"Aathabis Municipality", ne:"आठबिस नगरपालिका", url:"aathabis.gov.np", emoji:"🏘️" },
-          { en:"Chamunda Bindrasaini Municipality", ne:"चामुण्डा बिन्द्रासैनी नगरपालिका", url:"chamundabindrasaini.gov.np", emoji:"🏘️" },
-          { en:"Dullu Municipality", ne:"दुल्लु नगरपालिका", url:"dullu.gov.np", emoji:"🏘️" },
-          { en:"Bheri Municipality", ne:"भेरी नगरपालिका", url:"bheri.gov.np", emoji:"🏘️" },
-          { en:"Chhedagad Municipality", ne:"छेदगाड नगरपालिका", url:"chhedagad.gov.np", emoji:"🏘️" },
-          { en:"Triveni Naalgad Municipality", ne:"त्रिवेणी नाल्गाड नगरपालिका", url:"trivenin.gov.np", emoji:"🏘️" },
-          { en:"Thuli Bheri Municipality", ne:"ठुली भेरी नगरपालिका", url:"thulibheri.gov.np", emoji:"🏘️" },
-          { en:"Tripurasundari Municipality", ne:"त्रिपुरासुन्दरी नगरपालिका", url:"tripurasundari.gov.np", emoji:"🏘️" },
-          { en:"Khadachakra Municipality", ne:"खाँडाचक्र नगरपालिका", url:"khadachakra.gov.np", emoji:"🏘️" },
-          { en:"Tilagupha Municipality", ne:"तिलागुफा नगरपालिका", url:"tilagupha.gov.np", emoji:"🏘️" },
-          { en:"Raskot Municipality", ne:"रास्कोट नगरपालिका", url:"raskot.gov.np", emoji:"🏘️" },
-          { en:"Sija Municipality", ne:"सिञ्जा नगरपालिका", url:"sija.gov.np", emoji:"🏘️" },
-          { en:"Chandannath Municipality", ne:"चन्दननाथ नगरपालिका", url:"chandannath.gov.np", emoji:"🏘️" },
+        en:"Karnali Province", ne:"कर्णाली प्रदेश", url:"https://ocmcm.karnali.gov.np/", emoji:"🌿", cap:"Birendranagar", capNe:"बीरेन्द्रनगर",
+        districts:[
+          {
+            en:"Dailekh", ne:"दैलेख",
+            units:[
+              {en:"Aathabis Municipality", ne:"Aathabis Municipality", url:"https://aathabismun.gov.np", type:"Municipality"},
+              {en:"Chamunda Bindrasaini Municipality", ne:"Chamunda Bindrasaini Municipality", url:"https://chamundabindrasainimun.gov.np", type:"Municipality"},
+              {en:"Dullu Municipality", ne:"Dullu Municipality", url:"https://dullumun.gov.np", type:"Municipality"},
+              {en:"Narayan Municipality", ne:"Narayan Municipality", url:"https://narayanmun.gov.np", type:"Municipality"},
+              {en:"Thantikandh Rural Municipality", ne:"Thantikandh Rural Municipality", url:"https://thantikandhmun.gov.np", type:"Rural Municipality"},
+              {en:"Bhairabi Rural Municipality", ne:"Bhairabi Rural Municipality", url:"https://bhairabimun.gov.np", type:"Rural Municipality"},
+              {en:"Mahabu Rural Municipality", ne:"Mahabu Rural Municipality", url:"https://mahabumun.gov.np", type:"Rural Municipality"},
+              {en:"Naumale Rural Municipality", ne:"Naumale Rural Municipality", url:"https://naumulemun.gov.np", type:"Rural Municipality"},
+              {en:"Dungeshwar Rural Municipality", ne:"Dungeshwar Rural Municipality", url:"https://dungeshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Gurans Rural Municipality", ne:"Gurans Rural Municipality", url:"https://guransmun.gov.np", type:"Rural Municipality"},
+              {en:"Bhagawatimai Rural Municipality", ne:"Bhagawatimai Rural Municipality", url:"https://bhagawatimaimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dolpa", ne:"डोल्पा",
+            units:[
+              {en:"Thuli Bheri Municipality", ne:"Thuli Bheri Municipality", url:"https://thulibherimun.gov.np", type:"Municipality"},
+              {en:"Tripurasundari Municipality", ne:"Tripurasundari Municipality", url:"https://tripurasundarimundolpa.gov.np", type:"Municipality"},
+              {en:"Dolpo Buddha Rural Municipality", ne:"Dolpo Buddha Rural Municipality", url:"https://dolpobuddhamun.gov.np", type:"Rural Municipality"},
+              {en:"She Phoksundo Rural Municipality", ne:"She Phoksundo Rural Municipality", url:"https://shephoksundomun.gov.np", type:"Rural Municipality"},
+              {en:"Jagadulla Rural Municipality", ne:"Jagadulla Rural Municipality", url:"https://jagdullamun.gov.np", type:"Rural Municipality"},
+              {en:"Mudkechula Rural Municipality", ne:"Mudkechula Rural Municipality", url:"https://mudkechulamun.gov.np", type:"Rural Municipality"},
+              {en:"Kaike Rural Municipality", ne:"Kaike Rural Municipality", url:"https://kaikemun.gov.np", type:"Rural Municipality"},
+              {en:"Chharka Tangsong Rural Municipality", ne:"Chharka Tangsong Rural Municipality", url:"https://chharkatangsongmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Humla", ne:"हुम्ला",
+            units:[
+              {en:"Simkot Rural Municipality", ne:"Simkot Rural Municipality", url:"https://simkotmun.gov.np", type:"Rural Municipality"},
+              {en:"Namkha Rural Municipality", ne:"Namkha Rural Municipality", url:"https://namkhamun.gov.np", type:"Rural Municipality"},
+              {en:"Kharpunath Rural Municipality", ne:"Kharpunath Rural Municipality", url:"https://kharpunathmun.gov.np", type:"Rural Municipality"},
+              {en:"Sarkegad Rural Municipality", ne:"Sarkegad Rural Municipality", url:"https://sarkegadmun.gov.np", type:"Rural Municipality"},
+              {en:"Chankheli Rural Municipality", ne:"Chankheli Rural Municipality", url:"https://chankhelimun.gov.np", type:"Rural Municipality"},
+              {en:"Adanchuli Rural Municipality", ne:"Adanchuli Rural Municipality", url:"https://adanchulimun.gov.np", type:"Rural Municipality"},
+              {en:"Tajakot Rural Municipality", ne:"Tajakot Rural Municipality", url:"https://tajakotmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Jajarkot", ne:"जाजरकोट",
+            units:[
+              {en:"Nalgad Municipality", ne:"Nalgad Municipality", url:"https://tribeninalgaadmun.gov.np", type:"Municipality"},
+              {en:"Chhedagad Municipality", ne:"Chhedagad Municipality", url:"https://chhedagadmun.gov.np", type:"Municipality"},
+              {en:"Bheri Municipality", ne:"Bheri Municipality", url:"https://bherimun.gov.np", type:"Municipality"},
+              {en:"Junichande Rural Municipality", ne:"Junichande Rural Municipality", url:"https://junichaandemun.gov.np", type:"Rural Municipality"},
+              {en:"Kushe Rural Municipality", ne:"Kushe Rural Municipality", url:"https://kushemun.gov.np", type:"Rural Municipality"},
+              {en:"Barekot Rural Municipality", ne:"Barekot Rural Municipality", url:"https://barekotmun.gov.np", type:"Rural Municipality"},
+              {en:"Shivalaya Rural Municipality", ne:"Shivalaya Rural Municipality", url:"https://shibalayamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Jumla", ne:"जुम्ला",
+            units:[
+              {en:"Chandannath Municipality", ne:"Chandannath Municipality", url:"https://chandannathmun.gov.np", type:"Municipality"},
+              {en:"Kankasundari Rural Municipality", ne:"Kankasundari Rural Municipality", url:"https://kankasundarimun.gov.np", type:"Rural Municipality"},
+              {en:"Sinja Rural Municipality", ne:"Sinja Rural Municipality", url:"https://www.sinjamun.gov.np", type:"Rural Municipality"},
+              {en:"Hima Rural Municipality", ne:"Hima Rural Municipality", url:"https://himamun.gov.np", type:"Rural Municipality"},
+              {en:"Tila Rural Municipality", ne:"Tila Rural Municipality", url:"https://tilamun.gov.np", type:"Rural Municipality"},
+              {en:"Guthichaur Rural Municipality", ne:"Guthichaur Rural Municipality", url:"https://guthichaurmun.gov.np", type:"Rural Municipality"},
+              {en:"Tatopani Rural Municipality", ne:"Tatopani Rural Municipality", url:"https://tatopanimun.gov.np", type:"Rural Municipality"},
+              {en:"Patarasi Rural Municipality", ne:"Patarasi Rural Municipality", url:"https://www.patarasimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kalikot", ne:"कालिकोट",
+            units:[
+              {en:"Khandachakra Municipality", ne:"Khandachakra Municipality", url:"https://khandachakramun.gov.np", type:"Municipality"},
+              {en:"Raskot Municipality", ne:"Raskot Municipality", url:"https://raskotmun.gov.np", type:"Municipality"},
+              {en:"Tilagufa Municipality", ne:"Tilagufa Municipality", url:"https://tilagufamun.gov.np", type:"Municipality"},
+              {en:"Pachaljharana Rural Municipality", ne:"Pachaljharana Rural Municipality", url:"https://pachaljharanamun.gov.np", type:"Rural Municipality"},
+              {en:"Sanni Triveni Rural Municipality", ne:"Sanni Triveni Rural Municipality", url:"https://sannitrivenimun.gov.np", type:"Rural Municipality"},
+              {en:"Narharinath Rural Municipality", ne:"Narharinath Rural Municipality", url:"https://narharinathmun.gov.np", type:"Rural Municipality"},
+              {en:"Shubha Kalika Rural Municipality", ne:"Shubha Kalika Rural Municipality", url:"https://kalikamunkalikot.gov.np", type:"Rural Municipality"},
+              {en:"Mahawai Rural Municipality", ne:"Mahawai Rural Municipality", url:"https://mahawaimun.gov.np", type:"Rural Municipality"},
+              {en:"Palata Rural Municipality", ne:"Palata Rural Municipality", url:"https://palatamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Mugu", ne:"मुगु",
+            units:[
+              {en:"Chhayanath Rara Municipality", ne:"Chhayanath Rara Municipality", url:"https://chhayanathraramun.gov.np", type:"Municipality"},
+              {en:"Mugum Karmarong Rural Municipality", ne:"Mugum Karmarong Rural Municipality", url:"https://mugumkarmarongmun.gov.np", type:"Rural Municipality"},
+              {en:"Soru Rural Municipality", ne:"Soru Rural Municipality", url:"https://sorumun.gov.np", type:"Rural Municipality"},
+              {en:"Khatyad Rural Municipality", ne:"Khatyad Rural Municipality", url:"https://khatyadmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Salyan", ne:"सल्यान",
+            units:[
+              {en:"Bagchaur Municipality", ne:"Bagchaur Municipality", url:"https://bagchaurmun.gov.np", type:"Municipality"},
+              {en:"Bangad Kupinde Municipality", ne:"Bangad Kupinde Municipality", url:"https://bangadkupindemun.gov.np", type:"Municipality"},
+              {en:"Sharada Municipality", ne:"Sharada Municipality", url:"https://shaaradamun.gov.np", type:"Municipality"},
+              {en:"Kalimati Rural Municipality", ne:"Kalimati Rural Municipality", url:"https://kalimatimun.gov.np", type:"Rural Municipality"},
+              {en:"Tribeni Rural Municipality", ne:"Tribeni Rural Municipality", url:"https://trivenimunsalyan.gov.np", type:"Rural Municipality"},
+              {en:"Kapurkot Rural Municipality", ne:"Kapurkot Rural Municipality", url:"https://kapurkotmun.gov.np", type:"Rural Municipality"},
+              {en:"Chhatreshwari Rural Municipality", ne:"Chhatreshwari Rural Municipality", url:"https://chhatreshworimun.gov.np", type:"Rural Municipality"},
+              {en:"Kumakh Rural Municipality", ne:"Kumakh Rural Municipality", url:"https://kumakhmalikamun.gov.np", type:"Rural Municipality"},
+              {en:"Darma Rural Municipality", ne:"Darma Rural Municipality", url:"https://darmamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Surkhet", ne:"सुर्खेत",
+            units:[
+              {en:"Lekbeshi Municipality", ne:"Lekbeshi Municipality", url:"https://lekbeshimun.gov.np", type:"Municipality"},
+              {en:"Panchpuri Municipality", ne:"Panchpuri Municipality", url:"https://panchapurimun.gov.np", type:"Municipality"},
+              {en:"Gurbhakot Municipality", ne:"Gurbhakot Municipality", url:"https://gurbhakotmun.gov.np", type:"Municipality"},
+              {en:"Bheriganga Municipality", ne:"Bheriganga Municipality", url:"https://bherigangamun.gov.np", type:"Municipality"},
+              {en:"Birendranagar Municipality", ne:"Birendranagar Municipality", url:"https://birendranagarmun.gov.np", type:"Municipality"},
+              {en:"Chaukune Rural Municipality", ne:"Chaukune Rural Municipality", url:"https://www.chaukunemun.gov.np", type:"Rural Municipality"},
+              {en:"Barahatal Rural Municipality", ne:"Barahatal Rural Municipality", url:"https://www.barahatalmun.gov.np", type:"Rural Municipality"},
+              {en:"Chingad Rural Municipality", ne:"Chingad Rural Municipality", url:"https://www.chingadmun.gov.np", type:"Rural Municipality"},
+              {en:"Simta Rural Municipality", ne:"Simta Rural Municipality", url:"https://www.simtamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Western Rukum", ne:"रुकुम (पश्चिम)",
+            units:[
+              {en:"Musikot Municipality", ne:"Musikot Municipality", url:"https://musikotmunrukum.gov.np", type:"Municipality"},
+              {en:"Chaurjahari Municipality", ne:"Chaurjahari Municipality", url:"https://chaurjaharimun.gov.np", type:"Municipality"},
+              {en:"Aathbiskot Municipality", ne:"Aathbiskot Municipality", url:"https://aathbiskotmun.gov.np", type:"Municipality"},
+              {en:"Banphikot Rural Municipality", ne:"Banphikot Rural Municipality", url:"https://banphikotmun.gov.np", type:"Rural Municipality"},
+              {en:"Triveni Rural Municipality", ne:"Triveni Rural Municipality", url:"https://trivenimunrukum.gov.np", type:"Rural Municipality"},
+              {en:"Sani Bheri Rural Municipality", ne:"Sani Bheri Rural Municipality", url:"https://sanibherimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
       {
-        en:"Sudurpashchim Province", ne:"सुदूरपश्चिम प्रदेश", url:"sudurpashchim.gov.np", emoji:"🌅", cap:"Dhangadhi", capNe:"धनगढी",
-        metros:[],
-        submetros:[{ en:"Dhangadhi Sub-Metropolitan City", ne:"धनगढी उपमहानगरपालिका", url:"dhangadhi.gov.np", emoji:"🏢" }],
-        municipalities:[
-          { en:"Tikapur Municipality", ne:"टीकापुर नगरपालिका", url:"tikapur.gov.np", emoji:"🏘️" },
-          { en:"Bheemdatta Municipality", ne:"भीमदत्त नगरपालिका", url:"bheemdatta.gov.np", emoji:"🏘️" },
-          { en:"Mahendranagar Municipality", ne:"महेन्द्रनगर नगरपालिका", url:"mahendranagar.gov.np", emoji:"🏘️" },
-          { en:"Belauri Municipality", ne:"बेलौरी नगरपालिका", url:"belauri.gov.np", emoji:"🏘️" },
-          { en:"Krishnapur Municipality", ne:"कृष्णपुर नगरपालिका", url:"krishnapur.gov.np", emoji:"🏘️" },
-          { en:"Punarbas Municipality", ne:"पुनर्बास नगरपालिका", url:"punarbas.gov.np", emoji:"🏘️" },
-          { en:"Bedkot Municipality", ne:"बेडकोट नगरपालिका", url:"bedkot.gov.np", emoji:"🏘️" },
-          { en:"Laljhadi Municipality", ne:"लालझाडी नगरपालिका", url:"laljhadi.gov.np", emoji:"🏘️" },
-          { en:"Kanchanpur Municipality", ne:"कञ्चनपुर नगरपालिका", url:"kanchanpur.gov.np", emoji:"🏘️" },
-          { en:"Shuklaphanta Municipality", ne:"शुक्लाफाँटा नगरपालिका", url:"shuklaphanta.gov.np", emoji:"🏘️" },
-          { en:"Amargadhi Municipality", ne:"अमरगढी नगरपालिका", url:"amargadhi.gov.np", emoji:"🏘️" },
-          { en:"Dasharathchand Municipality", ne:"दशरथचन्द नगरपालिका", url:"dasharathchand.gov.np", emoji:"🏘️" },
-          { en:"Dadeldhura Municipality", ne:"डडेल्धुरा नगरपालिका", url:"dadeldhura.gov.np", emoji:"🏘️" },
-          { en:"Parashuram Municipality", ne:"परशुराम नगरपालिका", url:"parashuram.gov.np", emoji:"🏘️" },
-          { en:"Aalital Municipality", ne:"आलीताल नगरपालिका", url:"aalital.gov.np", emoji:"🏘️" },
-          { en:"Darchula Municipality", ne:"दार्चुला नगरपालिका", url:"darchula.gov.np", emoji:"🏘️" },
-          { en:"Shailyashikhar Municipality", ne:"शैलेश्वरी नगरपालिका", url:"shailyashikhar.gov.np", emoji:"🏘️" },
-          { en:"Malikarjun Municipality", ne:"मालिकार्जुन नगरपालिका", url:"malikarjun.gov.np", emoji:"🏘️" },
-          { en:"Dipayal Silgadhi Municipality", ne:"दिपायल सिलगढी नगरपालिका", url:"dipayalsilgadhi.gov.np", emoji:"🏘️" },
-          { en:"Bogtan Municipality", ne:"बोगटान नगरपालिका", url:"bogtan.gov.np", emoji:"🏘️" },
-          { en:"Jorayal Municipality", ne:"जोरायल नगरपालिका", url:"jorayal.gov.np", emoji:"🏘️" },
-          { en:"Sayal Municipality", ne:"सायल नगरपालिका", url:"sayal.gov.np", emoji:"🏘️" },
-          { en:"Naugadh Municipality", ne:"नौगाड नगरपालिका", url:"naugadh.gov.np", emoji:"🏘️" },
-          { en:"Byas Municipality", ne:"व्यास नगरपालिका", url:"byasbaitadi.gov.np", emoji:"🏘️" },
-          { en:"Melauli Municipality", ne:"मेलौली नगरपालिका", url:"melauli.gov.np", emoji:"🏘️" },
-          { en:"Dunhu Municipality", ne:"दुन्हु नगरपालिका", url:"dunhu.gov.np", emoji:"🏘️" },
-          { en:"Api Municipality", ne:"अपि नगरपालिका", url:"api.gov.np", emoji:"🏘️" },
-          { en:"Pancheshwar Municipality", ne:"पञ्चेश्वर नगरपालिका", url:"pancheshwar.gov.np", emoji:"🏘️" },
-          { en:"Surnaya Municipality", ne:"सुर्नया नगरपालिका", url:"surnaya.gov.np", emoji:"🏘️" },
-          { en:"Dogdakedar Municipality", ne:"डोगडाकेदार नगरपालिका", url:"dogdakedar.gov.np", emoji:"🏘️" },
-          { en:"Dilasaini Municipality", ne:"दिलासैनी नगरपालिका", url:"dilasaini.gov.np", emoji:"🏘️" },
-          { en:"Nawadurga Municipality", ne:"नवदुर्गा नगरपालिका", url:"nawadurga.gov.np", emoji:"🏘️" },
+        en:"Sudurpashchim Province", ne:"सुदूरपश्चिम प्रदेश", url:"https://ocmcm.sudurpashchim.gov.np/", emoji:"🌅", cap:"Dhangadhi", capNe:"धनगढी",
+        districts:[
+          {
+            en:"Achham", ne:"अछाम",
+            units:[
+              {en:"Mangalsen Municipality", ne:"Mangalsen Municipality", url:"https://mangalsenmun.gov.np", type:"Municipality"},
+              {en:"Kamalbazar Municipality", ne:"Kamalbazar Municipality", url:"https://kamalbazarmun.gov.np", type:"Municipality"},
+              {en:"Sanfebagar Municipality", ne:"Sanfebagar Municipality", url:"https://sanfebagarmun.gov.np", type:"Municipality"},
+              {en:"Panchadewal Binayak Municipality", ne:"Panchadewal Binayak Municipality", url:"https://panchadewalbinayakmun.gov.np", type:"Municipality"},
+              {en:"Ramaroshan Rural Municipality", ne:"Ramaroshan Rural Municipality", url:"https://ramaroshanmun.gov.np", type:"Rural Municipality"},
+              {en:"Chaurpati Rural Municipality", ne:"Chaurpati Rural Municipality", url:"https://chaurpatimun.gov.np", type:"Rural Municipality"},
+              {en:"Turmakhand Rural Municipality", ne:"Turmakhand Rural Municipality", url:"https://turmakhadmun.gov.np", type:"Rural Municipality"},
+              {en:"Mellekh Rural Municipality", ne:"Mellekh Rural Municipality", url:"https://mellekhmun.gov.np", type:"Rural Municipality"},
+              {en:"Dhakari Rural Municipality", ne:"Dhakari Rural Municipality", url:"https://dhakarimun.gov.np", type:"Rural Municipality"},
+              {en:"Bannigadi Jayagad Rural Municipality", ne:"Bannigadi Jayagad Rural Municipality", url:"https://bannigadhijaygadhmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Baitadi", ne:"बैतडी",
+            units:[
+              {en:"Purchaudi Municipality", ne:"Purchaudi Municipality", url:"https://purchaudimun.gov.np", type:"Municipality"},
+              {en:"Melauli Municipality", ne:"Melauli Municipality", url:"https://melaulimun.gov.np", type:"Municipality"},
+              {en:"Patan Municipality", ne:"Patan Municipality", url:"https://patanmun.gov.np", type:"Municipality"},
+              {en:"Dasharathchanda Municipality", ne:"Dasharathchanda Municipality", url:"https://dasharathchandmun.gov.np", type:"Municipality"},
+              {en:"Sunarya Rural Municipality", ne:"Sunarya Rural Municipality", url:"https://sunaryamun.gov.np", type:"Rural Municipality"},
+              {en:"Sigas Rural Municipality", ne:"Sigas Rural Municipality", url:"https://sigasmun.gov.np", type:"Rural Municipality"},
+              {en:"Shivanath Rural Municipality", ne:"Shivanath Rural Municipality", url:"https://shivanathmun.gov.np", type:"Rural Municipality"},
+              {en:"Pancheshwor Rural Municipality", ne:"Pancheshwor Rural Municipality", url:"https://pancheshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Dogdakedar Rural Municipality", ne:"Dogdakedar Rural Municipality", url:"https://dogdakedarmun.gov.np", type:"Rural Municipality"},
+              {en:"Dilasaini Rural Municipality", ne:"Dilasaini Rural Municipality", url:"https://dilasainimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Bajhang", ne:"बझाङ",
+            units:[
+              {en:"Jaya Prithvi Municipality", ne:"Jaya Prithvi Municipality", url:"https://jayaprithvimun.gov.np", type:"Municipality"},
+              {en:"Bungal Municipality", ne:"Bungal Municipality", url:"https://bungalmun.gov.np", type:"Municipality"},
+              {en:"Khaptadchhanna Rural Municipality", ne:"Khaptadchhanna Rural Municipality", url:"https://khaptadchhannamun.gov.np", type:"Rural Municipality"},
+              {en:"Thalara Rural Municipality", ne:"Thalara Rural Municipality", url:"https://thalaramun.gov.np", type:"Rural Municipality"},
+              {en:"Bitthadchir Rural Municipality", ne:"Bitthadchir Rural Municipality", url:"https://bitthadchirmun.gov.np", type:"Rural Municipality"},
+              {en:"Surma Rural Municipality", ne:"Surma Rural Municipality", url:"https://surmamun.gov.np", type:"Rural Municipality"},
+              {en:"Chhabis Pathibhera Rural Municipality", ne:"Chhabis Pathibhera Rural Municipality", url:"https://chhabispathiveramun.gov.np", type:"Rural Municipality"},
+              {en:"Durgathali Rural Municipality", ne:"Durgathali Rural Municipality", url:"https://durgathalimun.gov.np", type:"Rural Municipality"},
+              {en:"Kedarsyu Rural Municipality", ne:"Kedarsyu Rural Municipality", url:"https://www.kedarasyumun.gov.np", type:"Rural Municipality"},
+              {en:"Saipal Rural Municipality", ne:"Saipal Rural Municipality", url:"https://kandamun.gov.np", type:"Rural Municipality"},
+              {en:"Talkot Rural Municipality", ne:"Talkot Rural Municipality", url:"https://talkotmun.gov.np", type:"Rural Municipality"},
+              {en:"Masta Rural Municipality", ne:"Masta Rural Municipality", url:"https://mastamun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Bajura", ne:"बाजुरा",
+            units:[
+              {en:"Badimalika Municipality", ne:"Badimalika Municipality", url:"https://badimalikamun.gov.np", type:"Municipality"},
+              {en:"Triveni Municipality", ne:"Triveni Municipality", url:"https://trivenimunbajura.gov.np", type:"Municipality"},
+              {en:"Budhiganga Municipality", ne:"Budhiganga Municipality", url:"https://budhigangamunbajura.gov.np", type:"Municipality"},
+              {en:"Budhinanda Municipality", ne:"Budhinanda Municipality", url:"https://budhinandamun.gov.np", type:"Municipality"},
+              {en:"Gaumul Rural Municipality", ne:"Gaumul Rural Municipality", url:"https://gaumulmun.gov.np", type:"Rural Municipality"},
+              {en:"Jaganath Rural Municipality", ne:"Jaganath Rural Municipality", url:"https://jagganathmun.gov.np", type:"Rural Municipality"},
+              {en:"Swamikartik Khapar Rural Municipality", ne:"Swamikartik Khapar Rural Municipality", url:"https://swamikartikmun.gov.np", type:"Rural Municipality"},
+              {en:"Khaptad Chhededaha Rural Municipality", ne:"Khaptad Chhededaha Rural Municipality", url:"https://www.chhededahamun.gov.np", type:"Rural Municipality"},
+              {en:"Himali Rural Municipality", ne:"Himali Rural Municipality", url:"https://himalimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Dadeldhura", ne:"डडेल्धुरा",
+            units:[
+              {en:"Amargadhi Municipality", ne:"Amargadhi Municipality", url:"https://amargadhimun.gov.np", type:"Municipality"},
+              {en:"Parshuram Municipality", ne:"Parshuram Municipality", url:"https://parshurammun.gov.np", type:"Municipality"},
+              {en:"Aalitaal Rural Municipality", ne:"Aalitaal Rural Municipality", url:"https://aalitalmun.gov.np", type:"Rural Municipality"},
+              {en:"Bhageshwar Rural Municipality", ne:"Bhageshwar Rural Municipality", url:"https://bhageshwormun.gov.np", type:"Rural Municipality"},
+              {en:"Navadurga Rural Municipality", ne:"Navadurga Rural Municipality", url:"https://navadurgamun.gov.np", type:"Rural Municipality"},
+              {en:"Ajaymeru Rural Municipality", ne:"Ajaymeru Rural Municipality", url:"https://ajayamerumun.gov.np", type:"Rural Municipality"},
+              {en:"Ganyapadhura Rural Municipality", ne:"Ganyapadhura Rural Municipality", url:"https://ganyapadhuramun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Darchula", ne:"दार्चुला",
+            units:[
+              {en:"Mahakali Municipality", ne:"Mahakali Municipality", url:"https://mahakalimundarchula.gov.np", type:"Municipality"},
+              {en:"Shailyashikhar Municipality", ne:"Shailyashikhar Municipality", url:"https://shailyashikharmun.gov.np", type:"Municipality"},
+              {en:"Malikarjun Rural Municipality", ne:"Malikarjun Rural Municipality", url:"https://malikarjunmun.gov.np", type:"Rural Municipality"},
+              {en:"Apihimal Rural Municipality", ne:"Apihimal Rural Municipality", url:"https://apihimalmun.gov.np", type:"Rural Municipality"},
+              {en:"Duhun Rural Municipality", ne:"Duhun Rural Municipality", url:"https://duhunmun.gov.np", type:"Rural Municipality"},
+              {en:"Naugad Rural Municipality", ne:"Naugad Rural Municipality", url:"https://naugadmun.gov.np", type:"Rural Municipality"},
+              {en:"Marma Rural Municipality", ne:"Marma Rural Municipality", url:"https://marmamun.gov.np", type:"Rural Municipality"},
+              {en:"Lekam Rural Municipality", ne:"Lekam Rural Municipality", url:"https://lekammun.gov.np", type:"Rural Municipality"},
+              {en:"Vyans Rural Municipality", ne:"Vyans Rural Municipality", url:"https://vyansmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Doti", ne:"डोटी",
+            units:[
+              {en:"Dipayal Silgadhi Municipality", ne:"Dipayal Silgadhi Municipality", url:"https://dipayalsilgadhimun.gov.np", type:"Municipality"},
+              {en:"Shikhar Municipality", ne:"Shikhar Municipality", url:"https://shikharmun.gov.np", type:"Municipality"},
+              {en:"Purbichauki Rural Municipality", ne:"Purbichauki Rural Municipality", url:"https://purbichaukimun.gov.np", type:"Rural Municipality"},
+              {en:"Badikedar Rural Municipality", ne:"Badikedar Rural Municipality", url:"https://badikedarmun.gov.np", type:"Rural Municipality"},
+              {en:"Jorayal Rural Municipality", ne:"Jorayal Rural Municipality", url:"https://jorayalmun.gov.np", type:"Rural Municipality"},
+              {en:"Sayal Rural Municipality", ne:"Sayal Rural Municipality", url:"https://sayalmun.gov.np", type:"Rural Municipality"},
+              {en:"Aadarsha Rural Municipality", ne:"Aadarsha Rural Municipality", url:"https://aadarshamun.gov.np", type:"Rural Municipality"},
+              {en:"K.I. Singh Rural Municipality", ne:"K.I. Singh Rural Municipality", url:"https://kisinghmun.gov.np", type:"Rural Municipality"},
+              {en:"Bogatan Fudsil Rural Municipality", ne:"Bogatan Fudsil Rural Municipality", url:"https://bogatanmun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kailali", ne:"कैलाली",
+            units:[
+              {en:"Dhangadhi Sub-Metropolitan City", ne:"Dhangadhi Sub-Metropolitan City", url:"https://dhangadhimun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Lamki Chuha Municipality", ne:"Lamki Chuha Municipality", url:"https://lamkichuhamun.gov.np", type:"Municipality"},
+              {en:"Tikapur Municipality", ne:"Tikapur Municipality", url:"https://tikapurmun.gov.np", type:"Municipality"},
+              {en:"Ghodaghodi Municipality", ne:"Ghodaghodi Municipality", url:"https://ghodaghodimun.gov.np", type:"Municipality"},
+              {en:"Bhajani Municipality", ne:"Bhajani Municipality", url:"https://bhajanimun.gov.np", type:"Municipality"},
+              {en:"Godawari Municipality", ne:"Godawari Municipality", url:"https://godawarimunkailali.gov.np", type:"Municipality"},
+              {en:"Gauriganga Municipality", ne:"Gauriganga Municipality", url:"https://gaurigangamun.gov.np", type:"Municipality"},
+              {en:"Janaki Rural Municipality", ne:"Janaki Rural Municipality", url:"https://janakimunkailali.gov.np", type:"Rural Municipality"},
+              {en:"Bardagoriya Rural Municipality", ne:"Bardagoriya Rural Municipality", url:"https://bardgoriyamun.gov.np", type:"Rural Municipality"},
+              {en:"Mohanyal Rural Municipality", ne:"Mohanyal Rural Municipality", url:"https://mohanyalmun.gov.np", type:"Rural Municipality"},
+              {en:"Kailari Rural Municipality", ne:"Kailari Rural Municipality", url:"https://kailarimun.gov.np", type:"Rural Municipality"},
+              {en:"Joshipur Rural Municipality", ne:"Joshipur Rural Municipality", url:"https://joshipurmun.gov.np", type:"Rural Municipality"},
+              {en:"Chure Rural Municipality", ne:"Chure Rural Municipality", url:"https://churemun.gov.np", type:"Rural Municipality"},
+            ]
+          },
+          {
+            en:"Kanchanpur", ne:"कञ्चनपुर",
+            units:[
+              {en:"Bedkot Municipality", ne:"Bedkot Municipality", url:"https://bedkotmun.gov.np", type:"Municipality"},
+              {en:"Belauri Municipality", ne:"Belauri Municipality", url:"https://belaurimun.gov.np", type:"Municipality"},
+              {en:"Bheemdatt Municipality", ne:"Bheemdatt Municipality", url:"https://bheemdattamun.gov.np", type:"Municipality"},
+              {en:"Shuklaphanta Municipality", ne:"Shuklaphanta Municipality", url:"https://shuklaphantamun.gov.np", type:"Municipality"},
+              {en:"Krishnapur Municipality", ne:"Krishnapur Municipality", url:"https://krishnapurmun.gov.np", type:"Municipality"},
+              {en:"Punarbas Municipality", ne:"Punarbas Municipality", url:"https://punarbasmun.gov.np", type:"Municipality"},
+              {en:"Laljhadi Rural Municipality", ne:"Laljhadi Rural Municipality", url:"https://laljhadimun.gov.np", type:"Rural Municipality"},
+              {en:"Beldandi Rural Municipality", ne:"Beldandi Rural Municipality", url:"https://beldandimun.gov.np", type:"Rural Municipality"},
+            ]
+          },
         ]
       },
     ]
-  },
-  {
+  },  {
     cat:"other", en:"Other Services & Departments", ne:"अन्य सेवाहरू र विभागहरू", icon:"⚙️", accent:"#5F5E5A",
     sites:[
       { en:"Department of Passports", ne:"राहदानी विभाग", url:"dop.gov.np", emoji:"🛂" },
@@ -1554,7 +2317,7 @@ const UI = {
     showing: (n) => `Showing <strong>${n}</strong> site${n!==1?'s':''}`,
     noResults: "No results found. Try a different search term.",
     capital: "Capital", portal: "Official Portal ↗",
-    metro: "Metropolitan", submeta: "Sub-Metropolitan", muni: "Municipalities",
+    metro: "Metropolitan", submeta: "Sub-Metropolitan", muni: "Municipality", rural: "Rural Municipality",
     provinces: "provinces", sites: (n) => `${n} site${n!==1?'s':''}`,
     disclaimer: `<strong>Note:</strong> Some government websites, especially local municipality sites, may load slowly or be temporarily unavailable. All links lead to official <strong>.gov.np</strong> domains.`,
     fbTitle: "💬 Share Your Feedback",
@@ -1578,7 +2341,7 @@ const UI = {
     showing: (n) => `<strong>${n}</strong> साइटहरू देखाउँदै`,
     noResults: "कुनै नतिजा फेला परेन। फरक खोज शब्द प्रयास गर्नुहोस्।",
     capital: "राजधानी", portal: "आधिकारिक पोर्टल ↗",
-    metro: "महानगरपालिका", submeta: "उपमहानगरपालिका", muni: "नगरपालिकाहरू",
+    metro: "महानगरपालिका", submeta: "उपमहानगरपालिका", muni: "नगरपालिका", rural: "गाउँपालिका",
     provinces: "प्रदेशहरू", sites: (n) => `${n} साइटहरू`,
     disclaimer: `<strong>नोट:</strong> केही सरकारी वेबसाइटहरू, विशेषगरी स्थानीय नगरपालिकाहरू, ढिलो लोड हुन सक्छन् वा अस्थायी रूपमा अनुपलब्ध हुन सक्छन्। सबै लिङ्कहरू आधिकारिक <strong>.gov.np</strong> डोमेनमा जान्छन्।`,
     fbTitle: "💬 आफ्नो प्रतिक्रिया दिनुहोस्",
@@ -1611,11 +2374,6 @@ function applyUI() {
   document.getElementById('disclaimerText').innerHTML = L.disclaimer;
   document.getElementById('noResultsText').textContent = L.noResults;
   document.getElementById('footerText').innerHTML = L.footer;
-  // Emergency
-  document.getElementById('emergencyTitle').textContent = L.emergencyTitle;
-  renderEmergency();
-  // Clock language refresh
-  updateClock();
   // Feedback section
   document.getElementById('fbTitle').textContent = L.fbTitle;
   document.getElementById('fbSubtitle').textContent = L.fbSubtitle;
@@ -1630,6 +2388,11 @@ function applyUI() {
   document.querySelectorAll('.cat-btn[data-en]').forEach(btn => {
     btn.textContent = btn.getAttribute('data-' + currentLang);
   });
+  // Emergency & clock
+  const et = document.getElementById('emergencyTitle');
+  if (et) et.textContent = L.emergencyTitle;
+  if (typeof renderEmergency === 'function') renderEmergency();
+  if (typeof updateClock === 'function') updateClock();
 }
 
 // ═══════════════════════════════════════════════
@@ -1658,48 +2421,95 @@ function render() {
     // ── PROVINCE SECTION ──
     if (section.provinces) {
       let pHtml = '';
+      const typeClass = { "Metropolitan":"metro", "Sub-Metropolitan":"submeta", "Municipality":"muni", "Rural Municipality":"rural" };
+      const typeBadge = (typ) => {
+        const L = UI[currentLang];
+        if (typ==="Metropolitan") return L.metro;
+        if (typ==="Sub-Metropolitan") return L.submeta;
+        if (typ==="Municipality") return L.muni;
+        return L.rural;
+      };
+
       section.provinces.forEach(prov => {
-        const provName = prov[currentLang];
+        const provName = prov[currentLang] || prov.en;
+        // Check if province or any district/unit matches query
         const provMatches = !q || provName.toLowerCase().includes(q) || prov.url.includes(q);
-        const filt = (arr) => (arr||[]).filter(m => !q || m[currentLang].toLowerCase().includes(q) || m.url.includes(q));
-        const fMetros = filt(prov.metros);
-        const fSubs = filt(prov.submetros);
-        const fMunis = filt(prov.municipalities);
-        if (!provMatches && !fMetros.length && !fSubs.length && !fMunis.length) return;
+        let anyDistrictMatch = false;
+        (prov.districts||[]).forEach(dist => {
+          const distName = currentLang==='ne' ? dist.ne : dist.en;
+          if (!q || distName.toLowerCase().includes(q) ||
+              (dist.units||[]).some(u => u.en.toLowerCase().includes(q) || u.url.includes(q))) {
+            anyDistrictMatch = true;
+          }
+        });
+        if (!provMatches && !anyDistrictMatch) return;
 
         pHtml += `<div class="province-block" style="--card-accent:${section.accent}" onclick="toggleProvince(this)">
           <div class="province-header">
             <span class="province-flag">${prov.emoji}</span>
             <div>
               <div class="province-name">${highlightMatch(provName, q)}</div>
-              <div class="province-cap">${L.capital}: ${currentLang==='ne' ? prov.capNe : prov.cap}</div>
+              <div class="province-cap">${UI[currentLang].capital}: ${currentLang==='ne' ? prov.capNe : prov.cap}</div>
             </div>
-            <a href="https://${prov.url}" target="_blank" rel="noopener" class="province-gov-btn" onclick="event.stopPropagation()">${L.portal}</a>
+            <a href="${prov.url}" target="_blank" rel="noopener" class="province-gov-btn" onclick="event.stopPropagation()">${UI[currentLang].portal}</a>
             <span class="province-chevron">▾</span>
           </div>
           <div class="province-body">
             <div class="province-search-wrap" onclick="event.stopPropagation()">
               <span class="province-search-icon">🔍</span>
               <input class="province-search-input" type="text"
-                placeholder="${currentLang==='ne' ? 'नगरपालिका खोज्नुहोस्…' : 'Search municipalities…'}"
-                oninput="filterProvince(this)"
-                autocomplete="off" />
+                placeholder="${currentLang==='ne' ? 'जिल्ला वा नगरपालिका खोज्नुहोस्…' : 'Search district or municipality…'}"
+                oninput="filterProvince(this)" autocomplete="off" />
               <button class="province-search-clear" onclick="clearProvinceSearch(this)" title="Clear">✕</button>
             </div>
-            <div class="province-no-results">${currentLang==='ne' ? 'कुनै नगरपालिका फेला परेन।' : 'No municipalities found.'}</div>`;
+            <div class="province-no-results">${currentLang==='ne' ? 'कुनै नतिजा फेला परेन।' : 'No results found.'}</div>`;
 
-        const renderGroup = (items, cls, badge) => {
-          if (!items.length) return;
-          pHtml += `<div class="muni-group-label"><span class="muni-badge ${cls}">${badge}</span></div><div class="muni-grid">`;
-          items.forEach(m => {
-            pHtml += `<a class="muni-card ${cls==='metro'?'metro-card':cls==='submeta'?'submeta-card':''}" href="https://${m.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${m.emoji} <span>${highlightMatch(m[currentLang], q)}</span></a>`;
-          });
-          pHtml += `</div>`;
-          totalVisible += items.length;
-        };
-        renderGroup(fMetros, 'metro', L.metro);
-        renderGroup(fSubs, 'submeta', L.submeta);
-        renderGroup(fMunis, 'muni', L.muni);
+        // Render districts
+        (prov.districts||[]).forEach(dist => {
+          const distNameEn = dist.en;
+          const distNameNe = dist.ne;
+          const distDisplay = currentLang==='ne' ? distNameNe : distNameEn;
+          const units = dist.units || [];
+
+          // Filter units
+          const filteredUnits = !q ? units : units.filter(u =>
+            u.en.toLowerCase().includes(q) || u.url.includes(q) ||
+            distNameEn.toLowerCase().includes(q) || distNameNe.includes(q)
+          );
+          if (filteredUnits.length === 0 && q &&
+              !distNameEn.toLowerCase().includes(q) && !distNameNe.includes(q)) return;
+
+          const unitCount = filteredUnits.length;
+          totalVisible += unitCount;
+
+          pHtml += `<div class="district-block" onclick="event.stopPropagation(); toggleDistrict(this)">
+            <div class="district-header">
+              <span>📍</span>
+              <span class="district-name-en">${highlightMatch(distDisplay, q)}</span>
+              <span class="district-name-ne">${currentLang==='ne' ? distNameEn : distNameNe}</span>
+              <span class="district-count">${unitCount} ${unitCount===1?(currentLang==='ne'?'इकाइ':'unit'):(currentLang==='ne'?'इकाइहरू':'units')}</span>
+              <span class="district-chevron">▾</span>
+            </div>
+            <div class="district-body">`;
+
+          // Group units by type
+          for (const typ of ["Metropolitan","Sub-Metropolitan","Municipality","Rural Municipality"]) {
+            const typeUnits = filteredUnits.filter(u => u.type === typ);
+            if (!typeUnits.length) continue;
+            const cls = typeClass[typ] || 'muni';
+            pHtml += `<div class="muni-group-label"><span class="muni-badge ${cls}">${typeBadge(typ)}</span></div>
+              <div class="muni-grid">`;
+            typeUnits.forEach(u => {
+              pHtml += `<a class="muni-card ${cls==='metro'?'metro-card':cls==='submeta'?'submeta-card':cls==='rural'?'rural-card':''}"
+                href="${u.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <span>${highlightMatch(u.en, q)}</span></a>`;
+            });
+            pHtml += `</div>`;
+          }
+
+          pHtml += `</div></div>`;
+        });
+
         pHtml += `</div></div>`;
         if (provMatches) totalVisible++;
       });
@@ -1709,7 +2519,7 @@ function render() {
           <div class="section-header">
             <div class="section-icon" style="background:${section.accent}18;color:${section.accent};font-size:20px">${section.icon}</div>
             <div class="section-title">${sectionLabel}</div>
-            <div class="section-count">${section.provinces.length} ${L.provinces}</div>
+            <div class="section-count">${section.provinces.length} ${UI[currentLang].provinces}</div>
           </div>${pHtml}</div>`;
       }
       return;
@@ -1754,11 +2564,14 @@ function render() {
 // ── PROVINCE ACCORDION ──
 function toggleProvince(block) {
   block.classList.toggle('open');
-  // Focus the search input when opening
   if (block.classList.contains('open')) {
     const input = block.querySelector('.province-search-input');
     if (input) setTimeout(() => input.focus(), 250);
   }
+}
+
+function toggleDistrict(block) {
+  block.classList.toggle('open');
 }
 
 function filterProvince(input) {
@@ -1766,30 +2579,41 @@ function filterProvince(input) {
   const block = input.closest('.province-block');
   const clearBtn = block.querySelector('.province-search-clear');
   const noResults = block.querySelector('.province-no-results');
-
-  // Show/hide clear button
   clearBtn.classList.toggle('visible', q.length > 0);
 
-  // Filter all muni-cards in this province
-  const cards = block.querySelectorAll('.muni-card');
   let anyVisible = false;
-  cards.forEach(card => {
-    const name = card.querySelector('span')?.textContent.toLowerCase() || '';
-    const match = !q || name.includes(q);
-    card.style.display = match ? '' : 'none';
-    if (match) anyVisible = true;
+
+  // Filter district blocks
+  block.querySelectorAll('.district-block').forEach(distBlock => {
+    const distName = distBlock.querySelector('.district-name-en')?.textContent.toLowerCase() || '';
+    const distNe = distBlock.querySelector('.district-name-ne')?.textContent.toLowerCase() || '';
+    const cards = distBlock.querySelectorAll('.muni-card');
+
+    let distHasMatch = !q || distName.includes(q) || distNe.includes(q);
+    let cardMatch = false;
+
+    cards.forEach(card => {
+      const name = card.querySelector('span')?.textContent.toLowerCase() || '';
+      const match = !q || name.includes(q) || distName.includes(q) || distNe.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) cardMatch = true;
+    });
+
+    const show = !q || distHasMatch || cardMatch;
+    distBlock.style.display = show ? '' : 'none';
+    if (show) { anyVisible = true; if (q) distBlock.classList.add('open'); }
+    else distBlock.classList.remove('open');
+
+    // Hide/show group labels
+    distBlock.querySelectorAll('.muni-group-label').forEach(label => {
+      const grid = label.nextElementSibling;
+      if (!grid) return;
+      const vis = [...grid.querySelectorAll('.muni-card')].some(c => c.style.display !== 'none');
+      label.style.display = vis ? '' : 'none';
+      if (grid.classList.contains('muni-grid')) grid.style.display = vis ? '' : 'none';
+    });
   });
 
-  // Hide/show group labels if all cards in that group are hidden
-  block.querySelectorAll('.muni-group-label').forEach(label => {
-    const grid = label.nextElementSibling;
-    if (!grid) return;
-    const visibleCards = [...grid.querySelectorAll('.muni-card')].some(c => c.style.display !== 'none');
-    label.style.display = visibleCards ? '' : 'none';
-    grid.style.display = visibleCards ? '' : 'none';
-  });
-
-  // No results message
   noResults.classList.toggle('visible', !anyVisible && q.length > 0);
 }
 
@@ -1863,23 +2687,24 @@ async function submitFeedback() {
 
 // ── EMERGENCY DATA ──
 const EMERGENCY = [
-  { en:"Nepal Police",               ne:"नेपाल प्रहरी",                num:"100"  },
-  { en:"Fire Support",               ne:"दमकल सेवा",                   num:"101"  },
-  { en:"Ambulance Support",          ne:"एम्बुलेन्स सेवा",              num:"102"  },
-  { en:"Traffic Support",            ne:"ट्राफिक सेवा",                 num:"103"  },
-  { en:"Missing Child Response",     ne:"हराएको बालबालिका",             num:"104"  },
-  { en:"CIAA (Anti-Corruption)",     ne:"अख्तियार दुरुपयोग अनुसन्धान", num:"107"  },
-  { en:"Child Helpline",             ne:"बाल हेल्पलाइन",                num:"1098" },
-  { en:"Armed Police Force",         ne:"सशस्त्र प्रहरी बल",            num:"1114" },
-  { en:"Women Helpline",             ne:"महिला हेल्पलाइन",              num:"1145" },
-  { en:"NEA Helpline",               ne:"नेपाल विद्युत् प्राधिकरण",    num:"1149" },
-  { en:"Patan Mental Hospital",      ne:"पाटन मानसिक अस्पताल",         num:"1166" },
-  { en:"Ministry of Home Affairs",   ne:"गृह मन्त्रालय",                num:"1112" },
+  { en:"Nepal Police",             ne:"नेपाल प्रहरी",                num:"100"  },
+  { en:"Fire Support",             ne:"दमकल सेवा",                   num:"101"  },
+  { en:"Ambulance Support",        ne:"एम्बुलेन्स सेवा",              num:"102"  },
+  { en:"Traffic Support",          ne:"ट्राफिक सेवा",                 num:"103"  },
+  { en:"Missing Child Response",   ne:"हराएको बालबालिका",             num:"104"  },
+  { en:"CIAA (Anti-Corruption)",   ne:"अख्तियार दुरुपयोग अनुसन्धान", num:"107"  },
+  { en:"Child Helpline",           ne:"बाल हेल्पलाइन",                num:"1098" },
+  { en:"Armed Police Force",       ne:"सशस्त्र प्रहरी बल",            num:"1114" },
+  { en:"Women Helpline",           ne:"महिला हेल्पलाइन",              num:"1145" },
+  { en:"NEA Helpline",             ne:"नेपाल विद्युत् प्राधिकरण",    num:"1149" },
+  { en:"Patan Mental Hospital",    ne:"पाटन मानसिक अस्पताल",         num:"1166" },
+  { en:"Ministry of Home Affairs", ne:"गृह मन्त्रालय",                num:"1112" },
 ];
 
 function renderEmergency() {
   const L = UI[currentLang];
   const grid = document.getElementById('emergencyGrid');
+  if (!grid) return;
   grid.innerHTML = EMERGENCY.map(e => `
     <div class="emergency-card">
       <div class="emergency-name">${e[currentLang]}</div>
@@ -1890,44 +2715,36 @@ function renderEmergency() {
     </div>`).join('');
 }
 
-// ── NEPALI DATE & TIME CLOCK ──
+// ── CLOCK ──
 function toNepaliNumerals(n) {
   const ne = ['०','१','२','३','४','५','६','७','८','९'];
   return String(n).split('').map(d => /\d/.test(d) ? ne[+d] : d).join('');
 }
-
 function gregorianToBS(date) {
-  let bsYear = date.getFullYear() + 56;
-  let bsMonth = date.getMonth() + 1 + 8;
-  let bsDay = date.getDate() + 16;
-  if (bsDay > 30)  { bsDay -= 30; bsMonth++; }
-  if (bsMonth > 12){ bsMonth -= 12; bsYear++; }
-  return { year: bsYear, month: bsMonth, day: bsDay };
+  let y = date.getFullYear()+56, m = date.getMonth()+1+8, d = date.getDate()+16;
+  if(d>30){d-=30;m++;} if(m>12){m-=12;y++;}
+  return {year:y,month:m,day:d};
 }
-
 function updateClock() {
   const now = new Date();
-  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-  const npt = new Date(utc + 5 * 3600000 + 45 * 60000);
+  const npt = new Date(now.getTime() + now.getTimezoneOffset()*60000 + 5*3600000 + 45*60000);
   const L = UI[currentLang];
-  const h = npt.getHours(), m = npt.getMinutes(), s = npt.getSeconds();
+  const h=npt.getHours(), m=npt.getMinutes(), s=npt.getSeconds();
   let dateStr, timeStr;
-
-  if (currentLang === 'ne') {
+  if (currentLang==='ne') {
     const bs = gregorianToBS(npt);
-    const monthNames = ["बैशाख","जेठ","असार","साउन","भदौ","असोज","कार्तिक","मंसिर","पुस","माघ","फागुन","चैत"];
-    dateStr = `${L.dtDays[npt.getDay()]}, ${toNepaliNumerals(bs.day)} ${monthNames[bs.month-1]} ${toNepaliNumerals(bs.year)}`;
-    const hh = h % 12 || 12;
-    const ampm = h < 12 ? 'बिहान' : h < 17 ? 'दिउँसो' : h < 20 ? 'साँझ' : 'राति';
+    const months = ["बैशाख","जेठ","असार","साउन","भदौ","असोज","कार्तिक","मंसिर","पुस","माघ","फागुन","चैत"];
+    dateStr = `${L.dtDays[npt.getDay()]}, ${toNepaliNumerals(bs.day)} ${months[bs.month-1]} ${toNepaliNumerals(bs.year)}`;
+    const hh=h%12||12, ampm=h<12?'बिहान':h<17?'दिउँसो':h<20?'साँझ':'राति';
     timeStr = `${toNepaliNumerals(hh)}:${toNepaliNumerals(String(m).padStart(2,'0'))}:${toNepaliNumerals(String(s).padStart(2,'0'))} ${ampm}`;
   } else {
     dateStr = `${L.dtDays[npt.getDay()]}, ${L.dtMonths[npt.getMonth()]} ${npt.getDate()}, ${npt.getFullYear()}`;
-    const hh = h % 12 || 12;
-    const ampm = h < 12 ? 'AM' : 'PM';
+    const hh=h%12||12, ampm=h<12?'AM':'PM';
     timeStr = `${hh}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ampm} NPT`;
   }
-  document.getElementById('dtDate').textContent = dateStr;
-  document.getElementById('dtTime').textContent = timeStr;
+  const dd=document.getElementById('dtDate'), dt=document.getElementById('dtTime');
+  if(dd) dd.textContent=dateStr;
+  if(dt) dt.textContent=timeStr;
 }
 
 updateClock();
@@ -1935,12 +2752,7 @@ setInterval(updateClock, 1000);
 
 render();
 applyUI();
-// ── BACK TO TOP ──
-window.addEventListener('scroll', function() {
-  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 300);
-});
+renderEmergency();
 </script>
-<!-- BACK TO TOP -->
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">▲</button>
 </body>
 </html>

@@ -506,8 +506,10 @@
   }
 
   .province-no-results.visible { display: block; }
-    margin-left: auto;
-    font-size: 18px;
+
+  .province-chevron {
+    margin-left: 8px;
+    font-size: 16px;
     color: var(--card-accent, #1D9E75);
     transition: transform 0.25s ease;
     flex-shrink: 0;
@@ -804,8 +806,13 @@
     .card-name { font-size: 0.78rem; }
     .card-url { font-size: 0.66rem; }
     .section-title { font-size: 1rem; }
-    .province-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
-    .province-gov-btn { margin-left: 0; padding: 5px 11px; font-size: 0.74rem; }
+    .province-header { padding: 12px 14px; gap: 8px; flex-wrap: nowrap; align-items: center; }
+    .province-flag { font-size: 22px !important; }
+    .province-name { font-size: 0.88rem; }
+    .province-cap { font-size: 0.72rem; }
+    .province-gov-btn { padding: 4px 9px; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; margin-left: auto; }
+    .dt-tithi-item { display: none !important; }
+    .dt-tithi-div  { display: none !important; }
     .muni-grid { grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px 12px 12px; }
     .muni-card { padding: 8px 9px; font-size: 0.76rem; }
     .muni-group-label { padding: 8px 12px 2px; }
@@ -869,11 +876,12 @@
   .emergency-free { font-size: 0.62rem; color: #4caf50; font-weight: 500; background: rgba(76,175,80,0.15); border-radius: 50px; padding: 1px 6px; white-space: nowrap; }
 
   @media (max-width: 768px) {
-    .datetime-bar { padding: 5px 16px; font-size: 0.7rem; gap: 8px; }
+    .datetime-bar { padding: 5px 12px; font-size: 0.68rem; gap: 6px; }
     .dt-npt-label { display: none; }
-    .dt-tithi-item { display: none; }
-    .dt-tithi-div  { display: none; }
-    .lang-toggle { padding: 2px 9px; font-size: 0.72rem; }
+    .dt-tithi-item { display: none !important; }
+    .dt-tithi-div  { display: none !important; }
+    .lang-toggle { padding: 2px 8px; font-size: 0.7rem; }
+    .dark-toggle { padding: 2px 8px; font-size: 0.7rem; }
     .emergency-section { padding: 10px 16px; }
     .emergency-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
     .emergency-num { font-size: 0.92rem; }

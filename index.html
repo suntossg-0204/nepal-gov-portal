@@ -831,6 +831,7 @@
   }
   .datetime-bar .dt-item { display: flex; align-items: center; gap: 5px; }
   .datetime-bar .dt-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+  .tithi-hl { color: #D4A017; font-weight: 700; }
   .dt-npt-label {}
   .lang-toggle {
     display: inline-flex; align-items: center; gap: 5px;
@@ -875,6 +876,91 @@
     .emergency-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
     .emergency-num { font-size: 0.92rem; }
   }
+
+  /* DARK TOGGLE */
+  .dark-toggle{display:inline-flex;align-items:center;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:3px 10px;cursor:pointer;color:#fff;font-size:0.82rem;transition:background 0.18s;}
+  .dark-toggle:hover{background:rgba(255,255,255,0.28);}
+  /* DARK MODE */
+  body.dark{--ink:#e8e8f0;--ink-soft:#9090b0;--mist:#1a1a2e;--white:#16213e;--border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.15);--blue-light:#1a2a4a;}
+  body.dark .search-bar-wrap,body.dark .cats-wrap{background:#16213e;border-color:rgba(255,255,255,0.08);}
+  body.dark .search-input{background:#1a1a2e;color:#e8e8f0;border-color:rgba(255,255,255,0.15);}
+  body.dark .card{background:#16213e;border-color:rgba(255,255,255,0.1);}
+  body.dark .card-name{color:#e8e8f0;}
+  body.dark .cat-btn{border-color:rgba(255,255,255,0.15);color:#9090b0;}
+  body.dark .cat-btn.active{background:var(--blue);color:#fff;}
+  body.dark .province-block,body.dark .district-block{background:#16213e;border-color:rgba(255,255,255,0.1);}
+  body.dark .district-header{background:#1e2d4a;}
+  body.dark .muni-card{background:#1a1a2e;border-color:rgba(255,255,255,0.1);color:#e8e8f0;}
+  body.dark .section-title{color:#e8e8f0;}
+  body.dark .disclaimer{background:#2a2200;color:#c8a840;}
+  body.dark footer{background:#0d0d1a;}
+  /* COPY BTN */
+  .copy-btn{position:absolute;top:8px;right:34px;background:rgba(0,0,0,0.06);border:none;border-radius:6px;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.2s;opacity:0;z-index:2;}
+  .card:hover .copy-btn{opacity:1;}
+  .copy-btn:hover{background:var(--blue);color:#fff;}
+  .copy-btn.copied{background:#2e7d32;color:#fff;opacity:1;}
+  /* FAV BTN */
+  .fav-btn{position:absolute;top:8px;right:62px;background:none;border:none;font-size:15px;cursor:pointer;opacity:0;transition:opacity 0.2s;z-index:2;padding:0;line-height:1;}
+  .card:hover .fav-btn{opacity:1;}
+  .fav-btn.active{opacity:1;}
+  /* FAV BAR */
+  .fav-bar{background:var(--white);border-bottom:1px solid var(--border);padding:8px 32px;display:none;align-items:center;gap:10px;flex-wrap:wrap;}
+  .fav-bar.visible{display:flex;}
+  .fav-bar-label{font-size:0.82rem;font-weight:600;color:var(--ink);white-space:nowrap;}
+  .fav-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;}
+  .fav-chip{display:inline-flex;align-items:center;gap:5px;background:var(--blue-light);border:1px solid #bad0f0;border-radius:50px;padding:3px 10px;font-size:0.75rem;color:var(--blue);text-decoration:none;}
+  .fav-chip-x{cursor:pointer;color:var(--crimson);font-size:11px;}
+  .fav-clear-all{font-size:0.72rem;color:var(--crimson);cursor:pointer;background:none;border:none;white-space:nowrap;}
+  @media(max-width:768px){.fav-bar{padding:8px 16px;}}
+  /* STATUS DOT */
+  .status-dot{width:7px;height:7px;border-radius:50%;position:absolute;top:10px;right:10px;flex-shrink:0;}
+  .status-dot.up{background:#4caf50;box-shadow:0 0 5px #4caf50;}
+  .status-dot.down{background:#f44336;}
+  .status-dot.checking{background:#ffc107;animation:sdpulse 1s infinite;}
+  @keyframes sdpulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  /* LAST UPDATED */
+  .last-updated-bar{background:var(--mist);border-bottom:1px solid var(--border);padding:6px 32px;font-size:0.75rem;color:var(--ink-soft);display:flex;align-items:center;gap:8px;}
+  @media(max-width:768px){.last-updated-bar{padding:6px 16px;}}
+  /* TITHI BAR */
+  .tithi-bar{background:linear-gradient(90deg,#6B0000,#003893);padding:8px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .tithi-item{font-size:0.75rem;color:rgba(255,255,255,0.85);}
+  .tithi-hl{color:#D4A017;font-weight:700;}
+  .tithi-div{width:1px;height:14px;background:rgba(255,255,255,0.25);flex-shrink:0;}
+  @media(max-width:600px){.tithi-bar{padding:7px 16px;gap:8px;}}
+  /* NEWS */
+  .news-section{background:var(--white);border-top:3px solid var(--blue);padding:32px;}
+  body.dark .news-section{background:#16213e;}
+  .news-section-inner,.map-section-inner{max-width:1200px;margin:0 auto;}
+  .news-head,.map-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .news-title,.map-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink);}
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;}
+  .news-card{border:1px solid var(--border);border-radius:12px;padding:14px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:5px;transition:box-shadow 0.2s,transform 0.2s;background:var(--mist);}
+  body.dark .news-card{background:#1a1a2e;}
+  .news-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+  .news-source{font-size:0.68rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;}
+  .news-headline{font-size:0.83rem;font-weight:500;line-height:1.4;}
+  .news-date{font-size:0.7rem;color:var(--ink-soft);}
+  @media(max-width:600px){.news-section{padding:20px 16px;}.news-grid{grid-template-columns:1fr;}}
+  /* MAP */
+  .map-section{background:var(--white);border-top:1px solid var(--border);padding:32px;}
+  body.dark .map-section{background:#16213e;}
+  .map-wrap{position:relative;max-width:560px;margin:0 auto;}
+  .map-wrap svg{width:100%;height:auto;}
+  .map-province{cursor:pointer;transition:filter 0.2s;stroke:#fff;stroke-width:1.5;}
+  .map-province:hover{filter:brightness(1.25);}
+  .map-province.active{stroke:#D4A017;stroke-width:3;}
+  .map-label{font-size:10px;fill:#fff;font-weight:700;pointer-events:none;text-anchor:middle;}
+  .map-tooltip{position:absolute;background:rgba(0,0,0,0.82);color:#fff;padding:5px 12px;border-radius:8px;font-size:0.75rem;pointer-events:none;display:none;z-index:10;white-space:nowrap;}
+  .map-hint{text-align:center;font-size:0.75rem;color:var(--ink-soft);margin-top:8px;}
+  @media(max-width:600px){.map-section{padding:20px 16px;}}
+  /* TOAST */
+  #toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(120px);background:#222;color:#fff;padding:9px 22px;border-radius:50px;font-size:0.83rem;transition:transform 0.3s;z-index:1001;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
+  #toast.show{transform:translateX(-50%) translateY(0);}
+  /* BACK TO TOP */
+  .back-to-top{position:fixed;bottom:32px;right:32px;width:46px;height:46px;background:var(--blue);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity 0.3s,transform 0.3s,visibility 0.3s,background 0.2s;z-index:999;}
+  .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--crimson);}
+  @media(max-width:600px){.back-to-top{bottom:20px;right:16px;width:40px;height:40px;font-size:17px;}}
 </style>
 </head>
 <body>
@@ -887,11 +973,15 @@
     <div class="dt-divider"></div>
     <div class="dt-item">🕐 <span id="dtTime">—</span></div>
     <div class="dt-divider"></div>
+    <div class="dt-item">🌗 <span id="tithiName" class="tithi-hl">—</span> <span id="tithiLabel" style="opacity:0.7;font-size:0.72rem">Tithi</span></div>
+    <div class="dt-divider"></div>
     <div class="dt-item dt-npt-label">🇳🇵 NPT (UTC+5:45)</div>
     <div class="dt-divider"></div>
     <button class="lang-toggle" id="langToggle" onclick="toggleLang()">
       🌐 <span id="langLabel">नेपाली</span>
     </button>
+    <div class="dt-divider"></div>
+    <button class="dark-toggle" id="darkToggle">🌙</button>
   </div>
   <div class="hero-pattern"></div>
   <div class="hero-geo"></div>
@@ -914,6 +1004,18 @@
     <span class="emergency-toggle-icon">▾</span>
   </div>
   <div class="emergency-grid" id="emergencyGrid"></div>
+</div>
+
+<!-- LAST UPDATED -->
+<div class="last-updated-bar">
+  🔄 <span id="lastUpdatedText">Data last verified: <strong>June 2025</strong> &nbsp;·&nbsp; 735 local government units across 7 provinces</span>
+</div>
+
+<!-- FAVOURITES BAR -->
+<div class="fav-bar" id="favBar">
+  <span class="fav-bar-label" id="favBarLabel">⭐ My Favourites</span>
+  <div class="fav-chips" id="favChips"></div>
+  <button class="fav-clear-all" id="favClearBtn">Clear all</button>
 </div>
 
 <!-- DISCLAIMER -->
@@ -1004,7 +1106,7 @@
   <span id="footerText"><strong>Nepal Sarkar Portal</strong> — Unofficial directory for public use<br>
   All links lead to official <strong>.gov.np</strong> government websites &nbsp;·&nbsp;
   Built with ❤️ for citizens of Nepal &nbsp;·&nbsp;
-  <a href="https://nepal.gov.np" target="_blank">nepal.gov.np</a></span>
+  <strong>SANTOSH KHATRI</strong></span>
 </footer>
 
 <script>
@@ -2309,6 +2411,12 @@ let currentLang = 'en';
 let activeCat = 'all';
 let searchQuery = '';
 
+// Feature variables - declared early so render() can use them
+let favourites = [];
+try { favourites = JSON.parse(localStorage.getItem('ng_favs') || '[]'); } catch(e) {}
+let darkMode = false;
+try { darkMode = localStorage.getItem('ng_dark') === 'true'; } catch(e) {}
+
 const UI = {
   en: {
     searchPlaceholder: "Search ministries, departments, services…",
@@ -2395,6 +2503,7 @@ function applyUI() {
   if (et) et.textContent = L.emergencyTitle;
   if (typeof renderEmergency === 'function') renderEmergency();
   if (typeof updateClock === 'function') updateClock();
+  if (typeof updateAllFeatureUI === 'function') updateAllFeatureUI();
 }
 
 // ═══════════════════════════════════════════════
@@ -2517,12 +2626,38 @@ function render() {
       });
 
       if (pHtml) {
+        const mapHTML = `
+        <div class="map-section" style="margin:0 0 20px;padding:20px;border-radius:16px;border:1px solid var(--border);">
+          <div class="map-head"><span style="font-size:20px">🗺️</span> <span class="map-title" id="mapTitle">${currentLang==='ne'?'नेपालको अन्तरक्रियात्मक नक्सा — प्रदेश छान्नुहोस्':'Interactive Map of Nepal — Click a Province'}</span></div>
+          <div class="map-wrap">
+            <div class="map-tooltip" id="mapTooltip"></div>
+            <svg viewBox="0 0 500 165" xmlns="http://www.w3.org/2000/svg" id="nepalMap">
+              <path class="map-province" data-prov="Koshi"         d="M340,10 L440,15 L455,55 L430,85 L385,90 L355,72 L338,50 Z" fill="#1565C0"/>
+              <path class="map-province" data-prov="Madhesh"       d="M270,105 L455,90 L455,130 L270,135 Z"                       fill="#B71C1C"/>
+              <path class="map-province" data-prov="Bagmati"       d="M220,48 L338,50 L355,72 L385,90 L335,105 L270,105 L240,82 Z" fill="#1B5E20"/>
+              <path class="map-province" data-prov="Gandaki"       d="M148,35 L220,48 L240,82 L200,105 L162,95 L132,65 Z"          fill="#6A1B9A"/>
+              <path class="map-province" data-prov="Lumbini"       d="M120,95 L162,95 L200,105 L270,105 L270,135 L120,135 Z"       fill="#E65100"/>
+              <path class="map-province" data-prov="Karnali"       d="M62,25 L148,35 L132,65 L120,95 L72,95 L44,62 Z"              fill="#00695C"/>
+              <path class="map-province" data-prov="Sudurpashchim" d="M12,42 L62,25 L44,62 L72,95 L120,95 L120,135 L12,135 Z"     fill="#37474F"/>
+              <text class="map-label" x="400" y="52">Koshi</text>
+              <text class="map-label" x="362" y="116">Madhesh</text>
+              <text class="map-label" x="300" y="78">Bagmati</text>
+              <text class="map-label" x="185" y="72">Gandaki</text>
+              <text class="map-label" x="197" y="122">Lumbini</text>
+              <text class="map-label" x="96" y="65">Karnali</text>
+              <text class="map-label" x="65" y="95">Sudur</text>
+              <text class="map-label" x="65" y="107">Pashchim</text>
+            </svg>
+          </div>
+          <p class="map-hint">${currentLang==='ne'?'जुनसुकै प्रदेशमा क्लिक गर्नुस् ↓':'Click any province to jump to its section ↓'}</p>
+        </div>`;
+
         html += `<div class="section" data-section="${section.cat}">
           <div class="section-header">
             <div class="section-icon" style="background:${section.accent}18;color:${section.accent};font-size:20px">${section.icon}</div>
             <div class="section-title">${sectionLabel}</div>
             <div class="section-count">${section.provinces.length} ${UI[currentLang].provinces}</div>
-          </div>${pHtml}</div>`;
+          </div>${mapHTML}${pHtml}</div>`;
       }
       return;
     }
@@ -2541,11 +2676,15 @@ function render() {
       <div class="cards-grid">`;
 
     filtered.forEach(site => {
+      const isFav = favourites.some(f => f.url === site.url);
       html += `<a class="card" href="https://${site.url}" target="_blank" rel="noopener" style="--card-accent:${section.accent}">
         <div class="card-emoji">${site.emoji}</div>
         <div class="card-name">${highlightMatch(site[currentLang], q)}</div>
         <div class="card-url"><span class="card-url-dot"></span>${site.url}</div>
         <span class="card-arrow">↗</span>
+        <span class="status-dot checking" data-url="${site.url}"></span>
+        <button class="fav-btn ${isFav?'active':''}" data-url="${site.url}" data-name="${site[currentLang].replace(/'/g,"\'")}">${isFav?'⭐':'☆'}</button>
+        <button class="copy-btn" data-url="https://${site.url}">📋</button>
       </a>`;
     });
     html += `</div></div>`;
@@ -2752,9 +2891,251 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+// ═══════════════════════════════════════
+// FEATURE VARIABLES (declared early above)
+// ═══════════════════════════════════════
+
+const GOV_NEWS = [
+  {source:'nepal.gov.np',    headline:'Government of Nepal — Official Notices & Circulars',         url:'https://nepal.gov.np'},
+  {source:'psc.gov.np',      headline:'Public Service Commission — Lok Sewa Exam Schedule',          url:'https://psc.gov.np'},
+  {source:'ird.gov.np',      headline:'Inland Revenue Department — Tax Filing Notices',              url:'https://ird.gov.np'},
+  {source:'nrb.org.np',      headline:'Nepal Rastra Bank — Monetary Policy & Exchange Rates',        url:'https://nrb.org.np'},
+  {source:'election.gov.np', headline:'Election Commission — Voter Registration Updates',            url:'https://election.gov.np'},
+  {source:'dop.gov.np',      headline:'Department of Passports — Application Process',              url:'https://dop.gov.np'},
+  {source:'dofe.gov.np',     headline:'Foreign Employment — Notices for Workers Abroad',            url:'https://dofe.gov.np'},
+  {source:'neb.gov.np',      headline:'National Examinations Board — SEE Results & Notices',        url:'https://neb.gov.np'},
+  {source:'oag.gov.np',      headline:'Office of Auditor General — Annual Report',                  url:'https://oag.gov.np'},
+];
+
+const TITHI_EN  = ['Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashthi','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Purnima/Amavasya'];
+const TITHI_NE  = ['प्रतिपदा','द्वितीया','तृतीया','चतुर्थी','पञ्चमी','षष्ठी','सप्तमी','अष्टमी','नवमी','दशमी','एकादशी','द्वादशी','त्रयोदशी','चतुर्दशी','पूर्णिमा/औँसी'];
+const NE_DAYS   = ['आइतबार','सोमबार','मंगलबार','बुधबार','बिहीबार','शुक्रबार','शनिबार'];
+const EN_DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const NE_MONTHS = ['बैशाख','जेठ','असार','साउन','भदौ','असोज','कार्तिक','मंसिर','पुस','माघ','फागुन','चैत'];
+const EN_MONTHS = ['Baishakh','Jestha','Ashadh','Shrawan','Bhadra','Ashwin','Kartik','Mangsir','Poush','Magh','Falgun','Chaitra'];
+
+// ═══════════════════════════════════════
+// FEATURE FUNCTIONS
+// ═══════════════════════════════════════
+
+// F1: COPY LINK
+function copyLink(url, btn) {
+  navigator.clipboard.writeText(url).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅'; btn.classList.add('copied');
+    showToast(currentLang==='ne' ? 'लिंक कपी भयो!' : 'Link copied!');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => showToast('Copy failed'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// F2: FAVOURITES
+function toggleFav(url, name) {
+  const idx = favourites.findIndex(f => f.url === url);
+  if (idx === -1) {
+    favourites.push({url, name});
+    showToast(currentLang==='ne' ? 'मनपर्दोमा थपियो!' : 'Added to favourites!');
+  } else {
+    favourites.splice(idx, 1);
+    showToast(currentLang==='ne' ? 'हटाइयो!' : 'Removed from favourites!');
+  }
+  try { localStorage.setItem('ng_favs', JSON.stringify(favourites)); } catch(e) {}
+  renderFavourites();
+  render();
+}
+
+function renderFavourites() {
+  const bar = document.getElementById('favBar');
+  const chips = document.getElementById('favChips');
+  const label = document.getElementById('favBarLabel');
+  if (!bar || !chips) return;
+  if (label) label.textContent = currentLang==='ne' ? '⭐ मेरो मनपर्दो' : '⭐ My Favourites';
+  if (favourites.length === 0) { bar.classList.remove('visible'); return; }
+  bar.classList.add('visible');
+  chips.innerHTML = favourites.map(f =>
+    `<span class="fav-chip"><a href="https://${f.url}" target="_blank" style="text-decoration:none;color:inherit">${f.name}</a><span class="fav-chip-x" data-url="${f.url}">✕</span></span>`
+  ).join('');
+}
+
+// F3: DARK MODE
+function toggleDark() {
+  darkMode = !darkMode;
+  applyDark();
+  try { localStorage.setItem('ng_dark', darkMode); } catch(e) {}
+}
+function applyDark() {
+  document.body.classList.toggle('dark', darkMode);
+  const btn = document.getElementById('darkToggle');
+  if (btn) btn.textContent = darkMode ? '☀️' : '🌙';
+}
+
+// F4: LAST UPDATED
+function updateLastUpdated() {
+  const el = document.getElementById('lastUpdatedText');
+  if (!el) return;
+  el.innerHTML = currentLang==='ne'
+    ? 'डेटा अन्तिम पटक प्रमाणित: <strong>मे २०२६</strong> &nbsp;·&nbsp; ७ प्रदेशमा ७३५ स्थानीय सरकार'
+    : 'Data last verified: <strong>May 2026</strong> &nbsp;·&nbsp; 735 local government units across 7 provinces';
+}
+
+// F6: TITHI — shows only tithi name inside datetime bar
+function updateTithi() {
+  const now = new Date();
+  const npt = new Date(now.getTime() + now.getTimezoneOffset()*60000 + 5*3600000 + 45*60000);
+  const bs  = gregorianToBS(npt);
+  const ti  = Math.min((bs.day - 1) % 15, 14);
+  const isNe = currentLang === 'ne';
+  const tithi = isNe ? TITHI_NE[ti] : TITHI_EN[ti];
+  const label = isNe ? 'तिथि' : 'Tithi';
+  const el = document.getElementById('tithiName');
+  const ll = document.getElementById('tithiLabel');
+  if (el) el.textContent = tithi;
+  if (ll) ll.textContent = label;
+}
+
+// F7: NEWS FEED
+function loadNews() {
+  const grid = document.getElementById('newsGrid');
+  if (!grid) return;
+  grid.innerHTML = GOV_NEWS.map(n =>
+    `<a class="news-card" href="${n.url}" target="_blank" rel="noopener">
+      <div class="news-source">${n.source}</div>
+      <div class="news-headline">${n.headline}</div>
+      <div class="news-date">↗ Visit official site</div>
+    </a>`
+  ).join('');
+}
+
+// F8: STATUS CHECKER
+function checkStatuses() {
+  document.querySelectorAll('.status-dot').forEach(dot => {
+    const url = dot.dataset.url;
+    if (!url) return;
+    const img = new Image();
+    const t = setTimeout(() => { dot.classList.replace('checking','down'); }, 5000);
+    img.onload  = () => { clearTimeout(t); dot.classList.replace('checking','up'); };
+    img.onerror = () => { clearTimeout(t); dot.classList.replace('checking','up'); };
+    img.src = `https://${url}/favicon.ico?_=${Date.now()}`;
+  });
+}
+
+// F9: INTERACTIVE MAP
+function jumpToProvince(provName) {
+  activeCat = 'province';
+  searchQuery = '';
+  const si = document.getElementById('searchInput');
+  if (si) si.value = '';
+  document.querySelectorAll('.cat-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.cat === 'province'));
+  render();
+  document.querySelectorAll('.map-province').forEach(p =>
+    p.classList.toggle('active', p.dataset.prov === provName));
+  setTimeout(() => {
+    const order = ['Koshi','Madhesh','Bagmati','Gandaki','Lumbini','Karnali','Sudurpashchim'];
+    const idx   = order.indexOf(provName);
+    const blocks = document.querySelectorAll('.province-block');
+    if (blocks[idx]) {
+      blocks[idx].scrollIntoView({behavior:'smooth', block:'center'});
+      blocks[idx].classList.add('open');
+    }
+  }, 250);
+  showToast(provName + ' Province');
+}
+
+// F10: UPDATE ALL BILINGUAL UI
+function updateAllFeatureUI() {
+  updateLastUpdated();
+  updateTithi();
+  renderFavourites();
+  const mt = document.getElementById('mapTitle');
+  if (mt) mt.textContent = currentLang==='ne'
+    ? 'नेपालको अन्तरक्रियात्मक नक्सा — प्रदेश छान्नुहोस्'
+    : 'Interactive Map of Nepal — Click a Province';
+  const mh = document.getElementById('mapHint');
+  if (mh) mh.textContent = currentLang==='ne'
+    ? 'जुनसुकै प्रदेशमा क्लिक गर्नुस् ↓' : 'Click any province to jump to its section ↓';
+  const nt = document.getElementById('newsTitle');
+  if (nt) nt.textContent = currentLang==='ne'
+    ? 'सरकारी समाचार र सूचनाहरू' : 'Government News & Notices';
+}
+
+
 render();
 applyUI();
 renderEmergency();
+
+
+// ═══════════════════════════════════════
+// EVENT LISTENERS (after all functions)
+// ═══════════════════════════════════════
+applyDark();
+renderFavourites();
+loadNews();
+updateAllFeatureUI();
+setTimeout(checkStatuses, 1500);
+
+// Back to top
+window.addEventListener('scroll', () => {
+  const b = document.getElementById('backToTop');
+  if (b) b.classList.toggle('visible', window.scrollY > 300);
+});
+document.getElementById('backToTop')?.addEventListener('click', () =>
+  window.scrollTo({top:0, behavior:'smooth'}));
+
+// Dark toggle
+document.getElementById('darkToggle')?.addEventListener('click', toggleDark);
+
+// Fav clear
+document.getElementById('favClearBtn')?.addEventListener('click', () => {
+  favourites = [];
+  try { localStorage.setItem('ng_favs', '[]'); } catch(e) {}
+  renderFavourites(); render();
+});
+
+// Fav chips remove (delegated)
+document.getElementById('favChips')?.addEventListener('click', e => {
+  const x = e.target.closest('.fav-chip-x');
+  if (!x) return;
+  favourites = favourites.filter(f => f.url !== x.dataset.url);
+  try { localStorage.setItem('ng_favs', JSON.stringify(favourites)); } catch(e) {}
+  renderFavourites(); render();
+});
+
+// Map clicks & tooltip (delegated - map is dynamically rendered)
+document.getElementById('mainContent')?.addEventListener('click', e => {
+  const copyBtn = e.target.closest('.copy-btn');
+  const favBtn  = e.target.closest('.fav-btn');
+  const mapProv = e.target.closest('.map-province');
+  if (copyBtn)  { e.preventDefault(); e.stopPropagation(); copyLink(copyBtn.dataset.url, copyBtn); }
+  if (favBtn)   { e.preventDefault(); e.stopPropagation(); toggleFav(favBtn.dataset.url, favBtn.dataset.name); }
+  if (mapProv)  { jumpToProvince(mapProv.dataset.prov); }
+});
+
+document.getElementById('mainContent')?.addEventListener('mousemove', e => {
+  const p  = e.target.closest('.map-province');
+  const tt = document.getElementById('mapTooltip');
+  if (!tt) return;
+  if (p) {
+    tt.style.display = 'block';
+    tt.style.left = (e.offsetX + 12) + 'px';
+    tt.style.top  = (e.offsetY - 32) + 'px';
+    tt.textContent = p.dataset.prov + ' Province — Click to explore';
+  } else { tt.style.display = 'none'; }
+});
+
+document.getElementById('mainContent')?.addEventListener('mouseleave', () => {
+  const tt = document.getElementById('mapTooltip');
+  if (tt) tt.style.display = 'none';
+});
+
 </script>
+<div id="toast"></div>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">▲</button>
 </body>
 </html>

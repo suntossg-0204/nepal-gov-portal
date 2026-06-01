@@ -811,8 +811,6 @@
     .province-name { font-size: 0.88rem; }
     .province-cap { font-size: 0.72rem; }
     .province-gov-btn { padding: 4px 9px; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; margin-left: auto; }
-    .dt-tithi-item { display: none !important; }
-    .dt-tithi-div  { display: none !important; }
     .muni-grid { grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px 12px 12px; }
     .muni-card { padding: 8px 9px; font-size: 0.76rem; }
     .muni-group-label { padding: 8px 12px 2px; }
@@ -838,7 +836,6 @@
   }
   .datetime-bar .dt-item { display: flex; align-items: center; gap: 5px; }
   .datetime-bar .dt-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
-  .tithi-hl { color: #D4A017; font-weight: 700; }
   .dt-npt-label {}
   .lang-toggle {
     display: inline-flex; align-items: center; gap: 5px;
@@ -878,8 +875,6 @@
   @media (max-width: 768px) {
     .datetime-bar { padding: 5px 12px; font-size: 0.68rem; gap: 6px; }
     .dt-npt-label { display: none; }
-    .dt-tithi-item { display: none !important; }
-    .dt-tithi-div  { display: none !important; }
     .lang-toggle { padding: 2px 8px; font-size: 0.7rem; }
     .dark-toggle { padding: 2px 8px; font-size: 0.7rem; }
     .emergency-section { padding: 10px 16px; }
@@ -931,12 +926,6 @@
   /* LAST UPDATED */
   .last-updated-bar{background:var(--mist);border-bottom:1px solid var(--border);padding:6px 32px;font-size:0.75rem;color:var(--ink-soft);display:flex;align-items:center;gap:8px;}
   @media(max-width:768px){.last-updated-bar{padding:6px 16px;}}
-  /* TITHI BAR */
-  .tithi-bar{background:linear-gradient(90deg,#6B0000,#003893);padding:8px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-  .tithi-item{font-size:0.75rem;color:rgba(255,255,255,0.85);}
-  .tithi-hl{color:#D4A017;font-weight:700;}
-  .tithi-div{width:1px;height:14px;background:rgba(255,255,255,0.25);flex-shrink:0;}
-  @media(max-width:600px){.tithi-bar{padding:7px 16px;gap:8px;}}
   /* NEWS */
   .news-section{background:var(--white);border-top:3px solid var(--blue);padding:32px;}
   body.dark .news-section{background:#16213e;}
@@ -967,10 +956,15 @@
   #toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(120px);background:#222;color:#fff;padding:9px 22px;border-radius:50px;font-size:0.83rem;transition:transform 0.3s;z-index:1001;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.3);}
   #toast.show{transform:translateX(-50%) translateY(0);}
   /* BACK TO TOP */
-  .back-to-top{position:fixed;bottom:32px;right:32px;width:46px;height:46px;background:var(--blue);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity 0.3s,transform 0.3s,visibility 0.3s,background 0.2s;z-index:999;}
+  .back-to-top{position:fixed;bottom:32px;right:32px;width:46px;height:46px;background:var(--blue);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity 0.3s,transform 0.3s,visibility 0.3s,background 0.2s;z-index:9999;}
   .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
   .back-to-top:hover{background:var(--crimson);}
   @media(max-width:600px){.back-to-top{bottom:20px;right:16px;width:40px;height:40px;font-size:17px;}}
+  @media (max-width: 480px) {
+    .datetime-bar { font-size: 0.63rem; gap: 4px; padding: 5px 8px; }
+    .datetime-bar .dt-divider { display: none; }
+    .datetime-bar .dt-item { background: rgba(255,255,255,0.08); border-radius: 50px; padding: 2px 6px; }
+  }
 </style>
 </head>
 <body>
@@ -982,8 +976,6 @@
     <div class="dt-item">📅 <span id="dtDate">—</span></div>
     <div class="dt-divider"></div>
     <div class="dt-item">🕐 <span id="dtTime">—</span></div>
-    <div class="dt-divider dt-tithi-div"></div>
-    <div class="dt-item dt-tithi-item">🌗 <span id="tithiName" class="tithi-hl">—</span> <span id="tithiLabel" style="opacity:0.7;font-size:0.72rem">Tithi</span></div>
     <div class="dt-divider"></div>
     <div class="dt-item dt-npt-label">🇳🇵 NPT (UTC+5:45)</div>
     <div class="dt-divider"></div>
@@ -2618,7 +2610,7 @@ function render() {
             typeUnits.forEach(u => {
               pHtml += `<a class="muni-card ${cls==='metro'?'metro-card':cls==='submeta'?'submeta-card':cls==='rural'?'rural-card':''}"
                 href="${u.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-                <span>${highlightMatch(u.en, q)}</span></a>`;
+                <span>${highlightMatch(currentLang==='ne'?(MUNI_NE[u.en]||u.en):u.en, q)}</span></a>`;
             });
             pHtml += `</div>`;
           }
@@ -2918,8 +2910,6 @@ const GOV_NEWS = [
   {source:'oag.gov.np',      headline:'Office of Auditor General — Annual Report',                  url:'https://oag.gov.np'},
 ];
 
-const TITHI_EN  = ['Pratipada','Dwitiya','Tritiya','Chaturthi','Panchami','Shashthi','Saptami','Ashtami','Navami','Dashami','Ekadashi','Dwadashi','Trayodashi','Chaturdashi','Purnima/Amavasya'];
-const TITHI_NE  = ['प्रतिपदा','द्वितीया','तृतीया','चतुर्थी','पञ्चमी','षष्ठी','सप्तमी','अष्टमी','नवमी','दशमी','एकादशी','द्वादशी','त्रयोदशी','चतुर्दशी','पूर्णिमा/औँसी'];
 const NE_DAYS   = ['आइतबार','सोमबार','मंगलबार','बुधबार','बिहीबार','शुक्रबार','शनिबार'];
 const EN_DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const NE_MONTHS = ['बैशाख','जेठ','असार','साउन','भदौ','असोज','कार्तिक','मंसिर','पुस','माघ','फागुन','चैत'];
@@ -2989,20 +2979,6 @@ function applyDark() {
 // F4: LAST UPDATED (rendered dynamically inside province section - re-render handles it)
 function updateLastUpdated() { /* handled in render() */ }
 
-// F6: TITHI — shows only tithi name inside datetime bar
-function updateTithi() {
-  const now = new Date();
-  const npt = new Date(now.getTime() + now.getTimezoneOffset()*60000 + 5*3600000 + 45*60000);
-  const bs  = gregorianToBS(npt);
-  const ti  = Math.min((bs.day - 1) % 15, 14);
-  const isNe = currentLang === 'ne';
-  const tithi = isNe ? TITHI_NE[ti] : TITHI_EN[ti];
-  const label = isNe ? 'तिथि' : 'Tithi';
-  const el = document.getElementById('tithiName');
-  const ll = document.getElementById('tithiLabel');
-  if (el) el.textContent = tithi;
-  if (ll) ll.textContent = label;
-}
 
 // F7: NEWS FEED
 function loadNews() {
@@ -3056,7 +3032,6 @@ function jumpToProvince(provName) {
 // F10: UPDATE ALL BILINGUAL UI
 function updateAllFeatureUI() {
   updateLastUpdated();
-  updateTithi();
   renderFavourites();
   const mt = document.getElementById('mapTitle');
   if (mt) mt.textContent = currentLang==='ne'
@@ -3070,6 +3045,17 @@ function updateAllFeatureUI() {
     ? 'सरकारी समाचार र सूचनाहरू' : 'Government News & Notices';
 }
 
+
+// ── NEPALI MUNICIPALITY NAMES ──
+const MUNI_NE = {
+  "Bhaktapur Municipality":"भक्तपुर नगरपालिका","Suryabinayak Municipality":"सूर्यबिनायक नगरपालिका","Changunarayan Municipality":"चाँगुनारायण नगरपालिका","Madhyapur Thimi Municipality":"मध्यपुर थिमी नगरपालिका","Ichchhakamana Rural Municipality":"इच्छाकामना गाउँपालिका","Bharatpur Metropolitan City":"भरतपुर महानगरपालिका","Khairhani Municipality":"खैरहनी नगरपालिका","Ratnanagar Municipality":"रत्ननगर नगरपालिका","Rapti Municipality":"राप्ती नगरपालिका","Kalika Municipality":"कालिका नगरपालिका","Madi Municipality":"माडी नगरपालिका","Siddhalek Rural Municipality":"सिद्धलेक गाउँपालिका","Tripurasundari Rural Municipality":"त्रिपुरासुन्दरी गाउँपालिका","Nilkantha Municipality":"नीलकण्ठ नगरपालिका","Dhunibeshi Municipality":"धुनीबेशी नगरपालिका","Khaniyabas Rural Municipality":"खनियाबास गाउँपालिका","Gajuri Rural Municipality":"गजुरी गाउँपालिका","Galchhi Rural Municipality":"गल्छी गाउँपालिका","Gangajamuna Rural Municipality":"गंगाजमुना गाउँपालिका","Jwalamukhi Rural Municipality":"ज्वालामुखी गाउँपालिका","Thakre Rural Municipality":"थाक्रे गाउँपालिका","Netrawati Dabjong Rural Municipality":"नेत्रावती डबजोङ गाउँपालिका","Benighat Rorang Rural Municipality":"बेनीघाट रोराङ गाउँपालिका","Rubi Valley Rural Municipality":"रुबी भ्याली गाउँपालिका","Sailung Rural Municipality":"सैलुङ गाउँपालिका","Tamakoshi Rural Municipality":"तामाकोशी गाउँपालिका","Bhimeshwar Municipality":"भीमेश्वर नगरपालिका","Jiri Municipality":"जिरी नगरपालिका","Baiteshwor Rural Municipality":"बैतेश्वर गाउँपालिका","Bigu Rural Municipality":"बिगु गाउँपालिका","Gaurishankar Rural Municipality":"गौरीशंकर गाउँपालिका","Kalinchok Rural Municipality":"कालिञ्चोक गाउँपालिका","Melung Rural Municipality":"मेलुङ गाउँपालिका","Kathmandu Metropolitan City":"काठमाडौं महानगरपालिका","Tokha Municipality":"टोखा नगरपालिका","Budhanilkantha Municipality":"बुद्धनीलकण्ठ नगरपालिका","Gokarneshwar Municipality":"गोकर्णेश्वर नगरपालिका","Chandragiri Municipality":"चन्द्रागिरी नगरपालिका","Dakshinkali Municipality":"दक्षिणकाली नगरपालिका","Nagarjun Municipality":"नागार्जुन नगरपालिका","Tarakeshwar Municipality":"तारकेश्वर नगरपालिका","Kirtipur Municipality":"कीर्तिपुर नगरपालिका","Kageshwari Manohara Municipality":"कागेश्वरी मनोहरा नगरपालिका","Shankharapur Municipality":"शंखरापुर नगरपालिका","Khanikhola Rural Municipality":"खानीखोला गाउँपालिका","Mahabharat Rural Municipality":"महाभारत गाउँपालिका","Roshi Rural Municipality":"रोशी गाउँपालिका","Temal Rural Municipality":"तेमाल गाउँपालिका","Dhulikhel Municipality":"धुलिखेल नगरपालिका","Namobuddha Municipality":"नमोबुद्ध नगरपालिका","Panauti Municipality":"पनौती नगरपालिका","Banepa Municipality":"बनेपा नगरपालिका","Panchkhal Municipality":"पाँचखाल नगरपालिका","Mandandeupur Municipality":"मण्डनदेउपुर नगरपालिका","Bethanchok Rural Municipality":"बेथानचोक गाउँपालिका","Chaurideurali Rural Municipality":"चौरीदेउराली गाउँपालिका","Bagmati Rural Municipality":"बागमती गाउँपालिका","Konjyosom Rural Municipality":"कोञ्ज्योसोम गाउँपालिका","Mahankal Rural Municipality":"महाँकाल गाउँपालिका","Lalitpur Metropolitan City":"ललितपुर महानगरपालिका","Godawari Municipality":"गोदावरी नगरपालिका","Mahalaxmi Municipality":"महालक्ष्मी नगरपालिका","Indrasarowar Rural Municipality":"इन्द्रसरोवर गाउँपालिका","Kailash Rural Municipality":"कैलाश गाउँपालिका","Hetauda Sub-Metropolitan City":"हेटौंडा उपमहानगरपालिका","Thaha Municipality":"थाहा नगरपालिका","Bhimphedi Rural Municipality":"भीमफेदी गाउँपालिका","Makawanpurgadhi Rural Municipality":"मकवानपुरगढी गाउँपालिका","Manahari Rural Municipality":"मनहरी गाउँपालिका","Raksirang Rural Municipality":"राक्सिराङ गाउँपालिका","Bakaiya Rural Municipality":"बकैया गाउँपालिका","Tadi Rural Municipality":"टाँडी गाउँपालिका","Tarkeshwor Rural Municipality":"तारकेश्वर गाउँपालिका","Belkotgadhi Municipality":"बेलकोटगढी नगरपालिका","Bidur Municipality":"बिदुर नगरपालिका","Kakani Rural Municipality":"काकानी गाउँपालिका","Kispang Rural Municipality":"किस्पाङ गाउँपालिका","Panchakanya Rural Municipality":"पञ्चकन्या गाउँपालिका","Shivapuri Rural Municipality":"शिवपुरी गाउँपालिका","Dupcheswor Rural Municipality":"दुप्चेश्वर गाउँपालिका","Suryagadhi Rural Municipality":"सूर्यगढी गाउँपालिका","Gokulganga Rural Municipality":"गोकुलगंगा गाउँपालिका","Sunapati Rural Municipality":"सुनापती गाउँपालिका","Manthali Municipality":"मन्थली नगरपालिका","Ramechhap Municipality":"रामेछाप नगरपालिका","Umakunda Rural Municipality":"उमाकुण्ड गाउँपालिका","Khandadevi Rural Municipality":"खाँडादेवी गाउँपालिका","Likhu Tamakoshi Rural Municipality":"लिखु तामाकोशी गाउँपालिका","Doramba Rural Municipality":"दोरम्बा गाउँपालिका","Sunkoshi Rural Municipality":"सुनकोशी गाउँपालिका","Kamalamai Municipality":"कमलामाई नगरपालिका","Dudhauli Municipality":"दुधौली नगरपालिका","Golanjor Rural Municipality":"गोलञ्जोर गाउँपालिका","Hariharpurgadhi Rural Municipality":"हरिहरपुरगढी गाउँपालिका","Marin Rural Municipality":"मरिण गाउँपालिका","Tinpatan Rural Municipality":"तिनपाटन गाउँपालिका","Bahrabise Municipality":"बाह्रबिसे नगरपालिका","Melamchi Municipality":"मेलम्ची नगरपालिका","Chautara Sangachowkgadhi Municipality":"चौतारा साँगाचोकगढी नगरपालिका","Balephi Rural Municipality":"बालेफी गाउँपालिका","Bhotekoshi Rural Municipality":"भोटेकोशी गाउँपालिका","Helambu Rural Municipality":"हेलम्बु गाउँपालिका","Indrawati Rural Municipality":"इन्द्रावती गाउँपालिका","Jugal Rural Municipality":"जुगल गाउँपालिका","Lisankhu Pakhar Rural Municipality":"लिसंखुपाखर गाउँपालिका","Panchpokhari Thangpal Rural Municipality":"पाँचपोखरी थाङपाल गाउँपालिका",
+  "Jaimuni Municipality":"जैमिनी नगरपालिका","Baglung Municipality":"बागलुङ नगरपालिका","Galkot Municipality":"गल्कोट नगरपालिका","Dhorpatan Municipality":"ढोरपाटन नगरपालिका","Gandaki Rural Municipality":"गण्डकी गाउँपालिका","Gorkha Municipality":"गोरखा नगरपालिका","Palungtar Municipality":"पालुङटार नगरपालिका","Barpak Sulikot Rural Municipality":"बारपाक सुलिकोट गाउँपालिका","Tsum Nubri Rural Municipality":"त्सुम नुब्री गाउँपालिका","Aarughat Rural Municipality":"आरुघाट गाउँपालिका","Rupa Rural Municipality":"रूपा गाउँपालिका","Pokhara Metropolitan City":"पोखरा महानगरपालिका","Annapurna Rural Municipality":"अन्नपूर्ण गाउँपालिका","Machhapuchchhre Rural Municipality":"माछापुच्छ्रे गाउँपालिका","Madi Rural Municipality":"माडी गाउँपालिका","Besisahar Municipality":"बेसीशहर नगरपालिका","Rainas Municipality":"राइनास नगरपालिका","Sundarbazar Municipality":"सुन्दरबजार नगरपालिका","Madhya Nepal Municipality":"मध्य नेपाल नगरपालिका","Dordi Rural Municipality":"दोर्दी गाउँपालिका","Dudhpokhari Rural Municipality":"दूधपोखरी गाउँपालिका","Chame Rural Municipality":"चामे गाउँपालिका","Manang Ngisyang Rural Municipality":"मनाङ ङिस्याङ गाउँपालिका","Thasang Rural Municipality":"थासाङ गाउँपालिका","Lomanthang Rural Municipality":"लोमन्थाङ गाउँपालिका","Gharapjhong Rural Municipality":"घरपझोङ गाउँपालिका","Beni Municipality":"बेनी नगरपालिका","Dhaulagiri Rural Municipality":"धौलागिरी गाउँपालिका","Gaindakot Municipality":"गैंडाकोट नगरपालिका","Kawasoti Municipality":"कावासोती नगरपालिका","Devachuli Municipality":"देवचुली नगरपालिका","Madhyabindu Municipality":"मध्यबिन्दु नगरपालिका","Kushma Municipality":"कुश्मा नगरपालिका","Phalewas Municipality":"फलेबास नगरपालिका","Galyang Municipality":"गल्याङ नगरपालिका","Putalibazar Municipality":"पुतलीबजार नगरपालिका","Chapakot Municipality":"चापाकोट नगरपालिका","Bhirkot Municipality":"भीरकोट नगरपालिका","Waling Municipality":"वालिङ नगरपालिका","Vyas Municipality":"व्यास नगरपालिका","Bhanu Municipality":"भानु नगरपालिका","Shuklagandaki Municipality":"शुक्लागण्डकी नगरपालिका","Bhimad Municipality":"भिमाद नगरपालिका","Devghat Rural Municipality":"देवघाट गाउँपालिका","Bandipur Rural Municipality":"बन्दीपुर गाउँपालिका",
+  "Aathabis Municipality":"आठबिस नगरपालिका","Chamunda Bindrasaini Municipality":"चामुण्डा बिन्द्रासैनी नगरपालिका","Dullu Municipality":"दुल्लु नगरपालिका","Narayan Municipality":"नारायण नगरपालिका","Thuli Bheri Municipality":"ठूली भेरी नगरपालिका","Dolpo Buddha Rural Municipality":"डोल्पो बुद्ध गाउँपालिका","She Phoksundo Rural Municipality":"शे फोक्सुन्डो गाउँपालिका","Simkot Rural Municipality":"सिमकोट गाउँपालिका","Nalgad Municipality":"नाल्गाड नगरपालिका","Chhedagad Municipality":"छेदगाड नगरपालिका","Bheri Municipality":"भेरी नगरपालिका","Chandannath Municipality":"चन्दननाथ नगरपालिका","Sinja Rural Municipality":"सिञ्जा गाउँपालिका","Khandachakra Municipality":"खाँडाचक्र नगरपालिका","Raskot Municipality":"रास्कोट नगरपालिका","Tilagufa Municipality":"तिलागुफा नगरपालिका","Chhayanath Rara Municipality":"छायाँनाथ रारा नगरपालिका","Bagchaur Municipality":"बागचौर नगरपालिका","Sharada Municipality":"शारदा नगरपालिका","Lekbeshi Municipality":"लेकबेशी नगरपालिका","Panchpuri Municipality":"पञ्चपुरी नगरपालिका","Gurbhakot Municipality":"गुर्भाकोट नगरपालिका","Bheriganga Municipality":"भेरीगंगा नगरपालिका","Birendranagar Municipality":"बीरेन्द्रनगर नगरपालिका","Musikot Municipality":"मुसिकोट नगरपालिका","Chaurjahari Municipality":"चौरजहारी नगरपालिका","Aathbiskot Municipality":"आठबिसकोट नगरपालिका",
+  "Bhojpur Municipality":"भोजपुर नगरपालिका","Sadananda Municipality":"सदानन्द नगरपालिका","Dhankuta Municipality":"धनकुटा नगरपालिका","Pakhribas Municipality":"पाख्रिबास नगरपालिका","Ilam Municipality":"इलाम नगरपालिका","Deumai Municipality":"देउमाई नगरपालिका","Mai Municipality":"माई नगरपालिका","Suryodaya Municipality":"सूर्योदय नगरपालिका","Bhadrapur Municipality":"भद्रपुर नगरपालिका","Mechinagar Municipality":"मेचीनगर नगरपालिका","Birtamod Municipality":"बिर्तामोड नगरपालिका","Gauradaha Municipality":"गौरादह नगरपालिका","Arjundhara Municipality":"अर्जुनधारा नगरपालिका","Kankai Municipality":"कंकाई नगरपालिका","Shivasatakshi Municipality":"शिवसताक्षी नगरपालिका","Damak Municipality":"दमक नगरपालिका","Halesi Tuwachung Municipality":"हालेसी तुवाचुङ नगरपालिका","Diktel Rupakot Majhuwagadhi Municipality":"दिक्तेल रुपाकोट मझुवागढी नगरपालिका","Biratnagar Metropolitan City":"विराटनगर महानगरपालिका","Sundar Haraicha Municipality":"सुन्दरहरैचा नगरपालिका","Urlabari Municipality":"उर्लाबारी नगरपालिका","Letang Municipality":"लेटाङ नगरपालिका","Belbari Municipality":"बेलबारी नगरपालिका","Siddhicharan Municipality":"सिद्धिचरण नगरपालिका","Phidim Municipality":"फिदिम नगरपालिका","Dharmadevi Municipality":"धर्मदेवी नगरपालिका","Khandbari Municipality":"खाँदबारी नगरपालिका","Chainpur Municipality":"चैनपुर नगरपालिका","Solududhkunda Municipality":"सोलुदुधकुण्ड नगरपालिका","Dharan Sub-Metropolitan City":"धरान उपमहानगरपालिका","Itahari Sub-Metropolitan City":"इटहरी उपमहानगरपालिका","Inaruwa Municipality":"इनरुवा नगरपालिका","Duhabi Municipality":"दुहबी नगरपालिका","Ramdhuni Municipality":"रामधुनी नगरपालिका","Barahachhetra Municipality":"बराहक्षेत्र नगरपालिका","Phungling Municipality":"फुङलिङ नगरपालिका","Laligurans Municipality":"लालीगुराँस नगरपालिका","Myanglung Municipality":"म्याङलुङ नगरपालिका","Chaudandigadhi Municipality":"चौदण्डीगढी नगरपालिका","Triyuga Municipality":"त्रियुगा नगरपालिका","Katari Municipality":"कटारी नगरपालिका","Belaka Municipality":"बेलका नगरपालिका",
+  "Sandhikharka Municipality":"सन्धिखर्क नगरपालिका","Sitganga Municipality":"सितगंगा नगरपालिका","Bhumikasthan Municipality":"भूमिकास्थान नगरपालिका","Nepalgunj Sub-Metropolitan City":"नेपालगञ्ज उपमहानगरपालिका","Kohalpur Municipality":"कोहलपुर नगरपालिका","Gulariya Municipality":"गुलरिया नगरपालिका","Rajapur Municipality":"राजापुर नगरपालिका","Thakurbaba Municipality":"ठाकुरबाबा नगरपालिका","Barbardiya Municipality":"बारबर्दिया नगरपालिका","Ghorahi Sub-Metropolitan City":"घोराही उपमहानगरपालिका","Tulsipur Sub-Metropolitan City":"तुलसीपुर उपमहानगरपालिका","Lamahi Municipality":"लमही नगरपालिका","Resunga Municipality":"रेसुङ्गा नगरपालिका","Kapilvastu Municipality":"कपिलवस्तु नगरपालिका","Banganga Municipality":"बाणगंगा नगरपालिका","Buddhabhumi Municipality":"बुद्धभूमि नगरपालिका","Shivraj Municipality":"शिवराज नगरपालिका","Krishnanagar Municipality":"कृष्णनगर नगरपालिका","Maharajgunj Municipality":"महाराजगञ्ज नगरपालिका","Sunwal Municipality":"सुनवल नगरपालिका","Ramgram Municipality":"रामग्राम नगरपालिका","Bardaghat Municipality":"बर्दघाट नगरपालिका","Tansen Municipality":"तानसेन नगरपालिका","Rampur Municipality":"रामपुर नगरपालिका","Pyuthan Municipality":"प्युठान नगरपालिका","Sworgadwari Municipality":"स्वर्गद्वारी नगरपालिका","Rolpa Municipality":"रोल्पा नगरपालिका","Butwal Sub-Metropolitan City":"बुटवल उपमहानगरपालिका","Devdaha Municipality":"देवदह नगरपालिका","Lumbini Sanskritik Municipality":"लुम्बिनी सांस्कृतिक नगरपालिका","Sainamaina Municipality":"सैनामैना नगरपालिका","Siddharthanagar Municipality":"सिद्धार्थनगर नगरपालिका","Tilottama Municipality":"तिलोत्तमा नगरपालिका",
+  "Kalaiya Sub-Metropolitan City":"कलैया उपमहानगरपालिका","Jeetpur Simara Sub-Metropolitan City":"जीतपुर सिमरा उपमहानगरपालिका","Kolhabi Municipality":"कोल्हबी नगरपालिका","Nijgadh Municipality":"निजगढ नगरपालिका","Mahagadhimai Municipality":"महागढीमाई नगरपालिका","Simraungadh Municipality":"सिमरौनगढ नगरपालिका","Janakpur Sub-Metropolitan City":"जनकपुर उपमहानगरपालिका","Dhanushadham Municipality":"धनुषाधाम नगरपालिका","Mithila Municipality":"मिथिला नगरपालिका","Kamala Municipality":"कमला नगरपालिका","Hansapur Municipality":"हंसपुर नगरपालिका","Bideha Municipality":"विदेह नगरपालिका","Sabaila Municipality":"सबैला नगरपालिका","Sahidnagar Municipality":"शहीदनगर नगरपालिका","Aurahi Municipality":"औराही नगरपालिका","Bardibas Municipality":"बर्दिबास नगरपालिका","Bhangaha Municipality":"भंगाहा नगरपालिका","Gaushala Municipality":"गौशाला नगरपालिका","Jaleshwor Municipality":"जलेश्वर नगरपालिका","Matihani Municipality":"मटिहानी नगरपालिका","Birgunj Metropolitan City":"वीरगञ्ज महानगरपालिका","Parsagadhi Municipality":"पर्सागढी नगरपालिका","Pokhariya Municipality":"पोखरिया नगरपालिका","Gaur Municipality":"गौर नगरपालिका","Gadhimai Municipality":"गढीमाई नगरपालिका","Rajbiraj Municipality":"राजविराज नगरपालिका","Hanumannagar Kankalini Municipality":"हनुमाननगर कंकालिनी नगरपालिका","Saptakoshi Municipality":"सप्तकोशी नगरपालिका","Lahan Municipality":"लहान नगरपालिका","Siraha Municipality":"सिराहा नगरपालिका","Golbazar Municipality":"गोलबजार नगरपालिका","Mirchaiya Municipality":"मिर्चैया नगरपालिका","Kalyanpur Municipality":"कल्याणपुर नगरपालिका","Lalbandi Municipality":"लालबन्दी नगरपालिका","Malangwa Municipality":"मलंगवा नगरपालिका","Barahathwa Municipality":"बरहथवा नगरपालिका","Ishworpur Municipality":"ईश्वरपुर नगरपालिका",
+  "Mangalsen Municipality":"मंगलसेन नगरपालिका","Kamalbazar Municipality":"कमलबजार नगरपालिका","Sanfebagar Municipality":"सान्फेबगर नगरपालिका","Panchadewal Binayak Municipality":"पञ्चदेवल विनायक नगरपालिका","Purchaudi Municipality":"पुर्चौडी नगरपालिका","Melauli Municipality":"मेलौली नगरपालिका","Patan Municipality":"पाटन नगरपालिका","Dasharathchanda Municipality":"दशरथचन्द नगरपालिका","Jaya Prithvi Municipality":"जयपृथ्वी नगरपालिका","Bungal Municipality":"बुंगल नगरपालिका","Badimalika Municipality":"बडीमालिका नगरपालिका","Triveni Municipality":"त्रिवेणी नगरपालिका","Budhiganga Municipality":"बुढीगंगा नगरपालिका","Budhinanda Municipality":"बुढीनन्दा नगरपालिका","Amargadhi Municipality":"अमरगढी नगरपालिका","Parshuram Municipality":"परशुराम नगरपालिका","Mahakali Municipality":"महाकाली नगरपालिका","Dipayal Silgadhi Municipality":"दिपायल सिलगढी नगरपालिका","Shikhar Municipality":"शिखर नगरपालिका","Dhangadhi Sub-Metropolitan City":"धनगढी उपमहानगरपालिका","Lamki Chuha Municipality":"लम्की चुहा नगरपालिका","Tikapur Municipality":"टीकापुर नगरपालिका","Ghodaghodi Municipality":"घोडाघोडी नगरपालिका","Bhajani Municipality":"भजनी नगरपालिका","Gauriganga Municipality":"गौरीगंगा नगरपालिका","Bedkot Municipality":"बेडकोट नगरपालिका","Belauri Municipality":"बेलौरी नगरपालिका","Bheemdatt Municipality":"भीमदत्त नगरपालिका","Shuklaphanta Municipality":"शुक्लाफाँटा नगरपालिका","Krishnapur Municipality":"कृष्णपुर नगरपालिका","Punarbas Municipality":"पुनर्बास नगरपालिका"
+};
 
 render();
 applyUI();

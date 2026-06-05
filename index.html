@@ -2642,14 +2642,14 @@ function render() {
               <path class="map-province" data-prov="Lumbini"       d="M120,95 L162,95 L200,105 L270,105 L270,135 L120,135 Z"       fill="#E65100"/>
               <path class="map-province" data-prov="Karnali"       d="M62,25 L148,35 L132,65 L120,95 L72,95 L44,62 Z"              fill="#00695C"/>
               <path class="map-province" data-prov="Sudurpashchim" d="M12,42 L62,25 L44,62 L72,95 L120,95 L120,135 L12,135 Z"     fill="#37474F"/>
-              <text class="map-label" x="400" y="52">Koshi</text>
-              <text class="map-label" x="362" y="116">Madhesh</text>
-              <text class="map-label" x="300" y="78">Bagmati</text>
-              <text class="map-label" x="185" y="72">Gandaki</text>
-              <text class="map-label" x="197" y="122">Lumbini</text>
-              <text class="map-label" x="96" y="65">Karnali</text>
-              <text class="map-label" x="65" y="95">Sudur</text>
-              <text class="map-label" x="65" y="107">Pashchim</text>
+              <text class="map-label" x="400" y="52">${currentLang==='ne'?'कोशी':'Koshi'}</text>
+              <text class="map-label" x="362" y="116">${currentLang==='ne'?'मधेश':'Madhesh'}</text>
+              <text class="map-label" x="300" y="78">${currentLang==='ne'?'बागमती':'Bagmati'}</text>
+              <text class="map-label" x="185" y="72">${currentLang==='ne'?'गण्डकी':'Gandaki'}</text>
+              <text class="map-label" x="197" y="122">${currentLang==='ne'?'लुम्बिनी':'Lumbini'}</text>
+              <text class="map-label" x="96" y="65">${currentLang==='ne'?'कर्णाली':'Karnali'}</text>
+              <text class="map-label" x="65" y="95">${currentLang==='ne'?'सुदूर':'Sudur'}</text>
+              <text class="map-label" x="65" y="107">${currentLang==='ne'?'पश्चिम':'Pashchim'}</text>
             </svg>
           </div>
           <p class="map-hint">${currentLang==='ne'?'जुनसुकै प्रदेशमा क्लिक गर्नुस् ↓':'Click any province to jump to its section ↓'}</p>

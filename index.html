@@ -31,6 +31,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -898,6 +899,24 @@
   /* DARK TOGGLE */
   .dark-toggle{display:inline-flex;align-items:center;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:50px;padding:3px 10px;cursor:pointer;color:#fff;font-size:0.82rem;transition:background 0.18s;}
   .dark-toggle:hover{background:rgba(255,255,255,0.28);}
+
+  /* ── FONT SIZE TOGGLE ── */
+  .font-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px; padding: 3px 10px; cursor: pointer; color: #fff;
+    font-size: 0.82rem; font-weight: 700; transition: background 0.18s;
+    white-space: nowrap; min-width: 36px;
+  }
+  .font-toggle:hover { background: rgba(255,255,255,0.28); }
+
+  /* ── FONT SIZE LEVELS ── */
+  html.font-lg { font-size: 18px; }
+  html.font-xl { font-size: 20px; }
+
+  @media (max-width: 768px) {
+    .font-toggle { padding: 2px 8px; font-size: 0.7rem; }
+  }
   /* DARK MODE */
   body.dark{--ink:#e8e8f0;--ink-soft:#9090b0;--mist:#1a1a2e;--white:#16213e;--border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.15);--blue-light:#1a2a4a;}
   body.dark .search-bar-wrap,body.dark .cats-wrap{background:#16213e;border-color:rgba(255,255,255,0.08);}
@@ -997,6 +1016,8 @@
     </button>
     <div class="dt-divider"></div>
     <button class="dark-toggle" id="darkToggle">🌙</button>
+    <div class="dt-divider"></div>
+    <button class="font-toggle" id="fontToggle" title="Adjust font size">A</button>
   </div>
   <div class="hero-pattern"></div>
   <div class="hero-geo"></div>
@@ -3219,6 +3240,31 @@ document.getElementById('backToTop')?.addEventListener('click', () =>
 
 // Dark toggle
 document.getElementById('darkToggle')?.addEventListener('click', toggleDark);
+
+// ── FONT SIZE TOGGLE ──
+const FONT_SIZES = [
+  { cls: '',        label: 'A',   title: 'Normal size'      },
+  { cls: 'font-lg', label: 'A+',  title: 'Large size'       },
+  { cls: 'font-xl', label: 'A++', title: 'Extra large size' },
+];
+let fontIdx = 0;
+try { fontIdx = parseInt(localStorage.getItem('ng_font') || '0'); } catch(e) {}
+
+function applyFontSize() {
+  const html = document.documentElement;
+  html.classList.remove('font-lg', 'font-xl');
+  if (FONT_SIZES[fontIdx].cls) html.classList.add(FONT_SIZES[fontIdx].cls);
+  const btn = document.getElementById('fontToggle');
+  if (btn) { btn.textContent = FONT_SIZES[fontIdx].label; btn.title = FONT_SIZES[fontIdx].title; }
+}
+
+document.getElementById('fontToggle')?.addEventListener('click', () => {
+  fontIdx = (fontIdx + 1) % FONT_SIZES.length;
+  try { localStorage.setItem('ng_font', fontIdx); } catch(e) {}
+  applyFontSize();
+});
+
+applyFontSize();
 
 // Fav clear
 document.getElementById('favClearBtn')?.addEventListener('click', () => {

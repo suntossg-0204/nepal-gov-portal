@@ -176,7 +176,7 @@
 
   .search-input {
     width: 100%;
-    padding: 12px 16px 12px 46px;
+    padding: 12px 40px 12px 46px;
     border: 1.5px solid var(--border-strong);
     border-radius: 50px;
     font-family: 'DM Sans', sans-serif;
@@ -194,6 +194,19 @@
   }
 
   .search-input::placeholder { color: #aaa; }
+
+  .search-clear-btn {
+    display: none;
+    align-items: center; justify-content: center;
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    width: 22px; height: 22px;
+    background: var(--border); border: none; border-radius: 50%;
+    color: var(--ink-soft); font-size: 11px; font-weight: 700;
+    cursor: pointer; transition: background 0.15s, color 0.15s;
+    line-height: 1;
+  }
+  .search-clear-btn.visible { display: flex; }
+  .search-clear-btn:hover { background: var(--crimson); color: #fff; }
 
   .count-badge {
     font-size: 0.8rem;
@@ -581,22 +594,22 @@
 
   .muni-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 8px;
-    padding: 6px 22px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 6px;
+    padding: 6px 18px 14px;
   }
 
   .muni-card {
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 10px 12px;
-    border-radius: 10px;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 8px;
     border: 1px solid var(--border);
     background: var(--mist);
     text-decoration: none;
     color: var(--ink);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
     font-weight: 400;
     line-height: 1.3;
     transition: background 0.15s, border-color 0.15s, transform 0.15s;
@@ -811,8 +824,8 @@
     .province-name { font-size: 0.88rem; }
     .province-cap { font-size: 0.72rem; }
     .province-gov-btn { padding: 4px 9px; font-size: 0.7rem; white-space: nowrap; flex-shrink: 0; margin-left: auto; }
-    .muni-grid { grid-template-columns: 1fr 1fr; gap: 6px; padding: 6px 12px 12px; }
-    .muni-card { padding: 8px 9px; font-size: 0.76rem; }
+    .muni-grid { grid-template-columns: 1fr 1fr; gap: 5px; padding: 6px 12px 12px; }
+    .muni-card { padding: 6px 8px; font-size: 0.72rem; }
     .muni-group-label { padding: 8px 12px 2px; }
     .feedback-section { padding: 36px 16px; }
     .feedback-head h2 { font-size: 1.35rem; }
@@ -1018,7 +1031,7 @@
 <!-- DISCLAIMER -->
 <div class="disclaimer">
   <span>⚠️</span>
-  <span id="disclaimerText"><strong>Note:</strong> Some government websites, especially local municipality sites, may load slowly or be temporarily unavailable. All links lead to official <strong>.gov.np</strong> domains.</span>
+  <span id="disclaimerText"><strong>Note:</strong> Some government websites, especially local Municipality sites, may load slowly or be temporarily unavailable. All links lead to official <strong>.gov.np</strong> domains.</span>
 </div>
 
 <!-- SEARCH -->
@@ -1027,6 +1040,7 @@
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input class="search-input" type="text" id="searchInput" placeholder="Search ministries, departments, services…" autocomplete="off" />
+      <button class="search-clear-btn" id="searchClearBtn" title="Clear search">✕</button>
     </div>
     <div class="count-badge" id="countBadge">Showing <strong id="visibleCount">0</strong> sites</div>
   </div>
@@ -1489,7 +1503,7 @@ const DATA = [
               {en:"Gaushala Municipality", ne:"Gaushala Municipality", url:"https://gaushalamun.gov.np", type:"Municipality"},
               {en:"Jaleshwor Municipality", ne:"Jaleshwor Municipality", url:"https://jaleshwormun.gov.np", type:"Municipality"},
               {en:"Loharpatti Municipality", ne:"Loharpatti Municipality", url:"https://loharpattimun.gov.np", type:"Municipality"},
-              {en:"Manara Shiswa Municipality", ne:"Manara Shiswa Municipality", url:"https://manrashiswamun.gov.np", type:"Municipality"},
+              {en:"Manarashiswa Municipality", ne:"मनराशिसवा", url:"https://manarashiswamun.gov.np", type:"Municipality"},
               {en:"Matihani Municipality", ne:"Matihani Municipality", url:"https://matihanimun.gov.np", type:"Municipality"},
               {en:"Ramgopalpur Municipality", ne:"Ramgopalpur Municipality", url:"https://ramgopalpurmun.gov.np", type:"Municipality"},
               {en:"Ekdara Rural Municipality", ne:"Ekdara Rural Municipality", url:"https://www.ekdaramun.gov.np", type:"Rural Municipality"},
@@ -1717,7 +1731,7 @@ const DATA = [
           {
             en:"Makawanpur", ne:"मकवानपुर",
             units:[
-              {en:"Hetauda Sub-Metropolitan City", ne:"Hetauda Sub-Metropolitan City", url:"https://hetaudamun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Hetauda Submetropolitan City", ne:"हेटौंडा उपमहानगरपालिका", url:"https://hetaudamun.gov.np", type:"Sub-Metropolitan"},
               {en:"Thaha Municipality", ne:"Thaha Municipality", url:"https://thahamun.gov.np", type:"Municipality"},
               {en:"Indrasarowar Rural Municipality", ne:"Indrasarowar Rural Municipality", url:"https://indrasarowarmun.gov.np", type:"Rural Municipality"},
               {en:"Kailash Rural Municipality", ne:"Kailash Rural Municipality", url:"https://kailashmun.gov.np", type:"Rural Municipality"},
@@ -1785,8 +1799,8 @@ const DATA = [
               {en:"Jugal Rural Municipality", ne:"Jugal Rural Municipality", url:"https://jugalmun.gov.np", type:"Rural Municipality"},
               {en:"Lisankhu Pakhar Rural Municipality", ne:"Lisankhu Pakhar Rural Municipality", url:"https://lisankhupakharmun.gov.np", type:"Rural Municipality"},
               {en:"Panchpokhari Thangpal Rural Municipality", ne:"Panchpokhari Thangpal Rural Municipality", url:"https://panchpokharithangpalmun.gov.np", type:"Rural Municipality"},
-              {en:"Sunkoshi Rural Municipality (Sindhupalchok)", ne:"Sunkoshi Rural Municipality (Sindhupalchok)", url:"https://sunkoshimunsindhupalchok.gov.np", type:"Rural Municipality"},
-              {en:"Tripurasundari Rural Municipality (Sindhupalchok)", ne:"Tripurasundari Rural Municipality (Sindhupalchok)", url:"https://tripurasundarimunsindhupalchok.gov.np", type:"Rural Municipality"},
+              {en:"Sunkoshi Rural Municipality", ne:"Sunkoshi Rural Municipality", url:"https://sunkoshimunsindhupalchowk.gov.np", type:"Rural Municipality"},
+              {en:"Tripurasundari Rural Municipality", ne:"Tripurasundari Rural Municipality", url:"https://tripurasundarimunsindhupalchowk.gov.np", type:"Rural Municipality"},
             ]
           },
         ]
@@ -1830,7 +1844,7 @@ const DATA = [
             units:[
               {en:"Pokhara Metropolitan City", ne:"Pokhara Metropolitan City", url:"https://pokharamun.gov.np", type:"Metropolitan"},
               {en:"Rupa Rural Municipality", ne:"Rupa Rural Municipality", url:"https://rupamun.gov.np", type:"Rural Municipality"},
-              {en:"Annapurna Rural Municipality", ne:"Annapurna Rural Municipality", url:"https://annapurnamunkaski.gov.np", type:"Rural Municipality"},
+              {en:"Annapurna Rural Municipality", ne:"अन्नपूर्ण गाउँपालिका", url:"https://annapurnamunkaski.gov.np", type:"Rural Municipality"},
               {en:"Machhapuchchhre Rural Municipality", ne:"Machhapuchchhre Rural Municipality", url:"https://machhapuchchhremun.gov.np", type:"Rural Municipality"},
               {en:"Madi Rural Municipality", ne:"Madi Rural Municipality", url:"https://madimunkaski.gov.np", type:"Rural Municipality"},
             ]
@@ -1845,7 +1859,7 @@ const DATA = [
               {en:"Marsyandi Rural Municipality", ne:"Marsyandi Rural Municipality", url:"https://marsyangdimun.gov.np", type:"Rural Municipality"},
               {en:"Dordi Rural Municipality", ne:"Dordi Rural Municipality", url:"https://dordimun.gov.np", type:"Rural Municipality"},
               {en:"Dudhpokhari Rural Municipality", ne:"Dudhpokhari Rural Municipality", url:"https://dudhpokharimun.gov.np", type:"Rural Municipality"},
-              {en:"Kwholasothar Rural Municipality", ne:"Kwholasothar Rural Municipality", url:"https://kwhlosotharmun.gov.np", type:"Rural Municipality"},
+              {en:"Kwholasothar Rural Municipality", ne:"क्व्होलासोथार गाउँपालिका", url:"https://kwholasotharmun.gov.np/", type:"Rural Municipality"},
             ]
           },
           {
@@ -1872,7 +1886,7 @@ const DATA = [
             units:[
               {en:"Beni Municipality", ne:"Beni Municipality", url:"https://benimun.gov.np", type:"Municipality"},
               {en:"Raghuganga Rural Municipality", ne:"Raghuganga Rural Municipality", url:"https://raghugangamun.gov.np", type:"Rural Municipality"},
-              {en:"Annapurna Rural Municipality (Myagdi)", ne:"Annapurna Rural Municipality (Myagdi)", url:"https://annapurnamunmyagdi.gov.np", type:"Rural Municipality"},
+              {en:"Annapurna Rural Municipality", ne:"अन्नपूर्ण गाउँपालिका", url:"https://annapurnamunmyagdi.gov.np", type:"Rural Municipality"},
               {en:"Dhaulagiri Rural Municipality", ne:"Dhaulagiri Rural Municipality", url:"https://dhaulagirimun.gov.np", type:"Rural Municipality"},
               {en:"Mangala Rural Municipality", ne:"Mangala Rural Municipality", url:"https://mangalamun.gov.np", type:"Rural Municipality"},
               {en:"Malika Rural Municipality", ne:"Malika Rural Municipality", url:"https://malikamunmyagdi.gov.np", type:"Rural Municipality"},
@@ -1952,7 +1966,7 @@ const DATA = [
           {
             en:"Banke", ne:"बाँके",
             units:[
-              {en:"Nepalgunj Sub-Metropolitan City", ne:"Nepalgunj Sub-Metropolitan City", url:"https://nepalgunjmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Nepalgunj Submetropolitan City", ne:"नेपालगञ्ज उपमहानगरपालिका", url:"https://nepalgunjmun.gov.np", type:"Sub-Metropolitan"},
               {en:"Kohalpur Municipality", ne:"Kohalpur Municipality", url:"https://kohalpurmun.gov.np", type:"Municipality"},
               {en:"Rapti-Sonari Rural Municipality", ne:"Rapti-Sonari Rural Municipality", url:"https://raptisonarimun.gov.np", type:"Rural Municipality"},
               {en:"Narainapur Rural Municipality", ne:"Narainapur Rural Municipality", url:"https://narainapurmun.gov.np", type:"Rural Municipality"},
@@ -1966,8 +1980,8 @@ const DATA = [
             en:"Bardiya", ne:"बर्दिया",
             units:[
               {en:"Gulariya Municipality", ne:"Gulariya Municipality", url:"https://gulariyamun.gov.np", type:"Municipality"},
-              {en:"Rajapur Municipality", ne:"Rajapur Municipality", url:"https://rajapurmun.gov.np", type:"Municipality"},
-              {en:"Madhuwan Municipality", ne:"Madhuwan Municipality", url:"https://madhuwanmun.gov.np", type:"Municipality"},
+              {en:"Rajapur Municipality", ne:"राजापुर नगरपालिका", url:"https://rajapurmun.gov.np", type:"Municipality"},
+              {en:"Madhuwan Municipality", ne:"मधुवन नगरपालिका", url:"https://madhuwanmun.gov.np", type:"Municipality"},
               {en:"Thakurbaba Municipality", ne:"Thakurbaba Municipality", url:"https://thakurbabamun.gov.np", type:"Municipality"},
               {en:"Basgadhi Municipality", ne:"Basgadhi Municipality", url:"https://bansgadhimun.gov.np", type:"Municipality"},
               {en:"Barbardiya Municipality", ne:"Barbardiya Municipality", url:"https://barbardiyamun.gov.np", type:"Municipality"},
@@ -1978,16 +1992,16 @@ const DATA = [
           {
             en:"Dang", ne:"दाङ",
             units:[
-              {en:"Ghorahi Sub-Metropolitan City", ne:"Ghorahi Sub-Metropolitan City", url:"https://ghorahimun.gov.np", type:"Sub-Metropolitan"},
-              {en:"Tulsipur Sub-Metropolitan City", ne:"Tulsipur Sub-Metropolitan City", url:"https://tulsipurmun.gov.np", type:"Sub-Metropolitan"},
-              {en:"Lamahi Municipality", ne:"Lamahi Municipality", url:"https://lamahimun.gov.np", type:"Municipality"},
-              {en:"Gadhawa Rural Municipality", ne:"Gadhawa Rural Municipality", url:"https://www.gadhawamun.gov.np", type:"Rural Municipality"},
-              {en:"Rajpur Rural Municipality", ne:"Rajpur Rural Municipality", url:"https://rajpurmundang.gov.np", type:"Rural Municipality"},
-              {en:"Shantinagar Rural Municipality", ne:"Shantinagar Rural Municipality", url:"https://shantinagarmun.gov.np", type:"Rural Municipality"},
-              {en:"Rapti Rural Municipality", ne:"Rapti Rural Municipality", url:"https://raptimundang.gov.np", type:"Rural Municipality"},
-              {en:"Banglachuli Rural Municipality", ne:"Banglachuli Rural Municipality", url:"https://bangalachulimun.gov.np", type:"Rural Municipality"},
-              {en:"Dangisharan Rural Municipality", ne:"Dangisharan Rural Municipality", url:"https://dangisharanmun.gov.np", type:"Rural Municipality"},
-              {en:"Babai Rural Municipality", ne:"Babai Rural Municipality", url:"https://babaimun.gov.np", type:"Rural Municipality"},
+              {en:"Ghorahi Sub-Metropolitan City", ne:"घोराही उपमहानगरपालिका", url:"https://ghorahimun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Tulsipur Sub-Metropolitan City", ne:"तुलसीपुर उपमहानगरपालिका", url:"https://tulsipurmun.gov.np", type:"Sub-Metropolitan"},
+              {en:"Lamahi Municipality", ne:"लमही नगरपालिका", url:"https://lamahimun.gov.np", type:"Municipality"},
+              {en:"Gadhawa Rural Municipality", ne:"गढवा गाउँपालिका", url:"https://www.gadhawamun.gov.np", type:"Rural Municipality"},
+              {en:"Rajpur Rural Municipality", ne:"राजपुर गाउँपालिका", url:"https://rajpurmundang.gov.np", type:"Rural Municipality"},
+              {en:"Shantinagar Rural Municipality", ne:"शान्तिनगर गाउँपालिका", url:"https://shantinagarmun.gov.np", type:"Rural Municipality"},
+              {en:"Rapti Rural Municipality", ne:"राप्ती गाउँपालिका", url:"https://raptimundang.gov.np", type:"Rural Municipality"},
+              {en:"Banglachuli Rural Municipality", ne:"बङ्गलाचुली गाउँपालिका", url:"https://bangalachulimun.gov.np", type:"Rural Municipality"},
+              {en:"Dangisharan Rural Municipality", ne:"दङ्गीशरण गाउँपालिका", url:"https://dangisharanmun.gov.np", type:"Rural Municipality"},
+              {en:"Babai Rural Municipality", ne:"बबई गाउँपालिका", url:"https://babaimun.gov.np", type:"Rural Municipality"},
             ]
           },
           {
@@ -2299,7 +2313,7 @@ const DATA = [
               {en:"Budhiganga Municipality", ne:"Budhiganga Municipality", url:"https://budhigangamunbajura.gov.np", type:"Municipality"},
               {en:"Budhinanda Municipality", ne:"Budhinanda Municipality", url:"https://budhinandamun.gov.np", type:"Municipality"},
               {en:"Gaumul Rural Municipality", ne:"Gaumul Rural Municipality", url:"https://gaumulmun.gov.np", type:"Rural Municipality"},
-              {en:"Jaganath Rural Municipality", ne:"Jaganath Rural Municipality", url:"https://jagganathmun.gov.np", type:"Rural Municipality"},
+              {en:"Jagannath Rural Municipality", ne:"जगन्नाथ गाउँपालिका", url:"https://jagganathmun.gov.np", type:"Rural Municipality"},
               {en:"Swamikartik Khapar Rural Municipality", ne:"Swamikartik Khapar Rural Municipality", url:"https://swamikartikmun.gov.np", type:"Rural Municipality"},
               {en:"Khaptad Chhededaha Rural Municipality", ne:"Khaptad Chhededaha Rural Municipality", url:"https://www.chhededahamun.gov.np", type:"Rural Municipality"},
               {en:"Himali Rural Municipality", ne:"Himali Rural Municipality", url:"https://himalimun.gov.np", type:"Rural Municipality"},
@@ -2341,7 +2355,7 @@ const DATA = [
               {en:"Jorayal Rural Municipality", ne:"Jorayal Rural Municipality", url:"https://jorayalmun.gov.np", type:"Rural Municipality"},
               {en:"Sayal Rural Municipality", ne:"Sayal Rural Municipality", url:"https://sayalmun.gov.np", type:"Rural Municipality"},
               {en:"Aadarsha Rural Municipality", ne:"Aadarsha Rural Municipality", url:"https://aadarshamun.gov.np", type:"Rural Municipality"},
-              {en:"K.I. Singh Rural Municipality", ne:"K.I. Singh Rural Municipality", url:"https://kisinghmun.gov.np", type:"Rural Municipality"},
+              {en:"K. I. Singh Rural Municipality", ne:"के. आई. सिंह गाउँपालिका", url:"https://kisinghmun.gov.np", type:"Rural Municipality"},
               {en:"Bogatan Fudsil Rural Municipality", ne:"Bogatan Fudsil Rural Municipality", url:"https://bogatanmun.gov.np", type:"Rural Municipality"},
             ]
           },
@@ -2426,7 +2440,7 @@ const UI = {
     capital: "Capital", portal: "Official Portal ↗",
     metro: "Metropolitan", submeta: "Sub-Metropolitan", muni: "Municipality", rural: "Rural Municipality",
     provinces: "provinces", sites: (n) => `${n} site${n!==1?'s':''}`,
-    disclaimer: `<strong>Note:</strong> Some government websites, especially local municipality sites, may load slowly or be temporarily unavailable. All links lead to official <strong>.gov.np</strong> domains.`,
+    disclaimer: `<strong>Note:</strong> Some government websites, especially local Municipality sites, may load slowly or be temporarily unavailable. All links lead to official <strong>.gov.np</strong> domains.`,
     fbTitle: "💬 Share Your Feedback",
     fbSubtitle: "Found a broken link? Know a missing website? Have a suggestion? Let us know — your input helps keep this portal accurate and useful for everyone.",
     fbName: "Your Name (optional)", fbEmail: "Email (optional)",
@@ -2774,6 +2788,16 @@ document.getElementById('searchInput').addEventListener('input', function() {
   searchQuery = this.value;
   activeCat = 'all';
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+  document.getElementById('searchClearBtn').classList.toggle('visible', this.value.length > 0);
+  render();
+});
+
+document.getElementById('searchClearBtn').addEventListener('click', function() {
+  const si = document.getElementById('searchInput');
+  si.value = '';
+  searchQuery = '';
+  this.classList.remove('visible');
+  si.focus();
   render();
 });
 document.getElementById('catButtons').addEventListener('click', function(e) {
@@ -3046,7 +3070,7 @@ function updateAllFeatureUI() {
 }
 
 
-// ── NEPALI MUNICIPALITY NAMES ──
+// ── NEPALI Municipality NAMES ──
 const MUNI_NE = {
   "Bhaktapur Municipality":"भक्तपुर नगरपालिका","Suryabinayak Municipality":"सूर्यविनायक नगरपालिका","Changunarayan Municipality":"चाँगुनारायण नगरपालिका","Madhyapur Thimi Municipality":"मध्यपुर थिमी नगरपालिका","Ichchhakamana Rural Municipality":"इच्छाकामना गाउँपालिका","Bharatpur Metropolitan City":"भरतपुर महानगरपालिका",
   "Khairhani Municipality":"खैरहनी नगरपालिका","Ratnanagar Municipality":"रत्ननगर नगरपालिका","Rapti Municipality":"राप्ती नगरपालिका","Kalika Municipality":"कालिका नगरपालिका","Madi Municipality":"माडी नगरपालिका","Siddhalek Rural Municipality":"सिद्धलेक गाउँपालिका",
@@ -3072,11 +3096,11 @@ const MUNI_NE = {
   "Ajirkot Rural Municipality":"अजिरकोट गाउँपालिका","Tsum Nubri Rural Municipality":"त्सुम नुब्री ग्रामीण नगरपालिका","Dharche Rural Municipality":"धार्चे गाउँपालिका","Bhimsen Thapa Rural Municipality":"भीमसेन थापा गाउँपालिका","Sahid Lakhan Rural Municipality":"शहिद लखन गाउँपालिका","Aarughat Rural Municipality":"आरुघाट गाउँपालिका",
   "Rupa Rural Municipality":"रुपा गाउँपालिका","Pokhara Metropolitan City":"पोखरा महानगरपालिका","Annapurna Rural Municipality":"अन्नपूर्ण गाउँपालिका","Machhapuchchhre Rural Municipality":"माछापुच्छ्रे गाउँपालिका","Madi Rural Municipality":"माडी गाउँपालिका","Marsyandi Rural Municipality":"मस्र्याङ्दी गाउँपालिका",
   "Besisahar Municipality":"बेसीसहर नगरपालिका","Rainas Municipality":"रैनास नगरपालिका","Sundarbazar Municipality":"सुन्दरबजार नगरपालिका","Madhya Nepal Municipality":"मध्य नेपाल नगरपालिका","Dordi Rural Municipality":"दोर्दी गाउँपालिका","Dudhpokhari Rural Municipality":"दूधपोखरी गाउँपालिका",
-  "Kwhlosothar Rural Municipality":"क्वोलोसोथार गाउँपालिका","Chame Rural Municipality":"चामे गाउँपालिका","Nason Rural Municipality":"नासों गाउँपालिका","Narpa Bhumi Rural Municipality":"नरपाभूमि गाउँपालिका","Manang Ngisyang Rural Municipality":"मनाङ ङिस्याङ गाउँपालिका","Thasang Rural Municipality":"थासाङ गाउँपालिका",
+  "Kwholasothar Rural Municipality":"क्व्होलासोथार गाउँपालिका","Chame Rural Municipality":"चामे गाउँपालिका","Nason Rural Municipality":"नासों गाउँपालिका","Narpa Bhumi Rural Municipality":"नरपाभूमि गाउँपालिका","Manang Ngisyang Rural Municipality":"मनाङ ङिस्याङ गाउँपालिका","Thasang Rural Municipality":"थासाङ गाउँपालिका",
   "Varagung Muktichhetra Rural Municipality":"वरगुङ मुक्तिक्षेत्र गाउँपालिका","Lomanthang Rural Municipality":"लोमान्थाङ गाउँपालिका","Lo-Ghekar Damodarkunda Rural Municipality":"लो-घेकर दामोदरकुण्ड गाउँपालिका","Gharapjhong Rural Municipality":"घरपझोङ गाउँपालिका","Raghuganga Rural Municipality":"रघुगंगा गाउँपालिका","Beni Municipality":"बेनी नगरपालिका",
   "Dhaulagiri Rural Municipality":"धौलागिरी गाउँपालिका","Mangala Rural Municipality":"मंगला गाउँपालिका","Malika Rural Municipality":"मालिका गाउँपालिका","Hupsekot Rural Municipality":"हुप्सेकोट गाउँपालिका","Gaindakot Municipality":"गैंडाकोट नगरपालिका","Kawasoti Municipality":"कावासोती नगरपालिका",
   "Devachuli Municipality":"देवचुली नगरपालिका","Madhyabindu Municipality":"मध्यविन्दु नगरपालिका","Baudikali Rural Municipality":"बौदीकाली गाउँपालिका","Bulingtar Rural Municipality":"बुलिङटार गाउँपालिका","Binayi Tribeni Rural Municipality":"विनयी त्रिवेणी गाउँपालिका","Modi Rural Municipality":"मोदी गाउँपालिका",
-  "Kushma Municipality":"कुश्मा नगरपालिका","Phalewas Municipality":"फलेवास नगरपालिका","Jaljala rural municipality":"जलजला गाउँपालिका","Paiyun Rural Municipality":"पैयुन गाउँपालिका","Mahashila Rural Municipality":"महाशिला गाउँपालिका","Bihadi Rural Municipality":"बिहादी गाउँपालिका",
+  "Kushma Municipality":"कुश्मा नगरपालिका","Phalewas Municipality":"फलेवास नगरपालिका","Jaljala Rural Municipality":"जलजला गाउँपालिका","Paiyun Rural Municipality":"पैयुन गाउँपालिका","Mahashila Rural Municipality":"महाशिला गाउँपालिका","Bihadi Rural Municipality":"बिहादी गाउँपालिका",
   "Harinas Rural Municipality":"हरिनास गाउँपालिका","Phedikhola Rural Municipality":"फेदीखोला गाउँपालिका","Galyang Municipality":"गल्याङ नगरपालिका","Putalibazar Municipality":"पुतलीबजार नगरपालिका","Chapakot Municipality":"चापाकोट नगरपालिका","Bhirkot Municipality":"भिरकोट नगरपालिका",
   "Waling Municipality":"वालिङ नगरपालिका","Biruwa Rural Municipality":"बिरुवा गाउँपालिका","Arjun Chaupari Rural Municipality":"अर्जुन चौपारी गाउँपालिका","Aandhikhola Rural Municipality":"आँधीखोला गाउँपालिका","Ghiring Rural Municipality":"घिरिङ गाउँपालिका","Myagde Rural Municipality":"म्याग्दे गाउँपालिका",
   "Rishing Rural Municipality":"ऋषिङ गाउँपालिका","Vyas Municipality":"व्यास नगरपालिका","Bhanu Municipality":"भानु नगरपालिका","Shuklagandaki Municipality":"शुक्लागण्डकी नगरपालिका","Bhimad Municipality":"भिमाद नगरपालिका","Anbu Khaireni Rural Municipality":"अन्बु खैरेनी गाउँपालिका",
@@ -3094,7 +3118,7 @@ const MUNI_NE = {
   "Lekbeshi Municipality":"लेकबेशी नगरपालिका","Panchpuri Municipality":"पञ्चपुरी नगरपालिका","Gurbhakot Municipality":"गुर्भाकोट नगरपालिका","Bheriganga Municipality":"भेरीगंगा नगरपालिका","Birendranagar Municipality":"वीरेन्द्रनगर नगरपालिका","Chaukune Rural Municipality":"चौकुने गाउँपालिका",
   "Barahatal Rural Municipality":"बराहताल गाउँपालिका","Chingad Rural Municipality":"चिङ्गड गाउँपालिका","Simta Rural Municipality":"सिम्ता गाउँपालिका","Musikot Municipality":"मुसिकोट नगरपालिका","Chaurjahari Municipality":"चौरजहारी नगरपालिका","Aathbiskot Municipality":"आठबिसकोट नगरपालिका",
   "Banphikot Rural Municipality":"बनफिकोट गाउँपालिका","Sani Bheri Rural Municipality":"सानी भेरी गाउँपालिका","Bhojpur Municipality":"भोजपुर नगरपालिका","Sadananda Municipality":"सदानन्द नगरपालिका","Hatuwagadhi Rural Municipality":"हतुवागढी गाउँपालिका","Ramprasad Rai Rural Municipality":"रामप्रसाद राई गाउँपालिका",
-  "Aamchok Rural Municipality":"आमचोक गाउँपालिका","Tyamke Maiyunm Rural Municipality":"त्यम्के मैयुन्म गाउँपालिका","Arun Gaunpalika Rural Municipality":"अरुण गाउँपालिका गाउँपालिका","Pauwadungma Rural Municipality":"पौवाडुङ्मा गाउँपालिका","Salpasilichho Rural Municipality":"साल्पासिलिछो गाउँपालिका","Dhankuta Municipality":"धनकुटा नगरपालिका",
+  "Aamchok Rural Municipality":"आमचोक गाउँपालिका","Tyamke Maiyunm Rural Municipality":"टेम्केमैयुङ गाउँपालिका","Arun Rural Municipality":"अरुण गाउँपालिका","Pauwadungma Rural Municipality":"पौवाडुङ्मा गाउँपालिका","Salpasilichho Rural Municipality":"साल्पासिलिछो गाउँपालिका","Dhankuta Municipality":"धनकुटा नगरपालिका",
   "Pakhribas Municipality":"पाख्रीबास नगरपालिका","Sangurigadhi Rural Municipality":"साँगुरीगढी गाउँपालिका","Chaubise Rural Municipality":"चौबिसे गाउँपालिका","Shahidbhumi Rural Municipality":"शहीदभूमि गाउँपालिका","Chhathar Jorpati Rural Municipality":"छथर जोरपाटी गाउँपालिका","Ilam Municipality":"इलाम नगरपालिका",
   "Deumai Municipality":"देउमाई नगरपालिका","Mai Municipality":"माई नगरपालिका","Suryodaya Municipality":"सूर्योदय नगरपालिका","Phakphokthum Rural Municipality":"फाकफोकथुम गाउँपालिका","Mai Jogmai Rural Municipality":"माई जोगमाई गाउँपालिका","Chulachuli Rural Municipality":"चुलाचुली गाउँपालिका",
   "Rong Rural Municipality":"रोङ गाउँपालिका","Mangsebung Rural Municipality":"माङ्सेबुङ गाउँपालिका","Sandakpur Rural Municipality":"सन्दकपुर गाउँपालिका","Bhadrapur Municipality":"भद्रपुर नगरपालिका","Mechinagar Municipality":"मेचीनगर नगरपालिका","Birtamod Municipality":"बिर्तामोड नगरपालिका",
@@ -3115,9 +3139,9 @@ const MUNI_NE = {
   "Laligurans Municipality":"लालिगुराँस नगरपालिका","Myanglung Municipality":"म्याङलुङ नगरपालिका","Aathrai Rural Municipality":"आठराई गाउँपालिका","Chhathar Rural Municipality":"छथर गाउँपालिका","Menchhayayem Rural Municipality":"मेन्चायायेम गाउँपालिका","Phedap Rural Municipality":"फेदाप गाउँपालिका",
   "Chaudandigadhi Municipality":"चौदण्डीगढी नगरपालिका","Triyuga Municipality":"त्रियुगा नगरपालिका","Katari Municipality":"कटारी नगरपालिका","Belaka Municipality":"बेलाका नगरपालिका","Udayapurgadhi Rural Municipality":"उदयपुरगढी गाउँपालिका","Tapli Rural Municipality":"ताप्ली गाउँपालिका",
   "Rautamai Rural Municipality":"रौतामाई गाउँपालिका","Limchungbung Rural Municipality":"लिम्चुङबुङ गाउँपालिका","Sandhikharka Municipality":"सन्धिखर्क नगरपालिका","Sitganga Municipality":"सितगंगा नगरपालिका","Bhumikasthan Municipality":"भूमिकास्थान नगरपालिका","Chhatradev Rural Municipality":"छत्रदेव गाउँपालिका",
-  "Panini Rural Municipality":"पाणिनी गाउँपालिका","Malarani Rural Municipality":"मलारानी गाउँपालिका","Nepalganj Sub-Metropolitan City":"नेपालगञ्ज उपमहानगरपालिका","Kohalpur Municipality":"कोहलपुर नगरपालिका","Rapti-Sonari Rural Municipality":"राप्ती-सोनारी गाउँपालिका","Narainapur Rural Municipality":"नरैनापुर गाउँपालिका",
-  "Duduwa Rural Municipality":"डुडुवा गाउँपालिका","Janaki Rural Municipality":"जानकी गाउँपालिका","Khajura Rural Municipality":"खजुरा गाउँपालिका","Baijanath Rural Municipality":"बैजनाथ गाउँपालिका","Gulariya municipality":"गुलरिया नगरपालिका","Rajapur municipality":"राजापुर नगरपालिका",
-  "Madhuwan municipality":"मधुवन नगरपालिका","Thakurbaba municipality":"ठाकुरबाबा नगरपालिका","Basgadhi municipality":"बासगढी नगरपालिका","Barbardiya municipality":"बारबर्डिया नगरपालिका","Badhaiyatal rural municipality":"बढैयाताल गाउँपालिका","Geruwa rural municipality":"गेरुवा गाउँपालिका",
+  "Panini Rural Municipality":"पाणिनी गाउँपालिका","Malarani Rural Municipality":"मलारानी गाउँपालिका","Nepalgunj Submetropolitan City":"नेपालगञ्ज उपमहानगरपालिका","Kohalpur Municipality":"कोहलपुर नगरपालिका","Rapti-Sonari Rural Municipality":"राप्ती-सोनारी गाउँपालिका","Narainapur Rural Municipality":"नरैनापुर गाउँपालिका",
+  "Duduwa Rural Municipality":"डुडुवा गाउँपालिका","Janaki Rural Municipality":"जानकी गाउँपालिका","Khajura Rural Municipality":"खजुरा गाउँपालिका","Baijanath Rural Municipality":"बैजनाथ गाउँपालिका","Gulariya Municipality":"गुलरिया नगरपालिका","Rajapur Municipality":"राजापुर नगरपालिका",
+  "Madhuwan Municipality":"मधुवन नगरपालिका","Thakurbaba Municipality":"ठाकुरबाबा नगरपालिका","Basgadhi Municipality":"बासगढी नगरपालिका","Barbardiya Municipality":"बारबर्डिया नगरपालिका","Badhaiyatal Rural Municipality":"बढैयाताल गाउँपालिका","Geruwa Rural Municipality":"गेरुवा गाउँपालिका",
   "Ghorahi Sub-Metropolitan City":"घोराही उपमहानगरपालिका","Tulsipur Sub-Metropolitan City":"तुलसीपुर उपमहानगरपालिका","Lamahi Municipality":"लमही नगरपालिका","Gadhawa Rural Municipality":"गढवा गाउँपालिका","Rajpur Rural Municipality":"राजपुर गाउँपालिका","Shantinagar Rural Municipality":"शान्तिनगर गाउँपालिका",
   "Rapti Rural Municipality":"राप्ती गाउँपालिका","Banglachuli Rural Municipality":"बङ्गलाचुली गाउँपालिका","Dangisharan Rural Municipality":"दङ्गीशरण गाउँपालिका","Babai Rural Municipality":"बबई गाउँपालिका","Resunga Municipality":"रेसुङ्गा नगरपालिका","Ishma Rural Municipality":"इस्मा गाउँपालिका",
   "Kaligandaki Rural Municipality":"कालीगण्डकी गाउँपालिका","Gulmi Darbar Rural Municipality":"गुल्मी दरबार गाउँपालिका","Satyawati Rural Municipality":"सत्यवती गाउँपालिका","Chandrakot Rural Municipality":"चन्द्रकोट गाउँपालिका","Rurukshetra Rural Municipality":"रुरुक्षेत्र गाउँपालिका","Chhatrakot Rural Municipality":"छत्रकोट गाउँपालिका",
@@ -3127,8 +3151,8 @@ const MUNI_NE = {
   "Sarawal Rural Municipality":"सरावल गाउँपालिका","Tansen Municipality":"तानसेन नगरपालिका","Rampur Municipality":"रामपुर नगरपालिका","Rainadevi Chhahara Rural Municipality":"रैनादेवी छहरा गाउँपालिका","Ripdikot Rural Municipality":"रिप्पीकोट गाउँपालिका","Bagnaskali Rural Municipality":"बगनासकाली गाउँपालिका",
   "Rambha Rural Municipality":"रम्भा गाउँपालिका","Purbakhola Rural Municipality":"पूर्वखोला गाउँपालिका","Nisdi Rural Municipality":"निस्दी गाउँपालिका","Mathagadi Rural Municipality":"माथागढी गाउँपालिका","Tinahu Rural Municipality":"तिनहु गाउँपालिका","Pyuthan Municipality":"प्यूठान नगरपालिका",
   "Sworgadwari Municipality":"स्वर्गद्वारी नगरपालिका","Gaumukhi Rural Municipality":"गौमुखी गाउँपालिका","Mandavi Rural Municipality":"माण्डवी गाउँपालिका","Sarumarani Rural Municipality":"सरुमारानी गाउँपालिका","Mallarani Rural Municipality":"मल्लारनी गाउँपालिका","Naubahini Rural Municipality":"नौबहिनी गाउँपालिका",
-  "Jhimruk Rural Municipality":"झिमरुक गाउँपालिका","Airawati Rural Municipality":"ऐरावती गाउँपालिका","Rolpa Municipality":"रोल्पा नगरपालिका","Runtigadhi Rural Municipality":"रुन्टीगढी गाउँपालिका","Triveni Rural Municipality":"त्रिवेणी गाउँपालिका","Sunilsmiriti Rural Municipality (previously: Suwarnawati Rural Municipality)":"सुनिलस्मृति गाउँपालिका (पहिले: सुवर्णावती गाउँपालिका)",
-  "Lungri Rural Municipality":"लुङ्ग्री गाउँपालिका","Sunchhahari Rural Municipality":"सुनछहरी गाउँपालिका","Thabang Rural Municipality":"थबाङ गाउँपालिका","Gangadev Rural Municipality (previously: Sukidaha Rural Municipality)":"गंगादेव गाउँपालिका (पहिले: सुकिदह गाउँपालिका)","Paribartan Rural Municipality (previously: Duikholi Rural Municipality)":"परिवर्तन गाउँपालिका (पहिले: दुइखोली गाउँपालिका)","Bhume Rural Municipality":"भूमे गाउँपालिका",
+  "Jhimruk Rural Municipality":"झिमरुक गाउँपालिका","Airawati Rural Municipality":"ऐरावती गाउँपालिका","Rolpa Municipality":"रोल्पा नगरपालिका","Runtigadhi Rural Municipality":"रुन्टीगढी गाउँपालिका","Triveni Rural Municipality":"त्रिवेणी गाउँपालिका","Sunilsmriti Rural Municipality":"सुनिलस्मृति गाउँपालिका",
+  "Lungri Rural Municipality":"लुङ्ग्री गाउँपालिका","Sunchhahari Rural Municipality":"सुनछहरी गाउँपालिका","Thabang Rural Municipality":"थबाङ गाउँपालिका","Gangadev Rural Municipality":"गंगादेव गाउँपालिका","Paribartan Rural Municipality":"परिवर्तन गाउँपालिका","Bhume Rural Municipality":"भूमे गाउँपालिका",
   "Putha Uttarganga Rural Municipality":"पुथा उत्तरगंगा गाउँपालिका","Sisne Rural Municipality":"सिस्ने गाउँपालिका","Butwal Sub-Metropolitan City":"बुटवल उपमहानगरपालिका","Devdaha Municipality":"देवदह नगरपालिका","Lumbini Sanskritik Municipality":"लुम्बिनी सांस्कृतिक नगरपालिका","Sainamaina Municipality":"सैनामैना नगरपालिका",
   "Siddharthanagar Municipality":"सिद्धार्थनगर नगरपालिका","Tilottama Municipality":"तिलोत्तमा नगरपालिका","Gaidahawa Rural Municipality":"गैडहवा गाउँपालिका","Kanchan Rural Municipality":"कञ्चन गाउँपालिका","Kotahimai Rural Municipality":"कोटाहिमाई गाउँपालिका","Marchawari Rural Municipality":"मर्चवारी गाउँपालिका",
   "Omsatiya Rural Municipality":"ओमसतिया गाउँपालिका","Rohini Rural Municipality":"रोहिणी गाउँपालिका","Sammarimai Rural Municipality":"सम्मरीमाई गाउँपालिका","Siyari Rural Municipality":"सियारी गाउँपालिका","Suddodhan Rural Municipality":"शुद्धोधन गाउँपालिका","Kalaiya Sub-Metropolitan City":"कलैया उपमहानगरपालिका",
@@ -3138,7 +3162,7 @@ const MUNI_NE = {
   "Mithila Municipality":"मिथिला नगरपालिका","Kamala Municipality":"कमला नगरपालिका","Hansapur Municipality":"हंसपुर नगरपालिका","Mithila Bihari Municipality":"मिथिला बिहारी नगरपालिका","Ganeshman Charanath Municipality":"गणेशमान चरणनाथ नगरपालिका","Kshireshwarnath Municipality":"क्षीरेश्वरनाथ नगरपालिका",
   "Bideha Municipality":"बिदेहा नगरपालिका","Sabaila Municipality":"सबैला नगरपालिका","Sahidnagar Municipality":"सहिदनगर नगरपालिका","Janaknandani Rural Municipality":"जनकनन्दनी गाउँपालिका","Bateshwar Rural Municipality":"बटेश्वर गाउँपालिका","Mukhiyapatti Musharniya Rural Municipality":"मुखियापट्टी मुसर्निया गाउँपालिका",
   "Lakshminya Rural Municipality":"लक्ष्मीन्या गाउँपालिका","Aurahi Rural Municipality":"औरही गाउँपालिका","Dhanauji Rural Municipality":"धनौजी गाउँपालिका","Aurahi Municipality":"औरही नगरपालिका","Balawa Municipality":"बालावा नगरपालिका","Bardibas Municipality":"बर्दिबास नगरपालिका",
-  "Bhangaha Municipality":"भङ्गाहा नगरपालिका","Gaushala Municipality":"गौशाला नगरपालिका","Jaleshwor Municipality":"जलेश्वर नगरपालिका","Loharpatti Municipality":"लोहारपट्टी नगरपालिका","ManaraShiswa Municipality":"मनराशिस्वा नगरपालिका","Matihani Municipality":"मटिहानी नगरपालिका",
+  "Bhangaha Municipality":"भङ्गाहा नगरपालिका","Gaushala Municipality":"गौशाला नगरपालिका","Jaleshwor Municipality":"जलेश्वर नगरपालिका","Loharpatti Municipality":"लोहारपट्टी नगरपालिका","Manarashiswa Municipality":"मनराशिसवा नगरपालिका","Matihani Municipality":"मटिहानी नगरपालिका",
   "Ramgopalpur Municipality":"रामगोपालपुर नगरपालिका","Ekdara Rural Municipality":"एकडारा गाउँपालिका","Mahottari Rural Municipality":"महोत्तरी गाउँपालिका","Pipara Rural Municipality":"पिपरा गाउँपालिका","Samsi Rural Municipality":"सम्सी गाउँपालिका","Sonama Rural Municipality":"सोनामा गाउँपालिका",
   "Birgunj Metropolitan City":"वीरगञ्ज महानगरपालिका","Bahudarmai Municipality":"बहुदरमाई नगरपालिका","Parsagadhi Municipality":"पर्सागढी नगरपालिका","Pokhariya Municipality":"पोखरिया नगरपालिका","Bindabasini Rural Municipality":"बिन्दबासिनी गाउँपालिका","Dhobini Rural Municipality":"धोबिनी गाउँपालिका",
   "Chhipaharmai Rural Municipality":"छिपहरमाई गाउँपालिका","Jagarnathpur Rural Municipality":"जगरनाथपुर गाउँपालिका","Jirabhawani Rural Municipality":"जिराभवानी गाउँपालिका","Kalikamai Rural Municipality":"कालिकामाई गाउँपालिका","Pakaha Mainpur Rural Municipality":"पकाहा मैनपुर गाउँपालिका","Paterwa Sugauli Rural Municipality":"पटेर्वा सुगौली गाउँपालिका",
@@ -3160,8 +3184,8 @@ const MUNI_NE = {
   "Pancheshwor Rural Municipality":"पञ्चेश्वर गाउँपालिका","Dogdakedar Rural Municipality":"दोगडाकेदार गाउँपालिका","Dilasaini Rural Municipality":"डिलाशैनी गाउँपालिका","Jaya Prithvi Municipality":"जयपृथ्वी नगरपालिका","Bungal Municipality":"बुंगल नगरपालिका","Khaptadchhanna Rural Municipality":"खप्तडछान्ना गाउँपालिका",
   "Thalara Rural Municipality":"थलारा गाउँपालिका","Bitthadchir Rural Municipality":"बिठ्ठडचिर गाउँपालिका","Surma Rural Municipality":"सुर्मा गाउँपालिका","Chhabis Pathibhera Rural Municipality":"छबिस पाथीभेरा गाउँपालिका","Durgathali Rural Municipality":"दुर्गाथली गाउँपालिका","Kedarsyu Rural Municipality":"केदारस्यु गाउँपालिका",
   "Saipal Rural Municipality":"साइपाल गाउँपालिका","Talkot Rural Municipality":"तल्कोट गाउँपालिका","Masta Rural Municipality":"मस्ता गाउँपालिका","Badimalika Municipality":"बडिमालिका नगरपालिका","Triveni Municipality":"त्रिवेणी नगरपालिका","Budhiganga Municipality":"बुढीगंगा नगरपालिका",
-  "Budhinanda Municipality":"बुढीनन्दा नगरपालिका","Gaumul Rural Municipality":"गौमुल गाउँपालिका","Jagnnath Rural Municipality":"जगन्नाथ गाउँपालिका","Swamikartik Khapar Rural Municipality":"स्वामीकार्तिक खापर गाउँपालिका","Khaptad Chhededaha Rural Municipality":"खप्तड छेडेदह गाउँपालिका","Himali Rural Municipality":"हिमाली गाउँपालिका",
-  "Amargadhi municipality":"अमरगढी नगरपालिका","Parshuram municipality":"परशुराम नगरपालिका","Aalitaal Rural Municipality":"आलिताल गाउँपालिका","Bhageshwar Rural Municipality":"भागेश्वर गाउँपालिका","Navadurga Rural Municipality":"नवदुर्गा गाउँपालिका","Ajaymeru Rural Municipality":"अजयमेरु गाउँपालिका",
+  "Budhinanda Municipality":"बुढीनन्दा नगरपालिका","Gaumul Rural Municipality":"गौमुल गाउँपालिका","Jagannath Rural Municipality":"जगन्नाथ गाउँपालिका","Swamikartik Khapar Rural Municipality":"स्वामीकार्तिक खापर गाउँपालिका","Khaptad Chhededaha Rural Municipality":"खप्तड छेडेदह गाउँपालिका","Himali Rural Municipality":"हिमाली गाउँपालिका",
+  "Amargadhi Municipality":"अमरगढी नगरपालिका","Parshuram Municipality":"परशुराम नगरपालिका","Aalitaal Rural Municipality":"आलिताल गाउँपालिका","Bhageshwar Rural Municipality":"भागेश्वर गाउँपालिका","Navadurga Rural Municipality":"नवदुर्गा गाउँपालिका","Ajaymeru Rural Municipality":"अजयमेरु गाउँपालिका",
   "Ganyapadhura Rural Municipality":"गन्यापधुरा गाउँपालिका","Mahakali Municipality":"महाकाली नगरपालिका","Shailyashikhar Municipality":"शैल्यशिखर नगरपालिका","Malikarjun Rural Municipality":"मालिकार्जुन गाउँपालिका","Apihimal Rural Municipality":"अपिहिमल गाउँपालिका","Duhun Rural Municipality":"दुहुन गाउँपालिका",
   "Naugad Rural Municipality":"नौगाड गाउँपालिका","Marma Rural Municipality":"मार्मा गाउँपालिका","Lekam Rural Municipality":"लेकम गाउँपालिका","Vyans Rural Municipality":"व्यास गाउँपालिका","Dipayal Silgadhi Municipality":"दिपायल सिलगढी नगरपालिका","Shikhar Municipality":"शिखर नगरपालिका",
   "Purbichauki Rural Municipality":"पूर्विचौकी गाउँपालिका","Badikedar Rural Municipality":"बडिकेदार गाउँपालिका","Jorayal Rural Municipality":"जोरायल गाउँपालिका","Sayal Rural Municipality":"सायल गाउँपालिका","Aadarsha Rural Municipality":"आदर्श गाउँपालिका","K. I. Singh Rural Municipality":"के. आई. सिंह गाउँपालिका",

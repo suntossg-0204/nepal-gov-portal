@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://suntossg-0204.github.io/nepal-gov-portal/sitemap.xml
